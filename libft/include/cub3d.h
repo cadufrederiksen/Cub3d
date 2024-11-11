@@ -1,14 +1,15 @@
- /* ************************************************************************** */
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: carmarqu <carmarqu@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/03 11:06:37 by carmarqu          #+#    #+#             */
-/*   Updated: 2023/11/14 15:15:32 by carmarqu         ###   ########.fr       */
+/*   Created: 2024/11/08 13:41:06 by carmarqu          #+#    #+#             */
+/*   Updated: 2024/11/11 18:36:14 by carmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #ifndef CUB3D_H
 # define CUB3D_H
@@ -20,7 +21,7 @@
 
 typedef struct s_mapsets
 {
-	int		spawnflag; //flags para verificar
+	char	spawn; //flags para verificar
 	int 	no;
 	int		so;
 	int		we;
@@ -29,16 +30,23 @@ typedef struct s_mapsets
 	char	*so_path;
 	char	*we_path;
 	char	*ea_path;
-	int	ceiling_rgb[3];
-	int	floor_rgb[3];
-
+	char	*f_path; //rgb como str
+	char	*c_path;
+	char	**map;
+	int		ceiling_rgb[3];
+	int		floor_rgb[3];
+	int		vert_len;
+	int		hor_len;
 
 } t_mapsets;
 
 typedef struct s_game
 {
-	t_mapsets mapsets;//hacer malloc
+	t_mapsets *mapsets;//hacer malloc
 
 } t_game;
+
+int     check_file(char *file_name, t_game *game);
+int		init_game(t_game *game);
 
 #endif

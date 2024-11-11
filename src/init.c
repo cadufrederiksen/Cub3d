@@ -1,33 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/17 15:56:57 by carmarqu          #+#    #+#             */
-/*   Updated: 2024/11/11 18:31:31 by carmarqu         ###   ########.fr       */
+/*   Created: 2024/11/08 10:43:12 by carmarqu          #+#    #+#             */
+/*   Updated: 2024/11/08 13:43:16 by carmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <string.h>
+#include "cub3d.h"
 
-size_t	ft_strlen(const char *s)
+int init_game(t_game *game)
 {
-	int	i;
-
-	i = 0;
-	while (s[i] != '\0')
-		i++;
-	return (i);
+	game->mapsets = malloc(sizeof(t_mapsets));
+	if (!game->mapsets)
+		return (1);
+	game->mapsets->vert_len = 0;
+	return (0);
 }
-
-/* int main()
-{
-    char string[]= "efsefsf4wewlojfw4poj";
-
-    printf("%zu\n", ft_strlen(string));
-    printf("%zu", strlen(string));
-
-} */
