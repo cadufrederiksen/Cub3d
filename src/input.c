@@ -6,7 +6,7 @@
 /*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 14:13:29 by carmarqu          #+#    #+#             */
-/*   Updated: 2024/11/11 18:36:05 by carmarqu         ###   ########.fr       */
+/*   Updated: 2024/11/11 22:55:40 by carmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,6 @@ int		check_line(char *line, t_game *game) //checkea si los caracteres del mapa s
 		}
 		x++;
 	}
-	printf("line = %s", line);
-	printf("x = %u", x);
-	printf("len = %d\n", ft_strlen_map(line)); 
 	if (x != ft_strlen_map(line))
 		return (0);
 	if (game->mapsets->hor_len < x)
@@ -101,14 +98,6 @@ int     check_file(char *file_name, t_game *game)
 		free(line);
 		line = get_next_line(fd);
 	}
-	ft_printf("%s\n", game->mapsets->no_path);
-	ft_printf("%s\n", game->mapsets->so_path);
-	ft_printf("%s\n", game->mapsets->we_path);
-	ft_printf("%s\n", game->mapsets->ea_path);
-	ft_printf("%s\n", game->mapsets->f_path);
-	ft_printf("%s\n", game->mapsets->c_path);
-	ft_printf("%c\n", game->mapsets->spawn);
-	ft_printf("%d\n", game->mapsets->hor_len);
-	ft_printf("%d\n", game->mapsets->vert_len);
+	get_map(file_name, game);
 	return (close(fd), free(line), 1);
 }

@@ -6,11 +6,23 @@
 /*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 13:08:18 by carmarqu          #+#    #+#             */
-/*   Updated: 2024/11/11 16:46:17 by carmarqu         ###   ########.fr       */
+/*   Updated: 2024/11/11 22:50:58 by carmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void	print2d(char **str)
+{
+	int	x;
+
+	x = 0;
+	while(str[x])
+	{
+		ft_printf("%s\n", str[x]);
+		x++;
+	}
+}
 
 int main (int argc, char **argv) //mapa.cub
 {
@@ -32,4 +44,6 @@ int main (int argc, char **argv) //mapa.cub
 	}
 	else
 		return (ft_printf("%s\n", "Error: Map name is wrong"), 2);
+	print2d(game->mapsets->map);
+	return (0);
 }

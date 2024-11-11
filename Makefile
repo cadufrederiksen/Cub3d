@@ -6,7 +6,8 @@ SRCS_DIR = src/
 SRCS_BN_DIR = src_bonus/
 OBJS_DIR = obj/
 LIBFT = libft
-CC = clang
+#CC = clang
+CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 AR = ar rcs
 LIBS = $(LIBMLX)/libmlx42.a -lglfw -ldl -lm -L "usr/lib/x86_64-linux-gnu/"
@@ -14,7 +15,7 @@ LIBS = $(LIBMLX)/libmlx42.a -lglfw -ldl -lm -L "usr/lib/x86_64-linux-gnu/"
 
 #---------------SRC------------
 
-SRC_FILES = main input init
+SRC_FILES = main input init map
 
 OBJS_FILES = $(addprefix $(OBJS_DIR), $(addsuffix .o, $(SRC_FILES)))
 
