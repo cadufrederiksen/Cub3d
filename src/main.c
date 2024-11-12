@@ -6,7 +6,7 @@
 /*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 13:08:18 by carmarqu          #+#    #+#             */
-/*   Updated: 2024/11/11 22:50:58 by carmarqu         ###   ########.fr       */
+/*   Updated: 2024/11/12 13:46:47 by carmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,7 @@ void	print2d(char **str)
 	x = 0;
 	while(str[x])
 	{
-		ft_printf("%s\n", str[x]);
-		x++;
+		ft_printf("%s\n", str[x++]);
 	}
 }
 
@@ -45,5 +44,6 @@ int main (int argc, char **argv) //mapa.cub
 	else
 		return (ft_printf("%s\n", "Error: Map name is wrong"), 2);
 	print2d(game->mapsets->map);
+	free_game(game);
 	return (0);
 }

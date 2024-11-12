@@ -6,7 +6,7 @@
 /*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 13:41:06 by carmarqu          #+#    #+#             */
-/*   Updated: 2024/11/11 22:57:08 by carmarqu         ###   ########.fr       */
+/*   Updated: 2024/11/12 13:23:36 by carmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,6 @@ int		ft_strlen_map(const char *s);
 int		get_map(char * file_name, t_game *game);
 int     check_file(char *file_name, t_game *game);
 int		init_game(t_game *game);
+void	free_game(t_game *game);
 
 #endif
