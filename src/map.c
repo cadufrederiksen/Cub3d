@@ -6,11 +6,25 @@
 /*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 22:29:04 by carmarqu          #+#    #+#             */
-/*   Updated: 2024/11/12 13:46:43 by carmarqu         ###   ########.fr       */
+/*   Updated: 2024/11/12 15:32:44 by carmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+/* void	flood_fill(int y, int x, t_game *game)
+{
+
+	if (game->mapsets->map[y][x] == '1' || game->mapsets->map[y][x] == 'x'
+		|| game->mapsets->map[y][x] == 'c' || game->mapsets->map[y][x] == 'e')
+		return ;
+	if (game->mapsets->map[y][x] == '0')
+		game->mapsets->map[y][x] = 'x';
+	flood_fill(y, x - 1, game);
+	flood_fill(y - 1, x, game);
+	flood_fill(y + 1, x, game);
+	flood_fill(y, x + 1, game);
+} */
 
 int		is_map(char *line)
 {

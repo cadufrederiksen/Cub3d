@@ -6,23 +6,56 @@
 /*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 14:13:29 by carmarqu          #+#    #+#             */
-/*   Updated: 2024/11/12 13:40:09 by carmarqu         ###   ########.fr       */
+/*   Updated: 2024/11/12 17:51:01 by carmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	ft_strlen_map(const char *s)
+/* int	check_files(char *file) no se si es necesario esas validaciones
 {
-	int	i;
-
-	i = 0;
-	while (s[i] != '\0' && s[i] != '\n')
-		i++;
-	return (i);
+	if (access(file, F_OK) && access(file, R_OK))
+		return (1);
+	return (0);
 }
 
-int		check_line(char *line, t_game *game) //checkea si los caracteres del mapa son validos
+int	check_paths(t_game *game)
+{
+	if (!check_file(game->mapsets->no_path))
+		return (0);
+	if (!check_file(game->mapsets->so_path))
+		return (0);
+	if (!check_file(game->mapsets->we_path))
+		return (0);
+	if (!check_file(game->mapsets->ea_path))
+		return (0); 
+	return (1); //todos los paath son validos
+} */
+
+int		get_rgb(t_game *game)
+{
+	char **rgb1;
+	char **rgb2;
+	int x;
+
+	x = 0;
+	rgb1 = ft_split(game->mapsets->f_path, ',');
+	rgb2 = ft_split(game->mapsets->c_path, ',');
+	if (rgb1[3] != NULL || rgb2[3] != NULL)//garantiza que siempre haya 3 numeros, ni mas ni menos
+		return (ft_printf("RGB invalid!"), 0);
+	while(x < 3)
+	{
+		if ((ft_atoi(rgb2[x]) < 0 || ft_atoi(rgb2[x]) > 255) 
+			|| (ft_atoi(rgb1[x]) < 0 || ft_atoi(rgb1[x]) > 255))
+			return (ft_printf("RGB out of the valid range!"), 0);
+		game->mapsets->floor_rgb[x] = ft_atoi(rgb1[x]);
+		game->mapsets->ceiling_rgb[x] = ft_atoi(rgb2[x]);
+		x++;
+	}
+	return(1);
+}
+
+int		check_line(char *line, t_game *game, int vert_len) //checkea si los caracteres del mapa son validos
 {
 	int x;
 	int spawn;;
@@ -38,31 +71,22 @@ int		check_line(char *line, t_game *game) //checkea si los caracteres del mapa s
 				return (0); //no puede haber mas de un spawn
 			spawn = 1;
 			game->mapsets->spawn = line[x];
+			game->mapsets->p_x = x;
+			game->mapsets->p_y = vert_len;
 		}
 		x++;
 	}
-	if (x != ft_strlen_map(line))
+	if (x != ft_strlen_map(line))//algun caracter no valido en la linea
 		return (0);
 	if (game->mapsets->hor_len < x)
 		game->mapsets->hor_len = x;
 	return (1);
 }
 
-char	*cut_line (char *line)
-{
-	int x;
-	char *path;
-	
-	x = 0;
-	while (line[x] == ' ') //añandir tabs 
-		x++;
-	path = ft_substr(line, x, ft_strlen(line) - 2);//hace un malloc y copia sin el \0 y \n
-	return (path);
-}
 
 int		parse_line(char *line, t_game *game)//guarda todos las instruciones pero no las checkeas
-{
-	if (line[0] == '\n')
+{ 
+	if (line[0] == '\n') //checkear si estan todas las instrucciones NO, C, F, etc..
 		return (0);
 	if (!ft_strncmp(line, "NO", 3))
 		game->mapsets->no_path = cut_line(line + 2);
@@ -76,28 +100,31 @@ int		parse_line(char *line, t_game *game)//guarda todos las instruciones pero no
 		game->mapsets->f_path =	cut_line(line + 1);
 	else if (!ft_strncmp(line, "C", 2)) 
 		game->mapsets->c_path =	cut_line(line + 1);
-	else if(check_line(line, game))//si devuelve una linea valida del mapa
+	else if(check_line(line, game, game->mapsets->vert_len))//si devuelve una linea valida del mapa
 		game->mapsets->vert_len++;
 	else
 		return (ft_printf("Invalid instruction in map file\n"), 1);
 	return (0);
-	//si hay una linea que no es salto de línea me da error
 } 
 
-int     check_file(char *file_name, t_game *game)
+int     check_input(char *file_name, t_game *game)
 {
     int fd;
     char *line;
     
     fd = open(file_name, O_RDONLY);
     line = get_next_line(fd);
-    while (line) //analiza linha por linha e tira a informaçao necessaria sem fazer uma cópia de todo o aqruivo
+    while (line)
 	{
-		if (parse_line(line, game) == 1)
+		if (parse_line(line, game) == 1)//guarda la informacion de las variables y checkea los chars del mapa
 			return (close(fd), free(line), 0);
 		free(line);
 		line = get_next_line(fd);
 	}
-	get_map(file_name, game);
+	/* if (!check_paths(game))
+		return (ft_printf("Invalid path for textures"), close(fd), free(line), 0); */
+	get_map(file_name, game);//guarda el mapa en un array char **
+	if (!get_rgb(game))
+		return (close(fd), free(line), 0);
 	return (close(fd), free(line), 1);
 }

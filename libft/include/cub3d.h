@@ -6,7 +6,7 @@
 /*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 13:41:06 by carmarqu          #+#    #+#             */
-/*   Updated: 2024/11/12 13:23:36 by carmarqu         ###   ########.fr       */
+/*   Updated: 2024/11/12 17:45:32 by carmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,8 @@
 typedef struct s_mapsets
 {
 	char	spawn; //flags para verificar
-	int 	no;
-	int		so;
-	int		we;
-	int		ea;//flags
+	int		p_x; //hor
+	int		p_y; //vert 
 	char	*no_path;
 	char	*so_path;
 	char	*we_path;
@@ -48,8 +46,9 @@ typedef struct s_game
 
 int		ft_strlen_map(const char *s);
 int		get_map(char * file_name, t_game *game);
-int     check_file(char *file_name, t_game *game);
+int     check_input(char *file_name, t_game *game);
 int		init_game(t_game *game);
 void	free_game(t_game *game);
+char	*cut_line (char *line);
 
 #endif
