@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sheferna <sheferna@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 13:08:18 by carmarqu          #+#    #+#             */
-/*   Updated: 2024/11/15 15:25:12 by carmarqu         ###   ########.fr       */
+/*   Updated: 2024/11/15 20:15:57 by sheferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,21 @@ int main (int argc, char **argv) //mapa.cub
 	else
 		return (ft_printf("%s\n", "Error: Map name is wrong"), 2);
 	print2d(game->mapsets->map);
+	// Inicializar MLX42
+	game->mlx = mlx_init(SCREEN_WIDTH, SCREEN_HEIGHT, "Cub3D", true);
+	if (!game->mlx)
+		return (free_game(game), ft_printf("Error: MLX initialization failed\n"), 1);
+
+	// Crear la imagen donde dibujar
+	game->img = mlx_new_image(game->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
+	if (!game->img)
+		return (free_game(game), ft_printf("Error: Image creation failed\n"), 1);
+
+	// Configurar el render loop
+	mlx_loop_hook(game->mlx, (void (*)(void *))draw_frame, game);
+
+	// Iniciar el bucle de eventos
+	mlx_loop(game->mlx);
 	free_game(game);
 	return (0);
 }

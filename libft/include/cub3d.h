@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sheferna <sheferna@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 13:41:06 by carmarqu          #+#    #+#             */
-/*   Updated: 2024/11/15 14:09:33 by carmarqu         ###   ########.fr       */
+/*   Updated: 2024/11/15 20:25:00 by sheferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,9 @@
 # include "ft_printf.h"
 # include "get_next_line.h"
 # include "libft.h"
+
+#define SCREEN_WIDTH 800
+#define SCREEN_HEIGHT 600
 
 typedef struct s_mapsets
 {
@@ -39,10 +42,22 @@ typedef struct s_mapsets
 
 } t_mapsets;
 
+typedef struct s_player
+{
+    double	posX; 	// Posición del jugador
+	double	posY;   // Posición del jugador
+    double	dirX; 	// Dirección del jugador
+	double	dirY;   // Dirección del jugador
+    double	planeX; // Plano de la cámara
+	double	planeY; // Plano de la cámara
+} t_player;
+
 typedef struct s_game
 {
-	t_mapsets *mapsets;//hacer malloc
-
+    mlx_t *mlx;         // Conexión con MLX42
+    mlx_image_t *img;   // Imagen para dibujar
+    t_mapsets *mapsets; // Estructura del mapa
+    t_player player;    // Jugador
 } t_game;
 
 void	free2d(char **str);
@@ -52,5 +67,11 @@ int		check_input(char *file_name, t_game *game);
 int		init_game(t_game *game);
 void	free_game(t_game *game);
 char	*cut_line (char *line, t_game *game);
+
+// raycasting
+void	put_pixel_to_image(mlx_image_t *img, int x, int y, int color);
+void	clear_image(mlx_image_t *img);
+void	cast_ray(t_game *game, int x);         // Lanza un rayo y calcula la intersección con las paredes
+void	draw_frame(t_game *game);              // Renderiza un frame completo
 
 #endif
