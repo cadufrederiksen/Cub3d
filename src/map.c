@@ -6,7 +6,7 @@
 /*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 22:29:04 by carmarqu          #+#    #+#             */
-/*   Updated: 2024/11/12 15:32:44 by carmarqu         ###   ########.fr       */
+/*   Updated: 2024/11/15 13:17:55 by carmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 	flood_fill(y, x + 1, game);
 } */
 
-int		is_map(char *line)
+int		is_map(char *line)//buscar manera de checkear si hay los 6 elementos
 {
 	if (line[0] == '\n')
 		return (0);

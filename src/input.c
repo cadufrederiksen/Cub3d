@@ -6,7 +6,7 @@
 /*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 14:13:29 by carmarqu          #+#    #+#             */
-/*   Updated: 2024/11/12 17:51:01 by carmarqu         ###   ########.fr       */
+/*   Updated: 2024/11/15 13:04:01 by carmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int		get_rgb(t_game *game)
 	rgb1 = ft_split(game->mapsets->f_path, ',');
 	rgb2 = ft_split(game->mapsets->c_path, ',');
 	if (rgb1[3] != NULL || rgb2[3] != NULL)//garantiza que siempre haya 3 numeros, ni mas ni menos
-		return (ft_printf("RGB invalid!"), 0);
+		return (free2d(rgb2), free2d(rgb1), ft_printf("RGB invalid!"), 0);
 	while(x < 3)
 	{
 		if ((ft_atoi(rgb2[x]) < 0 || ft_atoi(rgb2[x]) > 255) 
@@ -52,6 +52,8 @@ int		get_rgb(t_game *game)
 		game->mapsets->ceiling_rgb[x] = ft_atoi(rgb2[x]);
 		x++;
 	}
+	free2d(rgb1);
+	free2d(rgb2);
 	return(1);
 }
 

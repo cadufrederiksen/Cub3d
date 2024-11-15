@@ -6,7 +6,7 @@
 /*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 10:43:12 by carmarqu          #+#    #+#             */
-/*   Updated: 2024/11/12 15:51:12 by carmarqu         ###   ########.fr       */
+/*   Updated: 2024/11/15 13:04:42 by carmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,18 +21,39 @@ int init_game(t_game *game)
 	return (0);
 }
 
-void	free_game(t_game *game)
+
+void	free_mapsets(t_mapsets *maps)
+{
+	if (maps->no_path)
+		free(maps->no_path);
+	if (maps->so_path)
+		free(maps->so_path);
+	if (maps->we_path)
+		free(maps->we_path);
+	if (maps->ea_path)
+		free(maps->ea_path);
+	if (maps->c_path)
+		free(maps->c_path);
+	if (maps->f_path)
+		free(maps->f_path);
+}
+
+void	free2d(char **str)
 {
 	int x;
 	
 	x = 0;
-	x = game->mapsets->vert_len;
-	while(game->mapsets->map[x])
-	{
-		//printf("%s\n", game->mapsets->map[x]);
-		free(game->mapsets->map[x--]);
-	}
-	free(game->mapsets->map); //hacer free de los paths
+	while(str[x])
+		x++;
+	while (x >= 0)
+		free(str[x--]);
+	free(str);
+}
+
+void	free_game(t_game *game)
+{
+	free2d(game->mapsets->map);
+	free_mapsets(game->mapsets);
 	free(game->mapsets);
 	free(game);
 }
