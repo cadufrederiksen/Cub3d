@@ -6,7 +6,7 @@
 /*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 10:43:12 by carmarqu          #+#    #+#             */
-/*   Updated: 2024/11/15 13:04:42 by carmarqu         ###   ########.fr       */
+/*   Updated: 2024/11/15 14:13:45 by carmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int init_game(t_game *game)
 	if (!game->mapsets)
 		return (1);
 	game->mapsets->vert_len = 0;
+	game->mapsets->vars_flag = 0;
 	return (0);
 }
 
@@ -52,7 +53,8 @@ void	free2d(char **str)
 
 void	free_game(t_game *game)
 {
-	free2d(game->mapsets->map);
+	if (game->mapsets->map)
+		free2d(game->mapsets->map);
 	free_mapsets(game->mapsets);
 	free(game->mapsets);
 	free(game);

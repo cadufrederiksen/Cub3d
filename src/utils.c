@@ -6,7 +6,7 @@
 /*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 15:46:05 by carmarqu          #+#    #+#             */
-/*   Updated: 2024/11/12 15:48:47 by carmarqu         ###   ########.fr       */
+/*   Updated: 2024/11/15 14:46:14 by carmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	ft_strlen_map(const char *s)
 	return (i);
 }
 
-char	*cut_line (char *line)
+char	*cut_line (char *line, t_game *game)
 {
 	int x;
 	char *path;
@@ -31,5 +31,6 @@ char	*cut_line (char *line)
 	while (line[x] == ' ') //añandir tabs si hace falta
 		x++;
 	path = ft_substr(line, x, ft_strlen_map(line));//hace un malloc y copia sin el \0 y \n
+	game->mapsets->vars_flag++;
 	return (path);
 }

@@ -6,7 +6,7 @@
 /*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 14:13:29 by carmarqu          #+#    #+#             */
-/*   Updated: 2024/11/15 13:04:01 by carmarqu         ###   ########.fr       */
+/*   Updated: 2024/11/15 15:27:21 by carmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,9 @@ int		get_rgb(t_game *game)
 int		check_line(char *line, t_game *game, int vert_len) //checkea si los caracteres del mapa son validos
 {
 	int x;
-	int spawn;;
+	static int spawn = 0;
 
 	x = 0;
-	spawn = 0;
 	while ((line[x] == '0' || line[x] == '1' || line[x] == 'W' || line[x] == 'N'
 		|| line[x] == 'E' || line[x] == 'S' || line[x] == ' ') && line[x]  != '\n')
 	{
@@ -71,7 +70,7 @@ int		check_line(char *line, t_game *game, int vert_len) //checkea si los caracte
 		{
 			if (spawn == 1)
 				return (0); //no puede haber mas de un spawn
-			spawn = 1;
+			spawn++;
 			game->mapsets->spawn = line[x];
 			game->mapsets->p_x = x;
 			game->mapsets->p_y = vert_len;
@@ -90,18 +89,18 @@ int		parse_line(char *line, t_game *game)//guarda todos las instruciones pero no
 { 
 	if (line[0] == '\n') //checkear si estan todas las instrucciones NO, C, F, etc..
 		return (0);
-	if (!ft_strncmp(line, "NO", 3))
-		game->mapsets->no_path = cut_line(line + 2);
-	else if (!ft_strncmp(line, "SO", 3))
-		game->mapsets->so_path = cut_line(line + 2);
-	else if (!ft_strncmp(line, "WE", 3))
-		game->mapsets->we_path = cut_line(line + 2);
-	else if (!ft_strncmp(line, "EA", 3))
-		game->mapsets->ea_path = cut_line(line + 2);
-	else if (!ft_strncmp(line, "F", 2))
-		game->mapsets->f_path =	cut_line(line + 1);
-	else if (!ft_strncmp(line, "C", 2)) 
-		game->mapsets->c_path =	cut_line(line + 1);
+	if (!ft_strncmp(line, "NO ", 3))
+		game->mapsets->no_path = cut_line(line + 3, game);
+	else if (!ft_strncmp(line, "SO ", 3))
+		game->mapsets->so_path = cut_line(line + 3, game);
+	else if (!ft_strncmp(line, "WE ", 3))
+		game->mapsets->we_path = cut_line(line + 3, game);
+	else if (!ft_strncmp(line, "EA ", 3))
+		game->mapsets->ea_path = cut_line(line + 3, game);
+	else if (!ft_strncmp(line, "F ", 2))
+		game->mapsets->f_path =	cut_line(line + 2, game);
+	else if (!ft_strncmp(line, "C ", 2)) 
+		game->mapsets->c_path =	cut_line(line + 2, game);
 	else if(check_line(line, game, game->mapsets->vert_len))//si devuelve una linea valida del mapa
 		game->mapsets->vert_len++;
 	else
@@ -123,8 +122,8 @@ int     check_input(char *file_name, t_game *game)
 		free(line);
 		line = get_next_line(fd);
 	}
-	/* if (!check_paths(game))
-		return (ft_printf("Invalid path for textures"), close(fd), free(line), 0); */
+	if (game->mapsets->vars_flag != 6)
+		return (printf("Wrong number of map instructions\n"), close(fd), free(line), 0);
 	get_map(file_name, game);//guarda el mapa en un array char **
 	if (!get_rgb(game))
 		return (close(fd), free(line), 0);

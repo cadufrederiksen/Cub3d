@@ -6,7 +6,7 @@
 /*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 13:41:06 by carmarqu          #+#    #+#             */
-/*   Updated: 2024/11/15 13:07:47 by carmarqu         ###   ########.fr       */
+/*   Updated: 2024/11/15 14:09:33 by carmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef struct s_mapsets
 	int		floor_rgb[3];
 	int		vert_len;
 	int		hor_len;
+	int		vars_flag; //checkea si hay 6 innstrucciones
 
 } t_mapsets;
 
@@ -50,6 +51,6 @@ int		get_map(char * file_name, t_game *game);
 int		check_input(char *file_name, t_game *game);
 int		init_game(t_game *game);
 void	free_game(t_game *game);
-char	*cut_line (char *line);
+char	*cut_line (char *line, t_game *game);
 
 #endif

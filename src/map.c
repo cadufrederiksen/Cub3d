@@ -6,7 +6,7 @@
 /*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 22:29:04 by carmarqu          #+#    #+#             */
-/*   Updated: 2024/11/15 13:17:55 by carmarqu         ###   ########.fr       */
+/*   Updated: 2024/11/15 13:57:57 by carmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int		get_map(char *file_name, t_game* game)
 		return (0);
 	fd = open(file_name, O_RDONLY);
 	line = get_next_line(fd);	
-	while (line) //analiza linha por linha e tira a informaçao necessaria sem fazer uma cópia de todo o aqruivo
+	while (line) //mira linea por linea para obtener las infos
 	{
 		if (is_map(line))
 		{
