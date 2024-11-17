@@ -3,29 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: carmarqu <carmarqu@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: sheferna <sheferna@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/11 13:43:11 by carmarqu          #+#    #+#             */
-/*   Updated: 2023/05/11 16:05:23 by carmarqu         ###   ########.fr       */
+/*   Created: 2024/11/17 17:01:37 by sheferna          #+#    #+#             */
+/*   Updated: 2024/11/17 17:05:03 by sheferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
 
+# include "libft.h"
 # include <stdarg.h>
-# include <stdio.h>
-# include <stdlib.h>
 # include <unistd.h>
-# include <limits.h>
 
-int	ft_printf(char const *str, ...);
-int	ft_checktype(va_list arg, char type);
-int	ft_putnbr(int n);
-int	ft_printsimbol(void);
-int	ft_putstr(char *str);
-int	ft_printhex(unsigned int n, char type);
-int	ft_putunbr(unsigned int n);
-int	ft_putptr(unsigned long long n);
+int	ft_printf(const char *format, ...);
+int	print_format(char format, va_list *ap, int fd);
+int	ft_putchar_pf(int c, int fd);
+int	ft_putstr_pf(char *str, int fd);
+int	ft_putptr_pf(unsigned long ptr, int fd);
+int	ft_putnbrbase_pf(long n, int base, const char *base_digits, int fd);
+int	ft_putnbrbase_ptr_pf(unsigned long n, int base, const char *base_digits,
+		int fd);
 
 #endif

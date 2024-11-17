@@ -6,133 +6,103 @@
 /*   By: sheferna <sheferna@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 18:34:11 by sheferna          #+#    #+#             */
-/*   Updated: 2024/11/17 13:35:26 by sheferna         ###   ########.fr       */
+/*   Updated: 2024/11/17 16:25:26 by sheferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include <math.h>
-#include <stdlib.h>
 
-// Poner un píxel en la imagen
-void put_pixel_to_image(mlx_image_t *img, int x, int y, int color)
+void	initialize_step_and_side_dist(t_game *game)
 {
-    if (x >= 0 && x < SCREEN_WIDTH && y >= 0 && y < SCREEN_HEIGHT)
-    {
-        int index = (y * img->width + x) * 4; // Cada píxel tiene 4 bytes (RGBA)
-        img->pixels[index] = (color >> 16) & 0xFF;   // Rojo
-        img->pixels[index + 1] = (color >> 8) & 0xFF; // Verde
-        img->pixels[index + 2] = color & 0xFF;        // Azul
-        img->pixels[index + 3] = 0xFF;               // Alpha
-    }
+	if (game->ray.raydir_x < 0)
+	{
+		game->ray.step_x = -1;
+		game->ray.sidedist_x = (game->player.pos_x - game->ray.map_x) * game->ray.deltadist_x;
+	}
+	else
+	{
+		game->ray.step_x = 1;
+		game->ray.sidedist_x = (game->ray.map_x + 1.0 - game->player.pos_x) * game->ray.deltadist_x;
+	}
+	if (game->ray.raydir_y < 0)
+	{
+		game->ray.step_y = -1;
+		game->ray.sidedist_y = (game->player.pos_y - game->ray.map_y) * game->ray.deltadist_y;
+	}
+	else
+	{
+		game->ray.step_y = 1;
+		game->ray.sidedist_y = (game->ray.map_y + 1.0 - game->player.pos_y) * game->ray.deltadist_y;
+	}
 }
 
-// Limpiar la imagen
-void clear_image(mlx_image_t *img)
+void	perform_dda(t_game *game)
 {
-    for (uint32_t i = 0; i < img->width * img->height * 4; i++)
-    {
-        img->pixels[i] = 0; // Poner cada píxel a negro (RGBA: 0, 0, 0, 0)
-    }
+	int	hit;
+
+	hit = 0;
+	while (hit == 0)
+	{
+		if (game->ray.sidedist_x < game->ray.sidedist_y)
+		{
+			game->ray.sidedist_x += game->ray.deltadist_x;
+			game->ray.map_x += game->ray.step_x;
+			game->ray.side = 0;
+		}
+		else
+		{
+			game->ray.sidedist_y += game->ray.deltadist_y;
+			game->ray.map_y += game->ray.step_y;
+			game->ray.side = 1;
+		}
+		if (game->mapsets->map[game->ray.map_y][game->ray.map_x] == '1')
+			hit = 1;
+	}
 }
 
-// Lanza un rayo para calcular la intersección con las paredes
-void cast_ray(t_game *game, int x)
+void	draw_column(t_game *game, int x)
 {
-    double cameraX = 2 * x / (double)SCREEN_WIDTH - 1; // Posición en el plano de la cámara
-    double rayDirX = game->player.dirX + game->player.planeX * cameraX;
-    double rayDirY = game->player.dirY + game->player.planeY * cameraX;
+	int	color;
+	int	y;
 
-    int mapX = (int)game->player.posX;
-    int mapY = (int)game->player.posY;
+	if (game->ray.side == 0)
+		color = 0xFF0000; // Rojo si golpea en un eje X
+	else
+		color = 0x00FF00; // Verde si golpea en un eje Y
 
-    double sideDistX, sideDistY;
-    double deltaDistX = fabs(1 / rayDirX);
-    double deltaDistY = fabs(1 / rayDirY);
-    double perpWallDist;
-
-    int stepX, stepY;
-    int hit = 0;
-    int side;
-
-    // Calcular paso e inicializar distancias
-    if (rayDirX < 0)
-    {
-        stepX = -1;
-        sideDistX = (game->player.posX - mapX) * deltaDistX;
-    }
-    else
-    {
-        stepX = 1;
-        sideDistX = (mapX + 1.0 - game->player.posX) * deltaDistX;
-    }
-    if (rayDirY < 0)
-    {
-        stepY = -1;
-        sideDistY = (game->player.posY - mapY) * deltaDistY;
-    }
-    else
-    {
-        stepY = 1;
-        sideDistY = (mapY + 1.0 - game->player.posY) * deltaDistY;
-    }
-
-    // DDA para encontrar la pared
-    while (hit == 0)
-    {
-        if (sideDistX < sideDistY)
-        {
-            sideDistX += deltaDistX;
-            mapX += stepX;
-            side = 0;
-        }
-        else
-        {
-            sideDistY += deltaDistY;
-            mapY += stepY;
-            side = 1;
-        }
-
-        if (game->mapsets->map[mapY][mapX] == '1') // Si el rayo golpea una pared
-            hit = 1;
-    }
-
-    // Calcular la distancia perpendicular a la pared
-    if (side == 0)
-        perpWallDist = (mapX - game->player.posX + (1 - stepX) / 2) / rayDirX;
-    else
-        perpWallDist = (mapY - game->player.posY + (1 - stepY) / 2) / rayDirY;
-
-    // Calcular la altura de la línea en pantalla
-    int lineHeight = (int)(SCREEN_HEIGHT / perpWallDist);
-
-    // Calcular los límites de dibujo
-    int drawStart = -lineHeight / 2 + SCREEN_HEIGHT / 2;
-    if (drawStart < 0)
-        drawStart = 0;
-    int drawEnd = lineHeight / 2 + SCREEN_HEIGHT / 2;
-    if (drawEnd >= SCREEN_HEIGHT)
-        drawEnd = SCREEN_HEIGHT - 1;
-
-    // Dibujar la columna en la pantalla
-    int color = (side == 0) ? 0xFF0000 : 0x00FF00; // Diferente color según el lado
-    for (int y = drawStart; y < drawEnd; y++)
-    {
-        put_pixel_to_image(game->img, x, y, color);
-    }
+	y = game->ray.draw_start;
+	while (y < game->ray.draw_end)
+	{
+		put_pixel_to_image(game->img, x, y, color);
+		y++;
+	}
 }
 
-// Renderizar un frame completo
-void draw_frame(t_game *game)
+// Launch a ray to calculate an intersection with the walls
+void	cast_ray(t_game *game, int x)
 {
-    // Limpiar la imagen antes de dibujar
-    clear_image(game->img);
+	calculate_ray_direction(game, x);
+	calculate_delta_dist(game);
+	initialize_step_and_side_dist(game);
+	perform_dda(game);
+	calculate_perp_wall_dist(game);
+	calculate_draw_limits(game);
+	draw_column(game, x);
+}
 
-    // Lanza un rayo para cada columna de píxeles
-    for (int x = 0; x < SCREEN_WIDTH; x++)
-    {
-        cast_ray(game, x);
-    }
-    // Actualizar la ventana con la imagen renderizada
-    mlx_image_to_window(game->mlx, game->img, 0, 0);
+// Renderiing the full frame
+void	draw_frame(t_game *game)
+{
+	int	x;
+	// Clean the image before drawing
+	clear_image(game->img);
+	// Launch a ray for each column of pixels
+	x = 0;
+	while (x < SCREEN_WIDTH)
+	{
+		cast_ray(game, x);
+		x++;
+	}
+	// Update the window with the rendered image
+	mlx_image_to_window(game->mlx, game->img, 0, 0);
 }

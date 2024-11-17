@@ -1,4 +1,3 @@
-#---------------PADRÃO------------
 
 NAME = libft.a
 INCLUDES = include
@@ -41,7 +40,7 @@ SRC_FILES += $(addprefix $(FTLST_DIR), $(FTLST))
 #---------------PRINTF------------
 
 PRINTF_DIR = printf/
-PRINTF = ft_printf ft_putnbr ft_printf_helper ft_printhex
+PRINTF = ft_printf ft_printf_utils
 SRC_FILES += $(addprefix $(PRINTF_DIR), $(PRINTF))
 
 #---------------GNL------------

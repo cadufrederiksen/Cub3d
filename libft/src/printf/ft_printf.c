@@ -3,69 +3,81 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: carmarqu <carmarqu@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: sheferna <sheferna@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/11 13:42:22 by carmarqu          #+#    #+#             */
-/*   Updated: 2023/08/29 10:58:14 by carmarqu         ###   ########.fr       */
+/*   Created: 2023/10/22 16:01:43 by sheferna          #+#    #+#             */
+/*   Updated: 2024/11/17 17:07:09 by sheferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_putchar(int c)
+int	print_format(char format, va_list *ap, int fd)
 {
-	write(1, &c, 1);
-	return (1);
-}
+	int			i;
 
-int	ft_checktype(va_list arg, char type)
-{
-	int	resultlen;
-
-	resultlen = 0;
-	if (type == 'c')
-		resultlen += ft_putchar(va_arg(arg, int));
-	else if (type == 's')
-		resultlen += ft_putstr(va_arg(arg, char *));
-	else if (type == 'p')
-		resultlen += ft_putptr(va_arg(arg, unsigned long long));
-	else if (type == 'd' || type == 'i')
-		resultlen += ft_putnbr(va_arg(arg, int));
-	else if (type == 'u')
-		resultlen += ft_putunbr(va_arg(arg, unsigned int));
-	else if (type == 'x' || type == 'X')
-		resultlen += ft_printhex(va_arg(arg, unsigned int), type);
-	else if (type == '%')
-		resultlen += ft_printsimbol();
-	return (resultlen);
-}
-
-int	ft_printf(char const *str, ...)
-{
-	int		i;
-	int		resultlen;
-	va_list	arg;
-
-	va_start(arg, str);
 	i = 0;
-	resultlen = 0;
-	while (str[i])
-	{
-		if (str[i] == '%')
-		{
-			i++;
-			resultlen += ft_checktype(arg, str[i]);
-		}
-		else
-			resultlen += ft_putchar(str[i]);
-		i++;
-	}
-	va_end(arg);
-	return (resultlen);
+	if (format == 'c')
+		i += ft_putchar_pf(va_arg(*ap, int), fd);
+	else if (format == 's')
+		i += ft_putstr_pf(va_arg(*ap, char *), fd);
+	else if (format == 'p')
+		i += ft_putptr_pf(va_arg(*ap, unsigned long), fd);
+	else if (format == 'd' || format == 'i')
+		i += ft_putnbrbase_pf((long)va_arg(*ap, int), 10, \
+		"0123456789", fd);
+	else if (format == 'u')
+		i += ft_putnbrbase_pf((long)va_arg(*ap, unsigned int), 10, \
+		"0123456789", fd);
+	else if (format == 'x')
+		i += ft_putnbrbase_pf((long)va_arg(*ap, unsigned int), 16, \
+		"0123456789abcdef", fd);
+	else if (format == 'X')
+		i += ft_putnbrbase_pf((long)va_arg(*ap, unsigned int), 16, \
+		"0123456789ABCDEF", fd);
+	else
+		i += write(fd, &format, 1);
+	return (i);
 }
 
-/* int	main(int argc, char **argv)
+int	ft_printf(char const *format, ...)
 {
-	
+	va_list	ap;
+	int		i;
 
-}     */
+	va_start(ap, format);
+	if (write(1, "", 0) == -1)
+		return (-1);
+	i = 0;
+	while (*format)
+	{
+		if (*format == '%')
+			i += print_format(*(++format), &ap, 1);
+		else
+			i += write(1, format, 1);
+		++format;
+	}
+	va_end(ap);
+	return (i);
+}
+
+int	ft_fprintf(int fd, char const *format, ...)
+{
+	va_list	ap;
+	int		i;
+
+	va_start(ap, format);
+	if (write(fd, "", 0) == -1)
+		return (-1);
+	i = 0;
+	while (*format)
+	{
+		if (*format == '%')
+			i += print_format(*(++format), &ap, fd);
+		else
+			i += write(fd, format, 1);
+		++format;
+	}
+	va_end(ap);
+	return (i);
+}
