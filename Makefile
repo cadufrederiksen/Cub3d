@@ -4,7 +4,8 @@ LIBMLX = MLX42
 HEADERS = includes/cub3d.h
 INCLUDES = -I ./includes -I libft/include/ -I $(LIBMLX)/include
 
-CC = gcc
+CC = clang
+#CC = gcc #requires flag -no-pie in main execution #PIE (Position Independent Executable) 
 CFLAGS = -Wall -Wextra -Werror -g
 
 AR = ar rcs
@@ -39,7 +40,7 @@ all: libmlx $(NAME)
 $(NAME): $(OBJS_FILES)
 	@$(MAKE) -C $(LIBFT) --no-print-directory
 	@echo "$(BOLD)$(BLUE)Compiling $(NAME)...$(END)"
-	@$(CC) $(CFLAGS) $(OBJS_FILES) $(LIBFT)/libft.a $(LIBS) $(INCLUDES) -no-pie -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJS_FILES) $(LIBFT)/libft.a $(LIBS) $(INCLUDES) -o $(NAME)
 	@echo "$(BOLD)$(GREEN)Executable $(NAME) created successfully!$(END)"
 
 $(OBJS_DIR)%.o : $(SRCS_DIR)%.c
