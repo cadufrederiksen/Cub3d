@@ -14,7 +14,7 @@ LIBS = $(LIBMLX)/libmlx42.a -lglfw -ldl -lm -L "usr/lib/x86_64-linux-gnu/"
 
 #---------------SRC------------
 
-SRC_FILES = main input init map utils raycasting
+SRC_FILES = main input init map utils
 
 OBJS_FILES = $(addprefix $(OBJS_DIR), $(addsuffix .o, $(SRC_FILES)))
 

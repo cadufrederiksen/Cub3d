@@ -6,13 +6,9 @@
 /*   By: sheferna <sheferna@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 18:34:11 by sheferna          #+#    #+#             */
-/*   Updated: 2024/11/15 20:21:23 by sheferna         ###   ########.fr       */
+/*   Updated: 2024/11/17 13:35:26 by sheferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include "cub3d.h"
-#include <math.h>
-#include <stdlib.h>
 
 #include "cub3d.h"
 #include <math.h>
@@ -137,7 +133,6 @@ void draw_frame(t_game *game)
     {
         cast_ray(game, x);
     }
-
     // Actualizar la ventana con la imagen renderizada
     mlx_image_to_window(game->mlx, game->img, 0, 0);
 }

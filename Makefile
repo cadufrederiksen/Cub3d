@@ -1,58 +1,70 @@
 NAME = cub3d
-LIBMLX = MLX42
-HEADERS = -I libft/include/ -I$(LIBMLX)/include
-SRCS_DIR = src/
-OBJS_DIR = obj/
 LIBFT = libft
+LIBMLX = MLX42
+HEADERS = includes/cub3d.h
+INCLUDES = -I ./includes -I libft/include/ -I $(LIBMLX)/include
 
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror -g
 
 AR = ar rcs
-UNAME_S := $(shell uname -s)
+RM = rm -rf
 
-# Configuración específica para macOS
+GREEN = \033[1;32m
+RED = \033[1;31m
+YELLOW = \033[1;33m
+BLUE = \033[1;34m
+BOLD = \033[1m
+END = \033[0m
+
+UNAME_S := $(shell uname -s)
 ifeq ($(UNAME_S), Darwin)
     LIBS = $(LIBMLX)/libmlx42.a -lglfw \
            -framework Cocoa -framework OpenGL -framework IOKit
     HEADERS += -I/usr/local/Cellar/glfw/3.4/include
 else
-    # Configuración específica para Linux
-    LIBS = $(LIBMLX)/libmlx42.a -lglfw -ldl -lm -L/usr/lib/x86_64-linux-gnu/
+    LIBS = $(LIBMLX)/libmlx42.a -lglfw -ldl -lm -L "/usr/lib/x86_64-linux-gnu/"
 endif
 
-SRC_FILES = main input init map utils raycasting
-OBJS_FILES = $(addprefix $(OBJS_DIR), $(addsuffix .o, $(SRC_FILES)))
-OBJSF = $(OBJS_DIR)
+SRCS_DIR = src/
+OBJS_DIR = obj/
+
+SRC_FILES = main.c input.c init.c map.c utils.c raycasting.c
+SRCS = $(addprefix $(SRCS_DIR), $(SRC_FILES))
+OBJS_FILES = $(addprefix $(OBJS_DIR), $(SRC_FILES:.c=.o))
 
 all: libmlx $(NAME)
+	@echo "$(BOLD)$(GREEN)Target 'all' executed: $(NAME) compiled successfully.$(END)"
 
-$(NAME): $(OBJSF) $(OBJS_FILES)
-	$(MAKE) -C $(LIBFT)
-	cp $(LIBFT)/libft.a .
-	mv libft.a $(NAME)
-	$(CC) $(CFLAGS) $(OBJS_FILES) $(LIBFT)/libft.a $(LIBS) $(HEADERS) -o $(NAME)
+$(NAME): $(OBJS_FILES)
+	@$(MAKE) -C $(LIBFT) --no-print-directory
+	@echo "$(BOLD)$(BLUE)Compiling $(NAME)...$(END)"
+	@$(CC) $(CFLAGS) $(OBJS_FILES) $(LIBFT)/libft.a $(LIBS) $(INCLUDES) -no-pie -o $(NAME)
+	@echo "$(BOLD)$(GREEN)Executable $(NAME) created successfully!$(END)"
 
 $(OBJS_DIR)%.o : $(SRCS_DIR)%.c
-	$(CC) $(CFLAGS) $(HEADERS) -c $< -o $@
+	@mkdir -p $(OBJS_DIR)
+	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+	@echo "$(BOLD)$(BLUE)Compiled: $<$(END)"
 
-$(OBJSF):
-	mkdir -p $(OBJS_DIR)
-
-libmlx: 
-	$(MAKE) -C $(LIBMLX)
+libmlx:
+	@echo "$(BOLD)$(BLUE)Compiling MLX library...$(END)"
+	@$(MAKE) -C $(LIBMLX) --no-print-directory
 
 clean:
-	$(RM) -r $(OBJS_DIR)
-	$(MAKE) clean -C $(LIBFT)
-	$(MAKE) clean -C $(LIBMLX)
+	@$(RM) $(OBJS_DIR)
+	@echo "$(BOLD)$(YELLOW)Object files removed$(END)"
+	@$(MAKE) clean -C $(LIBFT) --no-print-directory
+	@$(MAKE) clean -C $(LIBMLX) --no-print-directory
 
 fclean:
-	$(RM) -r $(OBJS_DIR)
-	$(RM) $(NAME)
-	$(MAKE) fclean -C $(LIBFT)
-	$(MAKE) fclean -C $(LIBMLX)
+	@$(RM) $(OBJS_DIR)
+	@$(RM) $(NAME)
+	@echo "$(BOLD)$(RED)Executable $(NAME) removed$(END)"
+	@$(MAKE) fclean -C $(LIBFT) --no-print-directory
+	@$(MAKE) fclean -C $(LIBMLX) --no-print-directory
 
 re: fclean all
+	@echo "$(BOLD)$(YELLOW)Target 're' executed: project rebuilt successfully.$(END)"
 
-.PHONY: re all fclean clean libmlx
+.PHONY: all clean fclean re libmlx
