@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sheferna <sheferna@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 14:13:29 by carmarqu          #+#    #+#             */
-/*   Updated: 2024/11/15 15:27:21 by carmarqu         ###   ########.fr       */
+/*   Updated: 2024/11/17 21:12:43 by sheferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ int		parse_line(char *line, t_game *game)//guarda todos las instruciones pero no
 	else
 		return (ft_printf("Invalid instruction in map file\n"), 1);
 	return (0);
-} 
+}
 
 int     check_input(char *file_name, t_game *game)
 {

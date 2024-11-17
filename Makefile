@@ -31,6 +31,7 @@ SRCS_DIR = src/
 OBJS_DIR = obj/
 
 SRC_FILES = main.c input.c init.c map.c utils.c \
+			load_png.c free.c \
 			calculations.c raycast_utils.c raycasting.c
 SRCS = $(addprefix $(SRCS_DIR), $(SRC_FILES))
 OBJS_FILES = $(addprefix $(OBJS_DIR), $(SRC_FILES:.c=.o))

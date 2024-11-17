@@ -6,7 +6,7 @@
 /*   By: sheferna <sheferna@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 13:41:06 by carmarqu          #+#    #+#             */
-/*   Updated: 2024/11/17 17:36:10 by sheferna         ###   ########.fr       */
+/*   Updated: 2024/11/17 21:54:52 by sheferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,12 @@
 # include "libft.h"
 # include <math.h>
 # include <stdlib.h>
+# include <stdio.h>
+# include <stdint.h>
 
 # define SCREEN_WIDTH 800
 # define SCREEN_HEIGHT 600
+# define IMG 64
 
 typedef struct s_mapsets
 {
@@ -42,42 +45,57 @@ typedef struct s_mapsets
 	int 	vars_flag; // checkea si hay 6 innstrucciones
 }				t_mapsets;
 
+// flood fill
+typedef struct s_point
+{
+	int	x;
+	int	y;
+}	t_point;
+
 typedef struct s_player
 {
 	double	pos_x;		// Posición del jugador
 	double	pos_y;		// Posición del jugador
 	double	dir_x;		// Dirección del jugador
 	double	dir_y;		// Dirección del jugador
-	double	plane_x;	// Plano de la cámara
-	double	plane_y;	// Plano de la cámara
+	double	plane_x;	// Plano de la cámara FOV
+	double	plane_y;	// Plano de la cámara FOV
 }				t_player;
 
 typedef struct s_ray
 {
 	double		raydir_x;
 	double		raydir_y;
-	double		deltadist_x;
+	double		deltadist_x; 	// deltadist: Distancia que el rayo necesita para recorrer un bloque de mapa en los ejes X e Y
 	double		deltadist_y;
-	double		sidedist_x;
+	double		sidedist_x; 	// sidedist: Distancia desde la posición actual del rayo hasta la próxima intersección con una línea de la cuadrícula
 	double		sidedist_y;
-	double		perp_walldist;
-	int			map_x;
+	double		perp_walldist; 	// Distancia perpendicular desde el jugador hasta la pared que el rayo golpea
+	int			map_x; 			// map_: Coordenadas del bloque del mapa
 	int			map_y;
 	int			step_x;
 	int			step_y;
-	int			side;
-	int			line_height;
-	int			draw_start;
+	int			side; 			// Indica si el rayo golpeó una pared vertical (0) u horizontal (1)
+	int			line_height; 	// Altura de la línea a dibujar en pantalla para esta columna
+	int			draw_start; 	// draw_: Puntos en la pantalla donde empieza y termina la línea que representa la pared
 	int			draw_end;
 }				t_ray;
 
+typedef struct s_textures
+{
+	mlx_texture_t	*wall;
+	mlx_texture_t	*floor;
+	mlx_texture_t	*player;
+}					t_textures;
+
 typedef struct s_game
 {
-	mlx_t		*mlx;
-	mlx_image_t	*img;	// Imagen para dibujar
+	mlx_t		*mlx;		// Todas las funciones de MLX42 trabajan con punteros (mlx_image_t *), por lo que se necesita que img sea un puntero para pasarla correctamente a esas funciones
+	mlx_image_t	*img;		// Imagen donde dibujar cada frame antes de actualizar la ventana
 	t_mapsets	*mapsets;
-	t_player	player;
-	t_ray		ray;
+	t_player	player; 	// Estructura para manejar la posición y orientación del jugador
+	t_ray		ray; 		// Estructura para almacenar datos relacionados con el raycasting
+	t_textures	*textures; 	// Almacena las texturas necesarias para renderizar los elementos
 }				t_game;
 
 void			free2d(char **str);
@@ -87,6 +105,14 @@ int				check_input(char *file_name, t_game *game);
 int				init_game(t_game *game);
 void			free_game(t_game *game);
 char			*cut_line(char *line, t_game *game);
+
+// init structures
+void			init_player(t_player *player);
+void			set_player_direction(t_player *player, char spawn);
+void			init_player_from_map(t_game *game);
+
+// loading png
+t_textures		*load_textures(void);
 
 // calculations
 void			calculate_ray_direction(t_game *game, int x);

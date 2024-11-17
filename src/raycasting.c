@@ -6,7 +6,7 @@
 /*   By: sheferna <sheferna@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 18:34:11 by sheferna          #+#    #+#             */
-/*   Updated: 2024/11/17 16:25:26 by sheferna         ###   ########.fr       */
+/*   Updated: 2024/11/17 20:50:31 by sheferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,14 @@ void	perform_dda(t_game *game)
 			game->ray.map_y += game->ray.step_y;
 			game->ray.side = 1;
 		}
+		//ft_printf("Checking map at (%d, %d): %c\n",
+                  //game->ray.map_x, game->ray.map_y, game->mapsets->map[game->ray.map_y][game->ray.map_x]);
 		if (game->mapsets->map[game->ray.map_y][game->ray.map_x] == '1')
 			hit = 1;
 	}
 }
 
+// calcular las coordenadas de la textura y extraer los píxeles
 void	draw_column(t_game *game, int x)
 {
 	int	color;
@@ -87,6 +90,9 @@ void	cast_ray(t_game *game, int x)
 	perform_dda(game);
 	calculate_perp_wall_dist(game);
 	calculate_draw_limits(game);
+	//ft_printf("Ray %d: draw_start=%d, draw_end=%d, perp_dist=%f\n",
+              //x, game->ray.draw_start, game->ray.draw_end, game->ray.perp_walldist);
+	//output: Ray 799: draw_start=300, draw_end=300, perp_dist=f
 	draw_column(game, x);
 }
 
@@ -94,8 +100,8 @@ void	cast_ray(t_game *game, int x)
 void	draw_frame(t_game *game)
 {
 	int	x;
-	// Clean the image before drawing
-	clear_image(game->img);
+
+	clear_image(game->img); // Clean the image before drawing
 	// Launch a ray for each column of pixels
 	x = 0;
 	while (x < SCREEN_WIDTH)

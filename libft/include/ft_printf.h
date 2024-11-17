@@ -6,7 +6,7 @@
 /*   By: sheferna <sheferna@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 17:01:37 by sheferna          #+#    #+#             */
-/*   Updated: 2024/11/17 17:05:03 by sheferna         ###   ########.fr       */
+/*   Updated: 2024/11/17 17:52:26 by sheferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <unistd.h>
 
 int	ft_printf(const char *format, ...);
+int	ft_fprintf(int fd, char const *format, ...);
 int	print_format(char format, va_list *ap, int fd);
 int	ft_putchar_pf(int c, int fd);
 int	ft_putstr_pf(char *str, int fd);
