@@ -6,7 +6,7 @@
 /*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 13:41:06 by carmarqu          #+#    #+#             */
-/*   Updated: 2024/11/19 13:06:24 by carmarqu         ###   ########.fr       */
+/*   Updated: 2024/11/19 16:47:42 by carmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,10 +89,16 @@ typedef struct s_textures
 	mlx_texture_t	*player;
 }					t_textures;
 
+typedef	struct s_img
+{
+	mlx_image_t *player;
+} t_img;
+
 typedef struct s_game
 {
 	mlx_t		*mlx;		// Todas las funciones de MLX42 trabajan con punteros (mlx_image_t *), por lo que se necesita que img sea un puntero para pasarla correctamente a esas funciones
 	mlx_image_t	*img;		// Imagen donde dibujar cada frame antes de actualizar la ventana
+	t_img		*pngs;
 	t_mapsets	*mapsets;
 	t_player	player; 	// Estructura para manejar la posición y orientación del jugador
 	t_ray		ray; 		// Estructura para almacenar datos relacionados con el raycasting

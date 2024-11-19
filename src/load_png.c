@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   load_png.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sheferna <sheferna@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 18:29:28 by sheferna          #+#    #+#             */
-/*   Updated: 2024/11/17 19:40:27 by sheferna         ###   ########.fr       */
+/*   Updated: 2024/11/19 16:45:42 by carmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,3 +36,5 @@ t_textures	*load_textures()
 	}
 	return (textures);
 }
+
+

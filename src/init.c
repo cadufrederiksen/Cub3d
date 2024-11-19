@@ -6,7 +6,7 @@
 /*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 10:43:12 by carmarqu          #+#    #+#             */
-/*   Updated: 2024/11/19 15:14:43 by carmarqu         ###   ########.fr       */
+/*   Updated: 2024/11/19 16:49:18 by carmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,9 @@ int	init_game(t_game *game)
 	game->textures = load_textures();
 	if (!game->textures)
 		return (ft_fprintf(2, "Error: Could not load textures\n"), 1);
+	if (!game->png)
+		return (ft_fprintf(2, "Error: Could not load images\n"), 1);
+
 	init_player(&game->player);
 	return (0);
 }

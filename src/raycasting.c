@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sheferna <sheferna@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 18:34:11 by sheferna          #+#    #+#             */
-/*   Updated: 2024/11/17 20:50:31 by sheferna         ###   ########.fr       */
+/*   Updated: 2024/11/19 16:45:24 by carmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,18 +65,19 @@ void	perform_dda(t_game *game)
 // calcular las coordenadas de la textura y extraer los píxeles
 void	draw_column(t_game *game, int x)
 {
-	int	color;
+	/* int	color;
 	int	y;
 
 	if (game->ray.side == 0)
 		color = 0xFF0000; // Rojo si golpea en un eje X
 	else
 		color = 0x00FF00; // Verde si golpea en un eje Y
-
+ */
 	y = game->ray.draw_start;
 	while (y < game->ray.draw_end)
 	{
-		put_pixel_to_image(game->img, x, y, color);
+		mlx_image_to_window(game->mlx, game->textures->player, x, y);
+		//put_pixel_to_image(game->img, x, y, color);
 		y++;
 	}
 }
