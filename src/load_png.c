@@ -6,7 +6,7 @@
 /*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 18:29:28 by sheferna          #+#    #+#             */
-/*   Updated: 2024/11/19 17:42:21 by carmarqu         ###   ########.fr       */
+/*   Updated: 2024/11/19 18:05:33 by carmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ t_img *load_png(t_game *game)
 
 	img = malloc (sizeof(t_img));
 	if (!img)
-		return (ft_fprintf(2, "Error: Failed to load one or more textures\n"), NULL);
+		return (ft_fprintf(2, "Error: Failed to load one or more image\n"), NULL);
+	printf("aqui\n");
 	img->player = mlx_texture_to_image(game->mlx, game->textures->player);
-	//printf("aqui\n");
 	mlx_delete_texture(game->textures->player);
 	return (img);
 }
@@ -32,8 +32,8 @@ t_textures	*load_textures()
 	textures = malloc(sizeof(t_textures));
 	if (!textures)
 		return (NULL);
-	textures->wall = mlx_load_png("images/wall.png");
-	textures->player = mlx_load_png("images/floor.png");
+	textures->wall = mlx_load_png("image/floor.png");
+	textures->player = mlx_load_png("images/wall.png");
 	//textures->player = mlx_load_png("images/dungeon1.png");
 	if (!textures->wall || !textures->player)//|| !textures->floor 
 	{
