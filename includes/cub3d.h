@@ -6,7 +6,7 @@
 /*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 13:41:06 by carmarqu          #+#    #+#             */
-/*   Updated: 2024/11/19 16:47:42 by carmarqu         ###   ########.fr       */
+/*   Updated: 2024/11/19 17:28:24 by carmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,7 @@ void			init_player_from_map(t_game *game);
 
 // loading png
 t_textures		*load_textures(void);
+t_img			*load_png(t_game *game);
 
 // calculations
 void			calculate_ray_direction(t_game *game, int x);

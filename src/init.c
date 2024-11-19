@@ -6,7 +6,7 @@
 /*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 10:43:12 by carmarqu          #+#    #+#             */
-/*   Updated: 2024/11/19 16:59:33 by carmarqu         ###   ########.fr       */
+/*   Updated: 2024/11/19 17:39:12 by carmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int	init_game(t_game *game)
 {
 	game->mapsets = NULL;
 	game->textures = NULL;
+	game->pngs = NULL;
 	game->mapsets = malloc(sizeof(t_mapsets));
 	if (!game->mapsets)
 		return (1);
@@ -44,7 +45,7 @@ int	init_game(t_game *game)
 	game->pngs = load_png(game);
 	if (!game->textures)
 		return (ft_fprintf(2, "Error: Could not load textures\n"), 1);
-	if (!game->png)
+	if (!game->pngs)
 		return (ft_fprintf(2, "Error: Could not load images\n"), 1);
 	init_player(&game->player);
 	return (0);

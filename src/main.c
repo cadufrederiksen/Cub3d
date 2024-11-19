@@ -6,7 +6,7 @@
 /*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 13:08:18 by carmarqu          #+#    #+#             */
-/*   Updated: 2024/11/19 09:47:51 by carmarqu         ###   ########.fr       */
+/*   Updated: 2024/11/19 17:18:18 by carmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,14 @@ void	print2d(char **str)
 	x = 0;
 	while (str[x])
 		ft_printf("%s\n", str[x++]);
+}
+
+void	resize_ptr(int32_t width, int32_t height, void *param)
+{
+	(void)width;
+	(void)height;
+	(void)param;
+	mlx_set_setting(MLX_STRETCH_IMAGE, 1);
 }
 
 int	main(int argc, char **argv)
@@ -53,6 +61,7 @@ int	main(int argc, char **argv)
 	if (!game->img)
 		return (free_game(game),
 			ft_printf("Error: Image creation failed\n"), 1);
+	mlx_resize_hook(game->mlx, &resize_ptr, game);
 	mlx_key_hook(game->mlx, moves, game);		
 	mlx_loop_hook(game->mlx, (void (*)(void *))draw_frame, game); // rendering config
 	mlx_loop(game->mlx); // start the event loop
