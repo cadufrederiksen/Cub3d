@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sheferna <sheferna@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 13:41:06 by carmarqu          #+#    #+#             */
-/*   Updated: 2024/11/17 21:54:52 by sheferna         ###   ########.fr       */
+/*   Updated: 2024/11/19 13:06:24 by carmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # define SCREEN_WIDTH 800
 # define SCREEN_HEIGHT 600
 # define IMG 64
+# define ROTATION_SPEED 0.05
 
 typedef struct s_mapsets
 {
@@ -98,15 +99,19 @@ typedef struct s_game
 	t_textures	*textures; 	// Almacena las texturas necesarias para renderizar los elementos
 }				t_game;
 
-void			free2d(char **str);
+//key hooks
+void	moves(mlx_key_data_t keydata, void *param);
+
+//parser
 int				ft_strlen_map(const char *s);
 int				get_map(char *file_name, t_game *game);
 int				check_input(char *file_name, t_game *game);
-int				init_game(t_game *game);
 void			free_game(t_game *game);
 char			*cut_line(char *line, t_game *game);
+void			free2d(char **str);
 
 // init structures
+int				init_game(t_game *game);
 void			init_player(t_player *player);
 void			set_player_direction(t_player *player, char spawn);
 void			init_player_from_map(t_game *game);
@@ -119,6 +124,7 @@ void			calculate_ray_direction(t_game *game, int x);
 void			calculate_delta_dist(t_game *game);
 void			calculate_perp_wall_dist(t_game *game);
 void			calculate_draw_limits(t_game *game);
+
 // raycasting
 void			put_pixel_to_image(mlx_image_t *img, int x, int y, int color);
 void			clear_image(mlx_image_t *img);

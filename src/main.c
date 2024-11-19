@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sheferna <sheferna@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 13:08:18 by carmarqu          #+#    #+#             */
-/*   Updated: 2024/11/17 21:36:53 by sheferna         ###   ########.fr       */
+/*   Updated: 2024/11/19 09:47:51 by carmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ int	main(int argc, char **argv)
 	if (!game->img)
 		return (free_game(game),
 			ft_printf("Error: Image creation failed\n"), 1);
+	mlx_key_hook(game->mlx, moves, game);		
 	mlx_loop_hook(game->mlx, (void (*)(void *))draw_frame, game); // rendering config
 	mlx_loop(game->mlx); // start the event loop
 	free_game(game);

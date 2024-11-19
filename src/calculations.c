@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   calculations.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sheferna <sheferna@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 14:32:26 by sheferna          #+#    #+#             */
-/*   Updated: 2024/11/17 19:37:39 by sheferna         ###   ########.fr       */
+/*   Updated: 2024/11/19 15:26:40 by carmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	calculate_ray_direction(t_game *game, int x)
 {
-	double	camera_x;
+	double	camera_x; //x es la columna que esta generando el rayo
 
 	camera_x = 2 * x / (double)SCREEN_WIDTH - 1;
 	game->ray.raydir_x = game->player.dir_x + game->player.plane_x * camera_x;
@@ -28,7 +28,7 @@ void	calculate_delta_dist(t_game *game)
 	if (game->ray.raydir_x == 0)
 		game->ray.deltadist_x = 1e30;
 	else
-		game->ray.deltadist_x = fabs(1 / game->ray.raydir_x);
+		game->ray.deltadist_x = fabs(1 / game->ray.raydir_x); //numero absoluto
 
 	if (game->ray.raydir_y == 0)
 		game->ray.deltadist_y = 1e30;

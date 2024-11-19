@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sheferna <sheferna@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 10:43:12 by carmarqu          #+#    #+#             */
-/*   Updated: 2024/11/17 21:57:32 by sheferna         ###   ########.fr       */
+/*   Updated: 2024/11/19 15:14:43 by carmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	set_player_direction(t_player *player, char spawn)
 	{
 		player->dir_x = 0.0;
 		player->dir_y = -1.0;
-		player->plane_x = 0.66;
+		player->plane_x = 0.66; //PI
 		player->plane_y = 0.0;
 	}
 	else if (spawn == 'S')
