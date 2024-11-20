@@ -6,7 +6,7 @@
 /*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 18:29:28 by sheferna          #+#    #+#             */
-/*   Updated: 2024/11/19 18:05:33 by carmarqu         ###   ########.fr       */
+/*   Updated: 2024/11/20 14:46:24 by carmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,39 +15,47 @@
 t_img *load_png(t_game *game)
 {
 	t_img *img;
-
-	img = malloc (sizeof(t_img));
+	if (!game || !game->mlx || !game->textures || !game->textures->player)
+	{
+	    ft_fprintf(2, "Error: Invalid parameters passed to load_png\n");
+	    return (NULL);
+	}
+	img = malloc(sizeof(t_img));
 	if (!img)
-		return (ft_fprintf(2, "Error: Failed to load one or more image\n"), NULL);
-	printf("aqui\n");
+	{
+	    ft_fprintf(2, "Error: Failed to allocate memory for image\n");
+	    return (NULL);
+	}
 	img->player = mlx_texture_to_image(game->mlx, game->textures->player);
-	mlx_delete_texture(game->textures->player);
-	return (img);
+	if (!img->player)
+	{
+	    ft_fprintf(2, "Error: Failed to convert texture to image\n");
+	    free(img);
+	    return (NULL);
+	}
 }
-
-t_textures	*load_textures()
+	
+t_textures	*load_textures(t_game *game)
 {
-	t_textures	*textures;
-
-	textures = malloc(sizeof(t_textures));
-	if (!textures)
+	game->textures = malloc(sizeof(t_textures));
+	if (!game->textures)
 		return (NULL);
-	textures->wall = mlx_load_png("image/floor.png");
-	textures->player = mlx_load_png("images/wall.png");
-	//textures->player = mlx_load_png("images/dungeon1.png");
-	if (!textures->wall || !textures->player)//|| !textures->floor 
+	game->textures->wall = mlx_load_png("images/floor.png");
+	game->textures->player = mlx_load_png("images/player.png");
+	//game->textures->floor = mlx_load_png("images/wall.png");
+	if (!game->textures->wall)
 	{
 		ft_fprintf(2, "Error: Failed to load one or more textures\n");
-		if (textures->wall)
-			mlx_delete_texture(textures->wall);
-		if (textures->floor)
-			mlx_delete_texture(textures->floor);
-		if (textures->player)
-			mlx_delete_texture(textures->player);
-		free(textures);
+		if (game->textures->wall)
+			mlx_delete_texture(game->textures->wall);
+		if (game->textures->floor)
+			mlx_delete_texture(game->textures->floor);
+		if (game->textures->player)
+			mlx_delete_texture(game->textures->player);
+		free(game->textures);
 		return (NULL);
 	}
-	return (textures);
+	return (game->textures);
 }
 
 

@@ -6,7 +6,7 @@
 /*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 13:41:06 by carmarqu          #+#    #+#             */
-/*   Updated: 2024/11/19 17:28:24 by carmarqu         ###   ########.fr       */
+/*   Updated: 2024/11/19 18:14:58 by carmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ void			set_player_direction(t_player *player, char spawn);
 void			init_player_from_map(t_game *game);
 
 // loading png
-t_textures		*load_textures(void);
+t_textures		*load_textures(t_game *game);
 t_img			*load_png(t_game *game);
 
 // calculations
