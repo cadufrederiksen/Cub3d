@@ -5,7 +5,7 @@ HEADERS = includes/cub3d.h
 INCLUDES = -I ./includes -I libft/include/ -I $(LIBMLX)/include
 
 #CC = clang #doesnt require -no-pie flag
-CC = gcc #requires flag -no-pie in main execution #PIE (Position Independent Executable) 
+CC = gcc #requires flag -no-pie in main execution #PIE (Position Independent Executable) en la linea 45 antes del -o en Ubuntu
 CFLAGS = -Wall -Wextra -Werror -g
 
 AR = ar rcs
@@ -31,7 +31,7 @@ SRCS_DIR = src/
 OBJS_DIR = obj/
 
 SRC_FILES = main.c input.c init.c map.c utils.c \
-			load_png.c free.c moves.c\
+			load_png.c free.c moves.c \
 			calculations.c raycast_utils.c raycasting.c
 SRCS = $(addprefix $(SRCS_DIR), $(SRC_FILES))
 OBJS_FILES = $(addprefix $(OBJS_DIR), $(SRC_FILES:.c=.o))
@@ -42,7 +42,7 @@ all: libmlx $(NAME)
 $(NAME): $(OBJS_FILES)
 	@$(MAKE) -C $(LIBFT) --no-print-directory
 	@echo "$(BOLD)$(BLUE)Compiling $(NAME)...$(END)"
-	@$(CC) $(CFLAGS) $(OBJS_FILES) $(LIBFT)/libft.a $(LIBS) $(INCLUDES) -no-pie -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJS_FILES) $(LIBFT)/libft.a $(LIBS) $(INCLUDES) -o $(NAME)
 	@echo "$(BOLD)$(GREEN)Executable $(NAME) created successfully!$(END)"
 
 $(OBJS_DIR)%.o : $(SRCS_DIR)%.c
