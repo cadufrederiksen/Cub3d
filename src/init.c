@@ -6,7 +6,7 @@
 /*   By: sheferna <sheferna@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 10:43:12 by carmarqu          #+#    #+#             */
-/*   Updated: 2024/11/25 20:10:10 by sheferna         ###   ########.fr       */
+/*   Updated: 2024/11/25 20:29:54 by sheferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,44 +93,3 @@ int	init_game(t_game *game)
 	return (0);
 }
 
-void	set_player_direction(t_player *player, char spawn)
-{
-	if (spawn == 'N')
-	{
-		player->dir_x = 0.0;
-		player->dir_y = -1.0;
-		player->plane_x = 0.66; //PI
-		player->plane_y = 0.0;
-	}
-	else if (spawn == 'S')
-	{
-		player->dir_x = 0.0;
-		player->dir_y = 1.0;
-		player->plane_x = -0.66;
-		player->plane_y = 0.0;
-	}
-	else if (spawn == 'E')
-	{
-		player->dir_x = 1.0;
-		player->dir_y = 0.0;
-		player->plane_x = 0.0;
-		player->plane_y = 0.66;
-	}
-	else if (spawn == 'W')
-	{
-		player->dir_x = -1.0;
-		player->dir_y = 0.0;
-		player->plane_x = 0.0;
-		player->plane_y = -0.66;
-	}
-}
-
-void	init_player_from_map(t_game *game)
-{
-	if (game->mapsets->spawn == 0)
-		error_exit("Error: Player spawn not found\n");
-	game->player->pos_x = (double)game->mapsets->p_x + 0.5; // + 0.5 para centrar en la celda
-	game->player->pos_y = (double)game->mapsets->p_y + 0.5; // + 0.5 para centrar en la celda
-	set_player_direction(game->player, game->mapsets->spawn);
-	game->mapsets->map[game->mapsets->p_y][game->mapsets->p_x] = '0';
-}

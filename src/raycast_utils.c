@@ -6,7 +6,7 @@
 /*   By: sheferna <sheferna@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 14:30:57 by sheferna          #+#    #+#             */
-/*   Updated: 2024/11/25 20:25:23 by sheferna         ###   ########.fr       */
+/*   Updated: 2024/11/25 20:27:53 by sheferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,10 @@ Qué memoria llenar: img->pixels.
 Qué valor usar: 0 (especificado como el segundo argumento).
 Cuánto llenar: img->width * img->height * 4 (el tamaño total en bytes del área de píxeles).
 */
+// Llena toda la memoria de img->pixels con ceros
 void	clear_image(mlx_image_t *img)
 {
-	// Llena toda la memoria de img->pixels con ceros
+	if (!img || !img->pixels)
+		return ;
 	ft_memset(img->pixels, 0, img->width * img->height * 4);
 }

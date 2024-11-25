@@ -6,7 +6,7 @@
 /*   By: sheferna <sheferna@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 14:13:29 by carmarqu          #+#    #+#             */
-/*   Updated: 2024/11/25 20:21:46 by sheferna         ###   ########.fr       */
+/*   Updated: 2024/11/25 20:28:18 by sheferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ int	check_input(char *file_name, t_game *game)
 		line = get_next_line(fd);
 	}
 	if (game->mapsets->vars_flag != 6)
-		return (printf("Wrong number of map instructions\n"), close(fd), free(line), 0); //si hay error y usamos la salida de error, deberiamos de retornar 1 aqui
+		return (ft_printf("Wrong number of map instructions\n"), close(fd), free(line), 0); //si hay error y usamos la salida de error, deberiamos de retornar 1 aqui
 	get_map(file_name, game);//guarda el mapa en un array char **
 	if (!get_rgb(game))
 		return (close(fd), free(line), 0);
