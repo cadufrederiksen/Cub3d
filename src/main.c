@@ -6,7 +6,7 @@
 /*   By: sheferna <sheferna@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 13:08:18 by carmarqu          #+#    #+#             */
-/*   Updated: 2024/11/25 20:09:38 by sheferna         ###   ########.fr       */
+/*   Updated: 2024/11/25 20:13:02 by sheferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	map_validation(char *argv[1], t_game *game)
 			return (free_game(game), 1); // hacer free de las structs
 	}
 	else
-		return (error("Error: Map name is wrong"));
+		return (free_game(game), error("Error: Map name is wrong"));
 	return (0);
 }
 

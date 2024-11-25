@@ -6,7 +6,7 @@
 /*   By: sheferna <sheferna@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 21:04:16 by sheferna          #+#    #+#             */
-/*   Updated: 2024/11/25 18:54:08 by sheferna         ###   ########.fr       */
+/*   Updated: 2024/11/25 20:15:02 by sheferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,18 +49,16 @@ void	free_game(t_game *game)
 		free_mapsets(game->mapsets);
 		free(game->mapsets);
 	}
-	// if (game->textures)
-	// {
-	// 	if (game->textures->wall)
-	// 		mlx_delete_texture(game->textures->wall);
-	// 	if (game->textures->floor)
-	// 		mlx_delete_texture(game->textures->floor);
-	// 	if (game->textures->player)
-	// 		mlx_delete_texture(game->textures->player);
-	// 	free(game->textures);
-	// }
+	if (game->player)
+		free(game->player);
+	if (game->ray)
+		free(game->ray);
+	if (game->texture)
+		free(game->texture);
 	if (game->img)
 		mlx_delete_image(game->mlx, game->img);
+	if (game->frame)
+		mlx_delete_image(game->mlx, game->frame);
 	if (game->mlx)
 		mlx_terminate(game->mlx);
 	free(game);
