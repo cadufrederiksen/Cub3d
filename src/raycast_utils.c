@@ -6,7 +6,7 @@
 /*   By: sheferna <sheferna@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 14:30:57 by sheferna          #+#    #+#             */
-/*   Updated: 2024/11/17 19:49:24 by sheferna         ###   ########.fr       */
+/*   Updated: 2024/11/25 20:25:23 by sheferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,14 @@
 // garantizan que el tamaño sea exactamente de 32 bits, 
 // independientemente de la arquitectura
 // MLX usa uint32_t para asegurarse que no se usan numeros negativos
-void	put_pixel_to_image(mlx_image_t *img, int x, int y, int color)
+int	put_pixel_to_image(mlx_image_t *img, int x, int y, int color)
 {
 	int	index;
 
 	if (!img || !img->pixels)
-	{
-		ft_fprintf(2, "Error: Invalid image or pixel data\n");
-		return ;
-	}
+		return (error("Error: Invalid image or pixel data\n"));
 	if (x < 0 || x >= (int)img->width || y < 0 || y >= (int)img->height)
-		return ;
+		return (error("Error: Pixel out of image bounds\n"));
 	if (x >= 0 && x < SCREEN_WIDTH && y >= 0 && y < SCREEN_HEIGHT)
 	{	//calculate the index of the array of pixels
 		index = (y * (int)img->width + x) * 4;
@@ -38,6 +35,7 @@ void	put_pixel_to_image(mlx_image_t *img, int x, int y, int color)
 		img->pixels[index + 2] = color & 0xFF;	// Blue
 		img->pixels[index + 3] = 0xFF;	// Opaco
 	}
+	return (0);
 }
 
 // Clean the image

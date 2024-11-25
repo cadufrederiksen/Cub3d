@@ -6,7 +6,7 @@
 /*   By: sheferna <sheferna@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 13:08:18 by carmarqu          #+#    #+#             */
-/*   Updated: 2024/11/25 20:13:02 by sheferna         ###   ########.fr       */
+/*   Updated: 2024/11/25 20:20:29 by sheferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	map_validation(char *argv[1], t_game *game)
 			return (free_game(game), 1); // hacer free de las structs
 	}
 	else
-		return (free_game(game), error("Error: Map name is wrong"));
+		return (free_game(game), error("Error: Map name is wrong\n"));
 	return (0);
 }
 
@@ -50,13 +50,13 @@ int	main(int argc, char **argv)
 	t_game	*game;
 (void)**argv;
 	if (argc != 2)
-		return (error("Error: Wrong number of arguments"));
+		return (error("Error: Wrong number of arguments\n"));
 	//game = malloc(sizeof(t_game));
 	game = calloc(1, sizeof(t_game));
 	if (!game)
 		return (1);
 	if (init_game(game))
-		return (free_game(game), error("Error: Game initialisation failed"));
+		return (free_game(game), error("Error: Game initialisation failed\n"));
 	/* he sacado esto en una funcion para reducir el main de tamaño
 	x = ft_strlen(argv[1]) - 1;
 	if (argv[1][x] == 'b' && argv[1][x - 1] == 'u' && argv[1][x - 2] == 'c'
@@ -73,12 +73,10 @@ int	main(int argc, char **argv)
 	init_player_from_map(game);
 	game->mlx = mlx_init(SCREEN_WIDTH, SCREEN_HEIGHT, "Cub3D", true);
 	if (!game->mlx)
-		return (free_game(game),
-			ft_printf("Error: MLX initialisation failed\n"), 1);
+		return (free_game(game), error("Error: MLX initialisation failed\n"));
 	game->img = mlx_new_image(game->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
 	if (!game->img)
-		return (free_game(game),
-			ft_printf("Error: Image creation failed\n"), 1);
+		return (free_game(game), error("Error: Image creation failed\n"));
 	mlx_resize_hook(game->mlx, &resize_ptr, game);
 	mlx_key_hook(game->mlx, moves, game);		
 	mlx_loop_hook(game->mlx, (void (*)(void *))draw_frame, game); // rendering config

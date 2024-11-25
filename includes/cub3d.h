@@ -6,7 +6,7 @@
 /*   By: sheferna <sheferna@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 13:41:06 by carmarqu          #+#    #+#             */
-/*   Updated: 2024/11/25 19:00:00 by sheferna         ###   ########.fr       */
+/*   Updated: 2024/11/25 20:23:19 by sheferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,7 +146,7 @@ void				calculate_perp_wall_dist(t_game *game);
 void				calculate_draw_limits(t_game *game);
 
 // raycasting
-void				put_pixel_to_image(mlx_image_t *img, int x, int y,
+int					put_pixel_to_image(mlx_image_t *img, int x, int y,
 						int color);
 void				clear_image(mlx_image_t *img);
 void				initialize_step_and_side_dist(t_game *game);
