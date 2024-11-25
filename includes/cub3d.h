@@ -6,7 +6,7 @@
 /*   By: sheferna <sheferna@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 13:41:06 by carmarqu          #+#    #+#             */
-/*   Updated: 2024/11/25 20:23:19 by sheferna         ###   ########.fr       */
+/*   Updated: 2024/11/25 21:26:26 by sheferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@
 # define ROTATION_SPEED 0.05
 # define MOV_SPEED 0.1
 
+# define ERROR_LOADING "Error: Loading process failed\n"
+
 typedef struct s_mapsets
 {
 	char			spawn; // flags para verificar
@@ -47,12 +49,19 @@ typedef struct s_mapsets
 	int				vars_flag; // checkea si hay 6 innstrucciones
 }					t_mapsets;
 
-// flood fill
-typedef struct s_point
+typedef enum e_axis
 {
-	int				x;
-	int				y;
-}					t_point;
+	NORTH,
+	SOUTH,
+	EAST,
+	WEST,
+}	t_axis;
+
+typedef enum e_hit_point
+{
+	HIT_X,
+	HIT_Y,
+}	t_hit_point;
 
 typedef struct s_player
 {
@@ -78,9 +87,9 @@ typedef struct s_ray
 	// Distancia perpendicular desde el jugador hasta la pared que el rayo golpea
 	int				map_x; // map_: Coordenadas del bloque del mapa
 	int				map_y;
-	int				step_x;
-	int				step_y;
-	int				side;
+	t_axis			step_x;
+	t_axis			step_y;
+	t_hit_point		side;
 	// Indica si el rayo golpeó una pared vertical (0) u horizontal (1)
 	int				line_height;
 	// Altura de la línea a dibujar en pantalla para esta columna
@@ -136,8 +145,8 @@ int					error(char *message);
 void				error_exit(char *message);
 
 // loading png
-// t_textures		*load_textures(t_game *game);
-// t_img			*load_png(t_game *game);
+void				textures_loading(t_game *game);
+void				img_loading(t_game *game);
 
 // calculations
 void				calculate_ray_direction(t_game *game, int x);
