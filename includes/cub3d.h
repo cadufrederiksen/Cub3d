@@ -6,7 +6,7 @@
 /*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 13:41:06 by carmarqu          #+#    #+#             */
-/*   Updated: 2024/11/19 18:14:58 by carmarqu         ###   ########.fr       */
+/*   Updated: 2024/11/21 16:03:20 by carmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ typedef struct s_ray
 	int			draw_end;
 }				t_ray;
 
+/* no hace falta, estuve mirando y me parece que las texturas son pintadas pixel a pixel, no con una imagen directamente
 typedef struct s_textures
 {
 	mlx_texture_t	*wall;
@@ -89,11 +90,11 @@ typedef struct s_textures
 	mlx_texture_t	*player;
 }					t_textures;
 
-typedef	struct s_img
+ typedef	struct s_img
 {
 	mlx_image_t *player;
 } t_img;
-
+ */
 typedef struct s_game
 {
 	mlx_t		*mlx;		// Todas las funciones de MLX42 trabajan con punteros (mlx_image_t *), por lo que se necesita que img sea un puntero para pasarla correctamente a esas funciones

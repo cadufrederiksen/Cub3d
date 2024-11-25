@@ -6,7 +6,7 @@
 /*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 18:34:11 by sheferna          #+#    #+#             */
-/*   Updated: 2024/11/19 17:34:16 by carmarqu         ###   ########.fr       */
+/*   Updated: 2024/11/20 15:02:30 by carmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,19 +66,17 @@ void	perform_dda(t_game *game)
 void	draw_column(t_game *game, int x)
 {
 	int	y;
-	/* int	color;
+	int	color;
 	
 	if (game->ray.side == 0)
 		color = 0xFF0000; // Rojo si golpea en un eje X
 	else
 		color = 0x00FF00; // Verde si golpea en un eje Y
- */
 	y = game->ray.draw_start;
 	while (y < game->ray.draw_end)
 	{
-		//printf("AQUI\n");
-		mlx_image_to_window(game->mlx, game->pngs->player, x, y);
-		//put_pixel_to_image(game->img, x, y, color);
+		//mlx_image_to_window(game->mlx, game->pngs->player, x, y);
+		put_pixel_to_image(game->img, x, y, color);
 		y++;
 	}
 }
