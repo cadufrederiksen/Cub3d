@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sheferna <sheferna@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 14:13:29 by carmarqu          #+#    #+#             */
-/*   Updated: 2024/11/25 20:28:18 by sheferna         ###   ########.fr       */
+/*   Updated: 2024/11/27 15:33:11 by carmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ int	check_line(char *line, t_game *game, int vert_len) //checkea si los caracter
 				return (0); //no puede haber mas de un spawn
 			spawn++;
 			game->mapsets->spawn = line[x];
+			line[x] = '0';
 			game->mapsets->p_x = x;
 			game->mapsets->p_y = vert_len;
 		}

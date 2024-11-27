@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   moves.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sheferna <sheferna@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 09:42:42 by carmarqu          #+#    #+#             */
-/*   Updated: 2024/11/25 19:12:21 by sheferna         ###   ########.fr       */
+/*   Updated: 2024/11/27 15:13:26 by carmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,4 @@ void	moves(mlx_key_data_t keydata, void *param)
 /* 	else if ((keydata.key == MLX_KEY_LEFT || keydata.key == MLX_KEY_RIGHT) && 
 		(keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT))
 		 */
-		
 }

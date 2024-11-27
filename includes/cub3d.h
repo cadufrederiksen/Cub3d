@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sheferna <sheferna@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 13:41:06 by carmarqu          #+#    #+#             */
-/*   Updated: 2024/11/25 21:26:26 by sheferna         ###   ########.fr       */
+/*   Updated: 2024/11/27 17:18:51 by carmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,7 @@ typedef struct s_game
 void				moves(mlx_key_data_t keydata, void *param);
 
 // parser
+int					check_border(char **map, t_game *game);
 int					ft_strlen_map(const char *s);
 int					get_map(char *file_name, t_game *game);
 int					map_validation(char *argv[1], t_game *game);

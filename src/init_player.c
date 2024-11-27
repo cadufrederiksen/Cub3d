@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_player.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sheferna <sheferna@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 20:30:08 by sheferna          #+#    #+#             */
-/*   Updated: 2024/11/25 20:34:09 by sheferna         ###   ########.fr       */
+/*   Updated: 2024/11/27 15:33:41 by carmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,5 +63,5 @@ void	init_player_from_map(t_game *game)
 	game->player->pos_x = (double)game->mapsets->p_x + 0.5; // + 0.5 para centrar en la celda
 	game->player->pos_y = (double)game->mapsets->p_y + 0.5; // + 0.5 para centrar en la celda
 	set_player_direction(game->player, game->mapsets->spawn);
-	game->mapsets->map[game->mapsets->p_y][game->mapsets->p_x] = '0';
+	//game->mapsets->map[game->mapsets->p_y][game->mapsets->p_x] = '0';
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   load_png.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sheferna <sheferna@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 18:29:28 by sheferna          #+#    #+#             */
-/*   Updated: 2024/11/25 21:21:55 by sheferna         ###   ########.fr       */
+/*   Updated: 2024/11/27 15:07:45 by carmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 // esta funcion es copiada del repo que te pase solo para indicar aqui que esta pendiente de implementarse
 // no se como hacerlo, seguramente tu sepas como hacerlo mejor que yo
 
-/*static mlx_texture_t	*load_png(char *file)
+static mlx_texture_t	*load_png(char *file)
 {
 	int		fd;
 	size_t	filename_len;
@@ -35,7 +35,7 @@
 		&& file[filename_len - 1] == 'g')
 		return (mlx_load_png(file));
 	return (0);
-}*/
+}
 
 void	textures_loading(t_game *game)
 {
