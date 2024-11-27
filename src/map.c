@@ -6,7 +6,7 @@
 /*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 22:29:04 by carmarqu          #+#    #+#             */
-/*   Updated: 2024/11/27 18:26:51 by carmarqu         ###   ########.fr       */
+/*   Updated: 2024/11/27 19:21:02 by carmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ int		check_border(char **map, t_game *game)
 		}
 		x++;
 	}
-	game->mapsets->spawn = 'N';
 	if (check_spaces(map))
 		return (1);
 	return (0);
