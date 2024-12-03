@@ -6,7 +6,7 @@
 /*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 13:41:06 by carmarqu          #+#    #+#             */
-/*   Updated: 2024/11/27 17:18:51 by carmarqu         ###   ########.fr       */
+/*   Updated: 2024/12/03 15:40:19 by carmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # define SCREEN_HEIGHT 480
 # define IMG_SIZE 64
 # define ROTATION_SPEED 0.05
-# define MOV_SPEED 0.1
+# define MOV_SPEED 0.25
 
 # define ERROR_LOADING "Error: Loading process failed\n"
 
@@ -122,8 +122,10 @@ typedef struct s_game
 	mlx_texture_t	*textures[4];
 }					t_game;
 
-// key hooks
+// moves & rotation
 void				moves(mlx_key_data_t keydata, void *param);
+void				move_player(double x, double y, t_game *game);
+void				rotate(t_game *game, int dir);
 
 // parser
 int					check_border(char **map, t_game *game);

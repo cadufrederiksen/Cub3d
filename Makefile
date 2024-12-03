@@ -32,7 +32,8 @@ OBJS_DIR = obj/
 
 SRC_FILES = main.c input.c init.c map.c utils.c \
 			init_player.c error.c load_png.c free.c moves.c \
-			calculations.c raycast_utils.c raycasting.c
+			calculations.c raycast_utils.c raycasting.c \
+			check_moves.c
 SRCS = $(addprefix $(SRCS_DIR), $(SRC_FILES))
 OBJS_FILES = $(addprefix $(OBJS_DIR), $(SRC_FILES:.c=.o))
 
