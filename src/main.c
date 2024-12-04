@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sheferna <sheferna@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 13:08:18 by carmarqu          #+#    #+#             */
-/*   Updated: 2024/11/27 18:27:19 by carmarqu         ###   ########.fr       */
+/*   Updated: 2024/12/03 20:11:49 by sheferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	map_validation(char *argv[1], t_game *game)
 int	main(int argc, char **argv)
 {
 	t_game	*game;
-(void)**argv;
+
 	if (argc != 2)
 		return (error("Error: Wrong number of arguments\n"));
 	game = calloc(1, sizeof(t_game));
@@ -67,6 +67,8 @@ int	main(int argc, char **argv)
 	game->img = mlx_new_image(game->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
 	if (!game->img)
 		return (free_game(game), error("Error: Image creation failed\n"));
+	textures_loading(game);
+	img_loading(game);
 	mlx_resize_hook(game->mlx, &resize_ptr, game);//puede que no sea necesario
 	mlx_key_hook(game->mlx, moves, game);		
 	mlx_loop_hook(game->mlx, (void (*)(void *))draw_frame, game); // rendering config

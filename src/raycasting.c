@@ -6,7 +6,7 @@
 /*   By: sheferna <sheferna@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 18:34:11 by sheferna          #+#    #+#             */
-/*   Updated: 2024/11/25 19:00:32 by sheferna         ###   ########.fr       */
+/*   Updated: 2024/12/03 20:30:22 by sheferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	perform_dda(t_game *game)
 }
 
 // calcular las coordenadas de la textura y extraer los píxeles
-void	draw_column(t_game *game, int x)
+/* void	draw_column(t_game *game, int x)
 {
 	int	y;
 	int	color;
@@ -76,6 +76,58 @@ void	draw_column(t_game *game, int x)
 	while (y < game->ray->draw_end)
 	{
 		//mlx_image_to_window(game->mlx, game->pngs->player, x, y);
+		put_pixel_to_image(game->img, x, y, color);
+		y++;
+	}
+} */
+
+void	draw_column(t_game *game, int x)
+{
+	int	y;
+	int	tex_y;
+	int	color;
+	mlx_texture_t *texture;
+	double wall_x; // Variable local para calcular wall_x
+
+	// Selección de la textura según el lado golpeado
+	if (game->ray->side == 1)
+	{
+		if (game->ray->raydir_y > 0)
+			texture = game->textures[SOUTH];
+		else
+			texture = game->textures[NORTH];
+	}
+	else
+	{
+		if (game->ray->raydir_x > 0)
+			texture = game->textures[EAST];
+		else
+			texture = game->textures[WEST];
+	}
+
+	// Calcular wall_x dinámicamente
+	if (game->ray->side == 0)
+		wall_x = game->player->pos_y + game->ray->perp_walldist * game->ray->raydir_y;
+	else
+		wall_x = game->player->pos_x + game->ray->perp_walldist * game->ray->raydir_x;
+	wall_x -= floor(wall_x); // Mantener solo la parte decimal
+
+	// Cálculo de tex_x basado en wall_x
+	game->texture->tex_x = (int)(wall_x * (double)texture->width);
+	if (game->ray->side == 0 && game->ray->raydir_x > 0)
+		game->texture->tex_x = texture->width - game->texture->tex_x - 1;
+	else if (game->ray->side == 1 && game->ray->raydir_y < 0)
+		game->texture->tex_x = texture->width - game->texture->tex_x - 1;
+
+	// Dibuja la columna, píxel por píxel
+	y = game->ray->draw_start;
+	while (y < game->ray->draw_end)
+	{
+		// Calcula tex_y para cada píxel
+		tex_y = (int)(((y - game->ray->draw_start) * texture->height) / game->ray->line_height);
+		// Obtén el color del píxel de la textura
+		color = *(int *)(texture->pixels + (tex_y * texture->width + game->texture->tex_x) * 4);
+		// Dibuja el píxel en la pantalla
 		put_pixel_to_image(game->img, x, y, color);
 		y++;
 	}
