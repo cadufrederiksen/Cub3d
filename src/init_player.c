@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_player.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sheferna <sheferna@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 20:30:08 by sheferna          #+#    #+#             */
-/*   Updated: 2024/11/27 15:33:41 by carmarqu         ###   ########.fr       */
+/*   Updated: 2024/12/07 17:56:26 by sheferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	set_player_direction(t_player *player, char spawn)
 void	init_player_from_map(t_game *game)
 {
 	if (game->mapsets->spawn == 0)
-		error_exit("Error: Player spawn not found\n");
+		error_exit("Error: Player spawn not found\n", game);
 	game->player->pos_x = (double)game->mapsets->p_x + 0.5; // + 0.5 para centrar en la celda
 	game->player->pos_y = (double)game->mapsets->p_y + 0.5; // + 0.5 para centrar en la celda
 	set_player_direction(game->player, game->mapsets->spawn);

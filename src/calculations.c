@@ -6,7 +6,7 @@
 /*   By: sheferna <sheferna@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 14:32:26 by sheferna          #+#    #+#             */
-/*   Updated: 2024/11/25 19:02:36 by sheferna         ###   ########.fr       */
+/*   Updated: 2024/12/07 17:48:53 by sheferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,11 @@ void	calculate_perp_wall_dist(t_game *game)
 
 void	calculate_draw_limits(t_game *game)
 {
+	if (game->ray->perp_walldist <= 0)
+    {
+        error("Error: Invalid perpendicular wall distance\n");
+        return ;
+    }
 	if (game->ray->perp_walldist == 0)
 		game->ray->perp_walldist = 1e-6; // Evitar división por 0
 	game->ray->line_height = (int)(SCREEN_HEIGHT / game->ray->perp_walldist);

@@ -6,7 +6,7 @@
 /*   By: sheferna <sheferna@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 18:29:28 by sheferna          #+#    #+#             */
-/*   Updated: 2024/12/03 20:16:43 by sheferna         ###   ########.fr       */
+/*   Updated: 2024/12/07 18:57:33 by sheferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,28 +32,28 @@ static mlx_texture_t	*load_png(char *file)
 
 void	textures_loading(t_game *game)
 {
-	game->textures[NORTH] = load_png(game->mapsets->no_path); //load_png no esta implementada aun
+	game->textures[NORTH] = load_png(game->mapsets->no_path);
 	if (!game->textures[NORTH])
-		return (free_game(game), error_exit(ERROR_LOADING));
+		return (error_exit(ERROR_LOADING, game));
 	game->textures[SOUTH] = load_png(game->mapsets->so_path);
 	if (!game->textures[SOUTH])
-		return (free_game(game), error_exit(ERROR_LOADING));
+		return (error_exit(ERROR_LOADING, game));
 	game->textures[EAST] = load_png(game->mapsets->ea_path);
 	if (!game->textures[EAST])
-		return (free_game(game), error_exit(ERROR_LOADING));
+		return (error_exit(ERROR_LOADING, game));
 	game->textures[WEST] = load_png(game->mapsets->we_path);
 	if (!game->textures[WEST])
-		return (free_game(game), error_exit(ERROR_LOADING));
+		return (error_exit(ERROR_LOADING, game));
 }
 
 void	img_loading(t_game *game)
 {
 	game->img = mlx_new_image(game->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
 	if (!game->img)
-		return (free_game(game), error_exit(ERROR_LOADING));
+		return (error_exit(ERROR_LOADING, game));
 	game->frame = mlx_new_image(game->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
 	if (!game->frame)
-		return (free_game(game), error_exit(ERROR_LOADING));
+		return (error_exit(ERROR_LOADING, game));
 	mlx_image_to_window(game->mlx, game->frame, 0, 0);
 	mlx_image_to_window(game->mlx, game->img, 0, 0);
 }

@@ -6,7 +6,7 @@
 /*   By: sheferna <sheferna@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 18:24:36 by sheferna          #+#    #+#             */
-/*   Updated: 2024/11/25 20:19:39 by sheferna         ###   ########.fr       */
+/*   Updated: 2024/12/07 17:56:04 by sheferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,10 @@ int	error(char *message)
 	return (1);
 }
 
-void	error_exit(char *message)
+void	error_exit(char *message, t_game *game)
 {
 	ft_fprintf(2, message);
+	if (game)
+        free_game(game);
 	exit(1);
 }

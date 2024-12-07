@@ -30,8 +30,9 @@ endif
 SRCS_DIR = src/
 OBJS_DIR = obj/
 
-SRC_FILES = main.c input.c init.c map.c utils.c ceiling_floor_render.c \
+SRC_FILES = main.c input.c init.c map.c utils.c validation.c \
 			init_player.c error.c load_png.c free.c moves.c \
+			draw_ceiling_floor.c draw_column.c \
 			calculations.c raycast_utils.c raycasting.c \
 			check_moves.c
 SRCS = $(addprefix $(SRCS_DIR), $(SRC_FILES))

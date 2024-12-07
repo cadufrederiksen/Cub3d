@@ -6,7 +6,7 @@
 /*   By: sheferna <sheferna@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 18:34:11 by sheferna          #+#    #+#             */
-/*   Updated: 2024/12/07 17:21:46 by sheferna         ###   ########.fr       */
+/*   Updated: 2024/12/07 18:59:20 by sheferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,68 +67,6 @@ void	perform_dda(t_game *game)
 			hit = 1;
 	}
 }
-/* 
-Selecciona la textura según el lado golpeado (side) y la dirección del rayo.
-Calcula wall_x para encontrar la posición precisa del impacto en la pared 
-y usa esto para determinar las coordenadas de la textura (tex_x y tex_y).
- */
-void	draw_column(t_game *game, int x)
-{
-	int	y;
-	int	tex_y = 0;
-	int	colour;
-	mlx_texture_t *texture = NULL;
-	double wall_x; // Variable local para calcular wall_x
-
-	// Selección de la textura según el lado golpeado
-	if (game->ray->side == 1)
-	{
-		if (game->ray->raydir_y > 0)
-			texture = game->textures[SOUTH];
-		else
-			texture = game->textures[NORTH];
-	}
-	else
-	{
-		if (game->ray->raydir_x > 0)
-			texture = game->textures[EAST];
-		else
-			texture = game->textures[WEST];
-	}
-
-	// Calcular wall_x dinámicamente
-	if (game->ray->side == 0)
-		wall_x = game->player->pos_y + game->ray->perp_walldist * game->ray->raydir_y;
-	else
-		wall_x = game->player->pos_x + game->ray->perp_walldist * game->ray->raydir_x;
-	wall_x -= my_floor(wall_x); // Mantener solo la parte decimal
-
-	// Cálculo de tex_x basado en wall_x
-	game->texture->tex_x = (int)(wall_x * (double)texture->width);
-	if (game->ray->side == 0 && game->ray->raydir_x > 0)
-		game->texture->tex_x = texture->width - game->texture->tex_x - 1;
-	else if (game->ray->side == 1 && game->ray->raydir_y < 0)
-		game->texture->tex_x = texture->width - game->texture->tex_x - 1;
-
-	// Dibuja la columna, píxel por píxel
-	y = game->ray->draw_start;
-	while (y < game->ray->draw_end)
-	{
-		// Calcula tex_y para cada píxel
-		//tex_y = (int)(((y - game->ray->draw_start) * texture->height) / game->ray->line_height);
-		tex_y = (int)((double)(y - game->ray->draw_start) / game->ray->line_height * texture->height);
-		// Obtén el color del píxel de la textura
-		colour = *(int *)(texture->pixels + (tex_y * texture->width + game->texture->tex_x) * 4);
-		//uint8_t *pixel = texture->pixels + (tex_y * texture->width + game->texture->tex_x) * 4;
-		//colour = (pixel[2] << 16) | (pixel[1] << 8) | (pixel[0]) | (0xFF << 24);
-
-		// Dibuja el píxel en la pantalla
-		put_pixel_to_image(game->img, x, y, colour);
-		y++;
-	}
-}
-
-
 
 // Launch a ray to calculate an intersection with the walls
 void	cast_ray(t_game *game, int x)
@@ -162,23 +100,3 @@ void	draw_frame(t_game *game)
 	// Update the window with the rendered image
 	mlx_image_to_window(game->mlx, game->img, 0, 0);
 }
-
-
-// calcular las coordenadas de la textura y extraer los píxeles
-/* void	draw_column(t_game *game, int x)
-{
-	int	y;
-	int	color;
-
-	if (game->ray->side == 0)
-		color = 0xFF0000; // Rojo si golpea en un eje X
-	else
-		color = 0x00FF00; // Verde si golpea en un eje Y
-	y = game->ray->draw_start;
-	while (y < game->ray->draw_end)
-	{
-		//mlx_image_to_window(game->mlx, game->pngs->player, x, y);
-		put_pixel_to_image(game->img, x, y, color);
-		y++;
-	}
-} */

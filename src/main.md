@@ -6,7 +6,7 @@
 /*   By: sheferna <sheferna@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 13:08:18 by carmarqu          #+#    #+#             */
-/*   Updated: 2024/12/07 18:32:57 by sheferna         ###   ########.fr       */
+/*   Updated: 2024/12/07 18:18:00 by sheferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ int main(int argc, char **argv)
 	game = allocate_game();
     if (map_validation(argv, game))
         error_exit("Error: Map validation failed\n", game);
+    if (validate_texture_paths(game->mapsets))
+        error_exit("Error: Invalid texture paths\n", game);
     init_player_from_map(game);
     game->mlx = mlx_init(SCREEN_WIDTH, SCREEN_HEIGHT, "Cub3D", true);
     if (!game->mlx)
