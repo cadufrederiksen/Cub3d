@@ -6,7 +6,7 @@
 /*   By: sheferna <sheferna@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 13:08:18 by carmarqu          #+#    #+#             */
-/*   Updated: 2024/12/03 20:11:49 by sheferna         ###   ########.fr       */
+/*   Updated: 2024/12/07 14:26:51 by sheferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ int	main(int argc, char **argv)
 	textures_loading(game);
 	img_loading(game);
 	mlx_resize_hook(game->mlx, &resize_ptr, game);//puede que no sea necesario
+	//ceil_and_floor();
 	mlx_key_hook(game->mlx, moves, game);		
 	mlx_loop_hook(game->mlx, (void (*)(void *))draw_frame, game); // rendering config
 	mlx_loop(game->mlx); // start the event loop

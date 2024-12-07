@@ -30,7 +30,7 @@ endif
 SRCS_DIR = src/
 OBJS_DIR = obj/
 
-SRC_FILES = main.c input.c init.c map.c utils.c \
+SRC_FILES = main.c input.c init.c map.c utils.c ceiling_floor_render.c \
 			init_player.c error.c load_png.c free.c moves.c \
 			calculations.c raycast_utils.c raycasting.c \
 			check_moves.c

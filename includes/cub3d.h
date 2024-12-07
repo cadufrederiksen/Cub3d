@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sheferna <sheferna@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 13:41:06 by carmarqu          #+#    #+#             */
-/*   Updated: 2024/12/03 15:40:19 by carmarqu         ###   ########.fr       */
+/*   Updated: 2024/12/07 17:25:06 by sheferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,8 @@ typedef struct s_game
 	t_texture_data	*texture;
 	// Almacena las texturas necesarias para renderizar los elementos
 	mlx_texture_t	*textures[4];
+	int				ceiling_colour; // Color precalculado del techo
+    int				floor_colour;   // Color precalculado del suelo
 }					t_game;
 
 // moves & rotation
@@ -157,6 +159,11 @@ void				calculate_delta_dist(t_game *game);
 void				calculate_perp_wall_dist(t_game *game);
 void				calculate_draw_limits(t_game *game);
 
+// ceiling and floor render
+void	precalculate_colours(t_game *game);
+void	draw_ceiling(t_game *game, int x);
+void	draw_floor(t_game *game, int x);
+
 // raycasting
 int					put_pixel_to_image(mlx_image_t *img, int x, int y,
 						int color);
@@ -166,5 +173,6 @@ void				perform_dda(t_game *game);
 void				draw_column(t_game *game, int x);
 void				cast_ray(t_game *game, int x);
 void				draw_frame(t_game *game);
+double 				my_floor(double x);
 
 #endif
