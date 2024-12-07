@@ -6,7 +6,7 @@
 /*   By: sheferna <sheferna@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 18:34:13 by sheferna          #+#    #+#             */
-/*   Updated: 2024/12/07 18:42:33 by sheferna         ###   ########.fr       */
+/*   Updated: 2024/12/07 19:21:11 by sheferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,5 +73,6 @@ void				draw_column(t_game *game, int x);
 void				cast_ray(t_game *game, int x);
 void				draw_frame(t_game *game);
 double 				my_floor(double x);
+double				my_fabs(double x);
 
 #endif

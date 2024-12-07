@@ -6,7 +6,7 @@
 /*   By: sheferna <sheferna@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 17:35:19 by sheferna          #+#    #+#             */
-/*   Updated: 2024/12/07 17:49:55 by sheferna         ###   ########.fr       */
+/*   Updated: 2024/12/07 20:15:28 by sheferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 mlx_texture_t *select_texture(t_game *game)
 {
-    if (!game || !game->ray)
-        return (error("Error: Game or ray structure is NULL\n"), NULL);
     if (game->ray->side == 1)
     {
         if (game->ray->raydir_y > 0)
@@ -62,29 +60,36 @@ y usa esto para determinar las coordenadas de la textura (tex_x y tex_y).
  */
 void	draw_column(t_game *game, int x)
 {
-	int	y;
-	int	tex_y;
-	int	colour;
-	mlx_texture_t *texture;
-	double wall_x;
+	int				y;
+	mlx_texture_t	*texture;
+	double			wall_x;
+	uint8_t			*pixel;
+	int				colour;
 
-	y = 0;
-	tex_y = 0;
-	texture = NULL;
 	texture = select_texture(game); // Selección de la textura según el lado golpeado
 	wall_x = calculate_wall_x(game); // Calcular wall_x dinámicamente
 	game->texture->tex_x = calculate_tex_x(game, texture, wall_x); // Cálculo de tex_x basado en wall_x
-	y = game->ray->draw_start; // Dibuja la columna, píxel por píxel
-	while (y < game->ray->draw_end)
+	game->texture->step = 1.0 * IMG_SIZE / game->ray->line_height;
+    game->texture->tex_pos = (game->ray->draw_start - SCREEN_HEIGHT / 2 + 
+    game->ray->line_height / 2) * game->texture->step;
+	y = game->ray->draw_start - 1; // Dibuja la columna, píxel por píxel
+	while (++y < game->ray->draw_end)
 	{
 		// Calcula tex_y para cada píxel
-		//tex_y = (int)(((y - game->ray->draw_start) * texture->height) / game->ray->line_height);
-		tex_y = (int)((double)(y - game->ray->draw_start) / game->ray->line_height * texture->height);
-		// Obtén el color del píxel de la textura
-		colour = *(int *)(texture->pixels + (tex_y * texture->width + game->texture->tex_x) * 4);
-		//uint8_t *pixel = texture->pixels + (tex_y * texture->width + game->texture->tex_x) * 4;
-		//colour = (pixel[2] << 16) | (pixel[1] << 8) | (pixel[0]) | (0xFF << 24);
-		put_pixel_to_image(game->img, x, y, colour); // Dibuja el píxel en la pantalla
-		y++;
+		game->texture->tex_y = (int)(game->texture->tex_pos) & (IMG_SIZE - 1);
+		game->texture->tex_pos += game->texture->step;
+		pixel = &texture->pixels[IMG_SIZE * game->texture->tex_y * 4 + 
+                                  game->texture->tex_x * 4];
+        colour = pixel[0] << 24 | pixel[1] << 16 | pixel[2] << 8 | pixel[3];
+        mlx_put_pixel(game->img, x, y, colour);
 	}
 }
+
+/* 
+Construcción del color:
+
+pixel[2] << 16: Componente roja en el formato RGB.
+pixel[1] << 8: Componente verde.
+pixel[0]: Componente azul.
+0xFF << 24: Canal alfa (opacidad).
+ */

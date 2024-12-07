@@ -6,7 +6,7 @@
 /*   By: sheferna <sheferna@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 14:32:26 by sheferna          #+#    #+#             */
-/*   Updated: 2024/12/07 17:48:53 by sheferna         ###   ########.fr       */
+/*   Updated: 2024/12/07 19:21:21 by sheferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,12 @@ void	calculate_delta_dist(t_game *game)
 	if (game->ray->raydir_x == 0)
 		game->ray->deltadist_x = 1e30;
 	else
-		game->ray->deltadist_x = fabs(1 / game->ray->raydir_x); //numero absoluto
+		game->ray->deltadist_x = my_fabs(1 / game->ray->raydir_x); //numero absoluto
 
 	if (game->ray->raydir_y == 0)
 		game->ray->deltadist_y = 1e30;
 	else
-		game->ray->deltadist_y = fabs(1 / game->ray->raydir_y);
+		game->ray->deltadist_y = my_fabs(1 / game->ray->raydir_y);
 }
 
 void	calculate_perp_wall_dist(t_game *game)

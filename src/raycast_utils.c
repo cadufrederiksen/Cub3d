@@ -6,7 +6,7 @@
 /*   By: sheferna <sheferna@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 14:30:57 by sheferna          #+#    #+#             */
-/*   Updated: 2024/12/07 13:08:02 by sheferna         ###   ########.fr       */
+/*   Updated: 2024/12/07 19:20:48 by sheferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,11 @@ double my_floor(double x)
     if (x == (double)int_part)
         return x; // Si es un número entero negativo, devolver tal cual
     return (double)(int_part - 1); // Si es negativo y tiene parte decimal, restar 1
+}
+
+double my_fabs(double x)
+{
+    if (x < 0)
+        return -x;
+    return x;
 }

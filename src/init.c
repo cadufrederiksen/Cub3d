@@ -6,7 +6,7 @@
 /*   By: sheferna <sheferna@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 10:43:12 by carmarqu          #+#    #+#             */
-/*   Updated: 2024/11/25 20:29:54 by sheferna         ###   ########.fr       */
+/*   Updated: 2024/12/07 19:55:52 by sheferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,8 @@ int	init_game(t_game *game)
 		return (1);
 	init_texture(game->texture);
 	game->textures[0] = NULL;
+	game->ceiling_colour = 0;
+	game->floor_colour = 0;
 	return (0);
 }
 
