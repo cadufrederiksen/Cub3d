@@ -6,7 +6,7 @@
 /*   By: sheferna <sheferna@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 15:46:05 by carmarqu          #+#    #+#             */
-/*   Updated: 2024/12/07 18:05:26 by sheferna         ###   ########.fr       */
+/*   Updated: 2024/12/12 15:24:30 by sheferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	ft_strlen_map(const char *s)
 	return (i);
 }
 
-char	*cut_line (char *line, t_game *game)
+char	*cut_line(char *line, t_game *game)
 {
 	int		x;
 	char	*path;

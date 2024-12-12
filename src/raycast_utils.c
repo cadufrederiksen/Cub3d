@@ -6,7 +6,7 @@
 /*   By: sheferna <sheferna@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 14:30:57 by sheferna          #+#    #+#             */
-/*   Updated: 2024/12/07 19:20:48 by sheferna         ###   ########.fr       */
+/*   Updated: 2024/12/12 15:23:37 by sheferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,21 +52,21 @@ void	clear_image(mlx_image_t *img)
 	ft_memset(img->pixels, 0, img->width * img->height * 4);
 }
 
-double my_floor(double x)
+double	my_floor(double x)
 {
-    int int_part;
+	int	int_part;
 
-    int_part = (int)x; // Truncar la parte decimal
-    if (x >= 0)
-        return (double)int_part; // Si es positivo, devolver directamente la parte entera
-    if (x == (double)int_part)
-        return x; // Si es un número entero negativo, devolver tal cual
-    return (double)(int_part - 1); // Si es negativo y tiene parte decimal, restar 1
+	int_part = (int)x; // Truncar la parte decimal
+	if (x >= 0)
+		return ((double)int_part); // Si es positivo, devolver directamente la parte entera
+	if (x == (double)int_part)
+		return (x); // Si es un número entero negativo, devolver tal cual
+	return (double)(int_part - 1); // Si es negativo y tiene parte decimal, restar 1
 }
 
-double my_fabs(double x)
+double	my_fabs(double x)
 {
-    if (x < 0)
-        return -x;
-    return x;
+	if (x < 0)
+		return (-x);
+	return (x);
 }

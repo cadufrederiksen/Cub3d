@@ -6,7 +6,7 @@
 /*   By: sheferna <sheferna@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 18:34:11 by sheferna          #+#    #+#             */
-/*   Updated: 2024/12/07 18:59:20 by sheferna         ###   ########.fr       */
+/*   Updated: 2024/12/12 15:24:04 by sheferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,22 +21,26 @@ void	initialize_step_and_side_dist(t_game *game)
 	if (game->ray->raydir_x < 0)
 	{
 		game->ray->step_x = -1;
-		game->ray->sidedist_x = (game->player->pos_x - game->ray->map_x) * game->ray->deltadist_x;
+		game->ray->sidedist_x = (game->player->pos_x - game->ray->map_x)
+			* game->ray->deltadist_x;
 	}
 	else
 	{
 		game->ray->step_x = 1;
-		game->ray->sidedist_x = (game->ray->map_x + 1.0 - game->player->pos_x) * game->ray->deltadist_x;
+		game->ray->sidedist_x = (game->ray->map_x + 1.0 - game->player->pos_x)
+			* game->ray->deltadist_x;
 	}
 	if (game->ray->raydir_y < 0)
 	{
 		game->ray->step_y = -1;
-		game->ray->sidedist_y = (game->player->pos_y - game->ray->map_y) * game->ray->deltadist_y;
+		game->ray->sidedist_y = (game->player->pos_y - game->ray->map_y)
+			* game->ray->deltadist_y;
 	}
 	else
 	{
 		game->ray->step_y = 1;
-		game->ray->sidedist_y = (game->ray->map_y + 1.0 - game->player->pos_y) * game->ray->deltadist_y;
+		game->ray->sidedist_y = (game->ray->map_y + 1.0 - game->player->pos_y)
+			* game->ray->deltadist_y;
 	}
 }
 /* 
