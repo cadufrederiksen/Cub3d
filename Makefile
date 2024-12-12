@@ -4,8 +4,8 @@ LIBMLX = MLX42
 HEADERS = includes/cub3d.h
 INCLUDES = -I ./includes -I libft/include/ -I $(LIBMLX)/include
 
-#CC = clang #doesnt require -no-pie flag
-CC = gcc #requires flag -no-pie in main execution #PIE (Position Independent Executable) en la linea 45 antes del -o en Ubuntu
+CC = clang #doesnt require -no-pie flag
+#CC = gcc #requires flag -no-pie in main execution #PIE (Position Independent Executable) 
 CFLAGS = -Wall -Wextra -Werror -g
 
 AR = ar rcs
@@ -30,9 +30,11 @@ endif
 SRCS_DIR = src/
 OBJS_DIR = obj/
 
-SRC_FILES = main.c input.c init.c map.c utils.c \
-			load_png.c free.c moves.c \
-			calculations.c raycast_utils.c raycasting.c
+SRC_FILES = main.c input.c init.c map.c utils.c validation.c \
+			init_player.c error.c loading.c free.c moves.c \
+			draw_ceiling_floor.c draw_column.c \
+			calculations.c raycast_utils.c raycasting.c \
+			check_moves.c
 SRCS = $(addprefix $(SRCS_DIR), $(SRC_FILES))
 OBJS_FILES = $(addprefix $(OBJS_DIR), $(SRC_FILES:.c=.o))
 

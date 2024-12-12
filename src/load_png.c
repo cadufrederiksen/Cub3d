@@ -6,7 +6,7 @@
 /*   By: sheferna <sheferna@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 18:29:28 by sheferna          #+#    #+#             */
-/*   Updated: 2024/11/21 17:20:50 by sheferna         ###   ########.fr       */
+/*   Updated: 2024/12/12 15:00:41 by sheferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,3 +58,4 @@ t_textures	*load_textures(t_game *game)
 	}
 	return (game->textures);
 }
+

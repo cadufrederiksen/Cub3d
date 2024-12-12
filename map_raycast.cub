@@ -1,10 +1,10 @@
-NO textures/north.png
-SO textures/south.png
-WE textures/west.png
-EA textures/east.png
+NO textures/rojo.png
+SO textures/gris.png
+WE textures/piedra.png
+EA textures/gris_amarillo.png
 
-F 255, 0, 60
-C 00,0, 12
+F 192, 192, 192
+C 135, 206, 235
 
 1111111111111111111111111
 1000000000110000000000011

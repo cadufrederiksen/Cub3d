@@ -3,39 +3,47 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sheferna <sheferna@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 18:34:11 by sheferna          #+#    #+#             */
-/*   Updated: 2024/11/19 17:34:16 by carmarqu         ###   ########.fr       */
+/*   Updated: 2024/12/07 18:59:20 by sheferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
+/* 
+Calcula los pasos step_x y step_y en función de la dirección del rayo, 
+y configura las distancias iniciales (sidedist_x y sidedist_y) 
+utilizando las coordenadas del jugador y la distancia delta.
+ */
 void	initialize_step_and_side_dist(t_game *game)
 {
-	if (game->ray.raydir_x < 0)
+	if (game->ray->raydir_x < 0)
 	{
-		game->ray.step_x = -1;
-		game->ray.sidedist_x = (game->player.pos_x - game->ray.map_x) * game->ray.deltadist_x;
+		game->ray->step_x = -1;
+		game->ray->sidedist_x = (game->player->pos_x - game->ray->map_x) * game->ray->deltadist_x;
 	}
 	else
 	{
-		game->ray.step_x = 1;
-		game->ray.sidedist_x = (game->ray.map_x + 1.0 - game->player.pos_x) * game->ray.deltadist_x;
+		game->ray->step_x = 1;
+		game->ray->sidedist_x = (game->ray->map_x + 1.0 - game->player->pos_x) * game->ray->deltadist_x;
 	}
-	if (game->ray.raydir_y < 0)
+	if (game->ray->raydir_y < 0)
 	{
-		game->ray.step_y = -1;
-		game->ray.sidedist_y = (game->player.pos_y - game->ray.map_y) * game->ray.deltadist_y;
+		game->ray->step_y = -1;
+		game->ray->sidedist_y = (game->player->pos_y - game->ray->map_y) * game->ray->deltadist_y;
 	}
 	else
 	{
-		game->ray.step_y = 1;
-		game->ray.sidedist_y = (game->ray.map_y + 1.0 - game->player.pos_y) * game->ray.deltadist_y;
+		game->ray->step_y = 1;
+		game->ray->sidedist_y = (game->ray->map_y + 1.0 - game->player->pos_y) * game->ray->deltadist_y;
 	}
 }
-
+/* 
+Implementa algoritmo de DDA (Digital Differential Analysis) 
+para avanzar a través de las celdas del mapa.
+Usa side para distinguir si el rayo golpeó en un eje X o Y.
+ */
 void	perform_dda(t_game *game)
 {
 	int	hit;
@@ -43,43 +51,20 @@ void	perform_dda(t_game *game)
 	hit = 0;
 	while (hit == 0)
 	{
-		if (game->ray.sidedist_x < game->ray.sidedist_y)
+		if (game->ray->sidedist_x < game->ray->sidedist_y)
 		{
-			game->ray.sidedist_x += game->ray.deltadist_x;
-			game->ray.map_x += game->ray.step_x;
-			game->ray.side = 0;
+			game->ray->sidedist_x += game->ray->deltadist_x;
+			game->ray->map_x += game->ray->step_x;
+			game->ray->side = 0;
 		}
 		else
 		{
-			game->ray.sidedist_y += game->ray.deltadist_y;
-			game->ray.map_y += game->ray.step_y;
-			game->ray.side = 1;
+			game->ray->sidedist_y += game->ray->deltadist_y;
+			game->ray->map_y += game->ray->step_y;
+			game->ray->side = 1;
 		}
-		//ft_printf("Checking map at (%d, %d): %c\n",
-                  //game->ray.map_x, game->ray.map_y, game->mapsets->map[game->ray.map_y][game->ray.map_x]);
-		if (game->mapsets->map[game->ray.map_y][game->ray.map_x] == '1')
+		if (game->mapsets->map[game->ray->map_y][game->ray->map_x] == '1')
 			hit = 1;
-	}
-}
-
-// calcular las coordenadas de la textura y extraer los píxeles
-void	draw_column(t_game *game, int x)
-{
-	int	y;
-	/* int	color;
-	
-	if (game->ray.side == 0)
-		color = 0xFF0000; // Rojo si golpea en un eje X
-	else
-		color = 0x00FF00; // Verde si golpea en un eje Y
- */
-	y = game->ray.draw_start;
-	while (y < game->ray.draw_end)
-	{
-		//printf("AQUI\n");
-		mlx_image_to_window(game->mlx, game->pngs->player, x, y);
-		//put_pixel_to_image(game->img, x, y, color);
-		y++;
 	}
 }
 
@@ -92,17 +77,18 @@ void	cast_ray(t_game *game, int x)
 	perform_dda(game);
 	calculate_perp_wall_dist(game);
 	calculate_draw_limits(game);
-	//ft_printf("Ray %d: draw_start=%d, draw_end=%d, perp_dist=%f\n",
-              //x, game->ray.draw_start, game->ray.draw_end, game->ray.perp_walldist);
-	//output: Ray 799: draw_start=300, draw_end=300, perp_dist=f
-	draw_column(game, x);
+	draw_ceiling(game, x); // Dibuja el techo antes de `draw_start`
+    draw_column(game, x); // Renderizar columna de la textura de pared
+	draw_floor(game, x); // Dibuja el suelo después de `draw_end`
 }
 
 // Renderiing the full frame
+// Llama a cast_ray para cada columna de píxeles y actualiza la ventana con la imagen renderizada.
 void	draw_frame(t_game *game)
 {
 	int	x;
 
+	precalculate_colours(game); // Calcula los colores una vez por frame
 	clear_image(game->img); // Clean the image before drawing
 	// Launch a ray for each column of pixels
 	x = 0;

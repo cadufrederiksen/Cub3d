@@ -6,25 +6,59 @@
 /*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 22:29:04 by carmarqu          #+#    #+#             */
-/*   Updated: 2024/11/15 13:57:57 by carmarqu         ###   ########.fr       */
+/*   Updated: 2024/11/27 19:21:02 by carmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-/* void	flood_fill(int y, int x, t_game *game)
+int		check_spaces(char **map)
 {
+	int x;
+	int i;
 
-	if (game->mapsets->map[y][x] == '1' || game->mapsets->map[y][x] == 'x'
-		|| game->mapsets->map[y][x] == 'c' || game->mapsets->map[y][x] == 'e')
-		return ;
-	if (game->mapsets->map[y][x] == '0')
-		game->mapsets->map[y][x] = 'x';
-	flood_fill(y, x - 1, game);
-	flood_fill(y - 1, x, game);
-	flood_fill(y + 1, x, game);
-	flood_fill(y, x + 1, game);
-} */
+	x = 0;
+	while (map[x])
+	{
+		i = 0;
+		while (map[x][i])
+		{
+			if (map[x][i] == '0')
+			{
+				if (map[x - 1][i] == ' ' || map[x + 1][i] == ' '
+					|| map[x][i + 1] == ' ' || map[x][i - 1] == ' ')
+						return (1);
+			}
+			i++;		
+		}
+		x++;
+	}
+	return (0);
+}
+
+int		check_border(char **map, t_game *game)
+{
+	int x;
+	int i;
+	
+	x = 0;
+	while (map[x])
+	{
+		i = 0;
+		if (map[x][i] == '0' || map[x][ft_strlen_map(map[x]) - 1] == '0')
+				return (1);
+		while (map[x][i])
+		{	
+			if (map[game->mapsets->vert_len - 1][i] == '0' || map[0][i] == '0')
+				return (1);
+			i++;
+		}
+		x++;
+	}
+	if (check_spaces(map))
+		return (1);
+	return (0);
+}
 
 int		is_map(char *line)//buscar manera de checkear si hay los 6 elementos
 {
