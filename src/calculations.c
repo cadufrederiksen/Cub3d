@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   calculations.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sheferna <sheferna@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 14:32:26 by sheferna          #+#    #+#             */
-/*   Updated: 2024/12/12 15:18:57 by sheferna         ###   ########.fr       */
+/*   Updated: 2024/12/13 15:48:48 by carmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	calculate_perp_wall_dist(t_game *game)
 
 void	calculate_draw_limits(t_game *game)
 {
-	if (game->ray->perp_walldist <= 0)
+	if (game->ray->perp_walldist < 0)
 	{
 		error("Error: Invalid perpendicular wall distance\n");
 		return ;

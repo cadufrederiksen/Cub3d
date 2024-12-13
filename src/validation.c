@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validation.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sheferna <sheferna@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 20:02:39 by sheferna          #+#    #+#             */
-/*   Updated: 2024/12/12 15:25:18 by sheferna         ###   ########.fr       */
+/*   Updated: 2024/12/13 14:14:21 by carmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,12 @@ int	map_validation(char *argv[1], t_game *game)
 		&& argv[1][x - 3] == '.')
 	{
 		if (!check_input(argv[1], game))
-			return (free_game(game), 1);
+			return (1);
 	}
 	else
-		return (free_game(game), error("Error: Map name is wrong\n"));
+		return (error("Error: Map name is wrong\n"));
 	if (check_border(game->mapsets->map, game))
-		return (free_game(game),
-			error("Error: Map is not surrounded by walls\n"));
+		return (error("Error: Map is not surrounded by walls\n"));
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 22:29:04 by carmarqu          #+#    #+#             */
-/*   Updated: 2024/11/27 19:21:02 by carmarqu         ###   ########.fr       */
+/*   Updated: 2024/12/13 16:01:18 by carmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,16 @@ int		check_spaces(char **map)
 		i = 0;
 		while (map[x][i])
 		{
-			if (map[x][i] == '0')
+			if (map[x][i] == '0') //aqui el Spawn ya es 0 
 			{
-				if (map[x - 1][i] == ' ' || map[x + 1][i] == ' '
-					|| map[x][i + 1] == ' ' || map[x][i - 1] == ' ')
-						return (1);
+				if ((map[x - 1][i] != '1' && map[x - 1][i] != '0')
+				|| (map[x + 1][i] != '1' && map[x + 1][i] != '0')
+				|| (map[x][i + 1] != '1' && map[x][i + 1] != '0')
+				|| (map[x][i - 1] != '1' && map[x][i - 1] != '0'))
+				{
+					printf("%s", map[x]);
+					return (1);
+				}
 			}
 			i++;		
 		}
@@ -60,6 +65,19 @@ int		check_border(char **map, t_game *game)
 	return (0);
 }
 
+int		is_spawn(char *line)
+{
+	unsigned int x;
+	
+	x = 0;
+	while (line[x] != 'N' && line[x] != 'E' && line[x] != 'S' && line[x] != 'W' && line[x])
+		x++;
+	//printf("%d %zu\n", x, ft_strlen(line));
+	if (x != ft_strlen(line))
+		line[x] = '0';
+	return (1);
+}
+
 int		is_map(char *line)//buscar manera de checkear si hay los 6 elementos
 {
 	if (line[0] == '\n')
@@ -76,6 +94,8 @@ int		is_map(char *line)//buscar manera de checkear si hay los 6 elementos
 		return (0);
 	else if (!ft_strncmp(line, "C", 2)) 
 		return (0);
+	else if (is_spawn(line))
+		return (1);
 	else 
 		return(1);
 }

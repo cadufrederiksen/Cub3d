@@ -6,7 +6,7 @@
 /*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 14:13:29 by carmarqu          #+#    #+#             */
-/*   Updated: 2024/11/27 15:33:11 by carmarqu         ###   ########.fr       */
+/*   Updated: 2024/12/13 15:11:44 by carmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,7 @@ int	check_input(char *file_name, t_game *game)
 	if (game->mapsets->vars_flag != 6)
 		return (ft_printf("Wrong number of map instructions\n"), close(fd), free(line), 0); //si hay error y usamos la salida de error, deberiamos de retornar 1 aqui
 	get_map(file_name, game);//guarda el mapa en un array char **
+	//print2d(game->mapsets->map);
 	if (!get_rgb(game))
 		return (close(fd), free(line), 0);
 	return (close(fd), free(line), 1);

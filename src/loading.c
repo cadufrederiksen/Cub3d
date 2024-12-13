@@ -6,7 +6,7 @@
 /*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 18:29:28 by sheferna          #+#    #+#             */
-/*   Updated: 2024/12/12 16:01:19 by carmarqu         ###   ########.fr       */
+/*   Updated: 2024/12/13 14:56:08 by carmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,6 @@ void	img_loading(t_game *game)
 	game->frame = mlx_new_image(game->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
 	if (!game->frame)
 		return (error_exit(ERROR_LOADING, game));
-	if(!mlx_image_to_window(game->mlx, game->frame, 0, 0))
-		return (error_exit(ERROR_LOADING, game));
-	if(!mlx_image_to_window(game->mlx, game->img, 0, 0))
-		return (error_exit(ERROR_LOADING, game));
+	mlx_image_to_window(game->mlx, game->frame, 0, 0);
+	mlx_image_to_window(game->mlx, game->img, 0, 0);
 }

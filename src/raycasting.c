@@ -6,7 +6,7 @@
 /*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 18:34:11 by sheferna          #+#    #+#             */
-/*   Updated: 2024/12/12 16:09:32 by carmarqu         ###   ########.fr       */
+/*   Updated: 2024/12/13 14:01:43 by carmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,6 @@ void	draw_frame(t_game *game)
 		x++;
 	}
 	// Update the window with the rendered image
-	if (mlx_image_to_window(game->mlx, game->img, 0, 0))
+	if (!mlx_image_to_window(game->mlx, game->img, 0, 0))
 		return (error_exit(ERROR_LOADING, game));
 }
