@@ -6,7 +6,7 @@
 /*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 20:02:39 by sheferna          #+#    #+#             */
-/*   Updated: 2024/12/13 14:14:21 by carmarqu         ###   ########.fr       */
+/*   Updated: 2024/12/13 16:12:22 by carmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	map_validation(char *argv[1], t_game *game)
 {
 	int	x;
 
-	x = ft_strlen(argv[1]) - 1;
+	x = ft_strlen(argv[1]) - 1; //checkear si el archivo del mapa existe, si no da segfault
 	if (argv[1][x] == 'b' && argv[1][x - 1] == 'u' && argv[1][x - 2] == 'c'
 		&& argv[1][x - 3] == '.')
 	{

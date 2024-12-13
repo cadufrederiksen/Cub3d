@@ -6,7 +6,7 @@
 /*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 21:04:16 by sheferna          #+#    #+#             */
-/*   Updated: 2024/12/13 15:42:38 by carmarqu         ###   ########.fr       */
+/*   Updated: 2024/12/13 16:16:28 by carmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,9 @@ void	free_game(t_game *game)
 		mlx_delete_image(game->mlx, game->img);
 	if (game->frame)
 		mlx_delete_image(game->mlx, game->frame);
-	while (x >= 0)//se supone que si llega aqui ellas si existen
-		mlx_delete_texture(game->textures[x--]);
+	if (game->textures[3])
+		while (x >= 0)//se supone que si llega aqui ellas si existen
+			mlx_delete_texture(game->textures[x--]);
 	if (game->mlx)
 		mlx_terminate(game->mlx);
 	free(game);
