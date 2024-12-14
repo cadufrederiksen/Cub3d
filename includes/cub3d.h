@@ -6,7 +6,7 @@
 /*   By: sheferna <sheferna@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 18:34:13 by sheferna          #+#    #+#             */
-/*   Updated: 2024/12/07 19:21:11 by sheferna         ###   ########.fr       */
+/*   Updated: 2024/12/14 21:37:29 by sheferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void				free2d(char **str);
 void				resize_ptr(int32_t width, int32_t height, void *param);
 
 // validations
-int					map_validation(char *argv[1], t_game *game);
+void				map_validation(char *argv[1], t_game *game);
 void				validate_game(t_game *game);
 void				validate_frame(t_game *game);
 int					validate_ray(t_ray *ray, t_mapsets *mapsets);

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   validation.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sheferna <sheferna@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 20:02:39 by sheferna          #+#    #+#             */
-/*   Updated: 2024/12/13 16:12:22 by carmarqu         ###   ########.fr       */
+/*   Updated: 2024/12/14 21:42:50 by sheferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	map_validation(char *argv[1], t_game *game)
+void	map_validation(char *argv[1], t_game *game)
 {
 	int	x;
 
@@ -21,13 +21,12 @@ int	map_validation(char *argv[1], t_game *game)
 		&& argv[1][x - 3] == '.')
 	{
 		if (!check_input(argv[1], game))
-			return (1);
+			error_exit("", game);
 	}
 	else
-		return (error("Error: Map name is wrong\n"));
+		error_exit("Error: Map name is wrong\n", game);
 	if (check_border(game->mapsets->map, game))
-		return (error("Error: Map is not surrounded by walls\n"));
-	return (0);
+		error_exit("Error: Map is not surrounded by walls\n", game);
 }
 
 void	validate_game(t_game *game)

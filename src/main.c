@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sheferna <sheferna@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 13:08:18 by carmarqu          #+#    #+#             */
-/*   Updated: 2024/12/13 14:54:29 by carmarqu         ###   ########.fr       */
+/*   Updated: 2024/12/14 21:39:32 by sheferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,7 @@ int	main(int argc, char **argv)
 	else
 	{
 		game = allocate_game();
-		if (map_validation(argv, game))
-			error_exit("Error: Map validation failed\n", game);
+		map_validation(argv, game);
 		init_player_from_map(game);
 		game->mlx = mlx_init(SCREEN_WIDTH, SCREEN_HEIGHT, "Cub3D", true);
 		if (!game->mlx)

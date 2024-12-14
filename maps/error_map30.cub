@@ -1,0 +1,21 @@
+NO textures/red.png
+SO textures/gris.png
+WE textures/piedra.png
+EA textures/gris_amarillo.png
+
+F 20,20,20
+C 200,200,200
+
+111	111
+1N1	1N1
+101	101
+101	101
+101	101
+101	101
+101	101
+101	101
+101	101
+101	101
+101	101
+101	101
+111	111
