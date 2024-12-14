@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_player.c                                      :+:      :+:    :+:   */
+/*   player.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sheferna <sheferna@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 20:30:08 by sheferna          #+#    #+#             */
-/*   Updated: 2024/12/14 19:46:18 by sheferna         ###   ########.fr       */
+/*   Updated: 2024/12/14 21:52:21 by sheferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ void	set_player_direction(t_player *player, char spawn)
 	else if (spawn == 'E' || spawn == 'W')
 		set_east_west(player, spawn);
 }
+
 // inicializa al jugador con las coordenadas y dirección provenientes de los datos del mapa
 void	init_player_from_map(t_game *game)
 {
