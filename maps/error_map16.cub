@@ -6,7 +6,7 @@
 
 
 
-NO assets/textures/greystone.png
+NO textures/red.png
 
 
 
@@ -15,9 +15,9 @@ NO assets/textures/greystone.png
 
 
 
-SO assets/textures/eagle.png
-                        WE assets/textures/purplestone.png
-        EA assets/textures/bluestone.png  
+SO textures/gris.png
+                        WE textures/piedra.png
+        EA textures/gris_amarillo.png  
 
 F 20,20,20
 C 200,200,200

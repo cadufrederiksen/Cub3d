@@ -1,7 +1,7 @@
-NO assets/textures/mossy.png
-SO assets/textures/redbrick.png
-WE assets/textures/wood.png
-EA assets/textures/eagle.png
+NO textures/red.png
+SO textures/gris.png
+WE textures/piedra.png
+EA textures/gris_amarillo.png
 
 C 53,41,34
 F 45,33,27

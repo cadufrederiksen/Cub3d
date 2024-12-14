@@ -1,7 +1,7 @@
-NO assets/textures/mossy.png
-SO assets/textures/wood.png
-WE assets/textures/greystone.png
-EA assets/textures/bluestone.png
+NO textures/red.png
+SO textures/gris.png
+WE textures/piedra.png
+EA textures/gris_amarillo.png
 
 F 20,20,20
 C 200,200,200

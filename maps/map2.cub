@@ -1,7 +1,7 @@
-NO assets/textures/wood.png
-SO assets/textures/redbrick.png
-WE assets/textures/mossy.png
-EA assets/textures/purplestone.png
+NO textures/red.png
+SO textures/gris.png
+WE textures/piedra.png
+EA textures/gris_amarillo.png
 
 F 220,100,0
 C 225,30,0

@@ -1,13 +1,13 @@
-   WE                            assets/textures/eagle.png 
-NO      assets/textures/greystone.png
+   WE                            textures/piedra.png 
+NO      textures/red.png
 
 
 
-SO assets/textures/redbrick.png
+SO textures/gris.png
 
 F   69,222,199
 
-EA assets/textures/mossy.png
+EA textures/gris_amarillo.png
 
 
 

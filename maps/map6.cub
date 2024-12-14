@@ -1,10 +1,10 @@
 F 76,76,76
 C 99,99,99
 
-NO assets/textures/eagle.png
-SO assets/textures/mossy.png
-WE assets/textures/purplestone.png
-EA assets/textures/greystone.png
+NO textures/red.png
+SO textures/gris.png
+WE textures/piedra.png
+EA textures/gris_amarillo.png
 
 1111111111111111111
 10W1001001001000001

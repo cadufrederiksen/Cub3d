@@ -1,7 +1,7 @@
-NO assets/textures/purplestone
-SO assets/textures/bluestone.png
-WE assets/textures/greystone.png
-EA assets/textures/redbrick.png
+NO textures/red.png
+SO textures/gris.png
+WE textures/piedra.png
+EA textures/gris_amarillo.png
 
 F 20,20,20
 C 200,200,200

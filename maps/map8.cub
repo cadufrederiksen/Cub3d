@@ -1,13 +1,13 @@
-  		 WE                            assets/textures/greystone.png
-NO  	    assets/textures/purplestone.png		
+  		 WE                            textures/piedra.png
+NO  	    textures/red.png		
 
 
 
-	SO assets/textures/redbrick.png
+	SO textures/gris.png
 
 F 		     17,38,64
 
-EA assets/textures/wood.png
+EA textures/gris_amarillo.png
 
 
 
