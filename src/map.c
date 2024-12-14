@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sheferna <sheferna@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 22:29:04 by carmarqu          #+#    #+#             */
-/*   Updated: 2024/12/14 21:19:47 by sheferna         ###   ########.fr       */
+/*   Updated: 2024/12/14 22:59:15 by carmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,7 @@ int		check_spaces(char **map)
 				|| (map[x + 1][i] != '1' && map[x + 1][i] != '0')
 				|| (map[x][i + 1] != '1' && map[x][i + 1] != '0')
 				|| (map[x][i - 1] != '1' && map[x][i - 1] != '0'))
-				{
-					printf("%s", map[x]);
 					return (1);
-				}
 			}
 			i++;		
 		}

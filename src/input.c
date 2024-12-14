@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sheferna <sheferna@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 14:13:29 by carmarqu          #+#    #+#             */
-/*   Updated: 2024/12/14 21:04:08 by sheferna         ###   ########.fr       */
+/*   Updated: 2024/12/14 23:25:04 by carmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,19 +42,19 @@ int	get_rgb(t_game *game)
 	rgb1 = ft_split(game->mapsets->f_path, ',');
 	rgb2 = ft_split(game->mapsets->c_path, ',');
 	if (rgb1[3] != NULL || rgb2[3] != NULL)//garantiza que siempre haya 3 numeros, ni mas ni menos
-		return (free2d(rgb2), free2d(rgb1), ft_printf("RGB invalid!\n"), 0);
+		return (free2d(rgb2), free2d(rgb1), ft_printf("RGB invalid!\n"), 1);
 	while (x < 3)
 	{
 		if ((ft_atoi(rgb2[x]) < 0 || ft_atoi(rgb2[x]) > 255) 
 			|| (ft_atoi(rgb1[x]) < 0 || ft_atoi(rgb1[x]) > 255))
-			return (ft_printf("RGB out of the valid range!\n"), 0); //si esta fuera de rango, podriamos retornar 1 indicando error
+			return (ft_printf("RGB out of the valid range!\n"), 1); //si esta fuera de rango, podriamos retornar 1 indicando error
 		game->mapsets->floor_rgb[x] = ft_atoi(rgb1[x]);
 		game->mapsets->ceiling_rgb[x] = ft_atoi(rgb2[x]);
 		x++;
 	}
 	free2d(rgb1);
 	free2d(rgb2);
-	return (1);
+	return (0);
 }
 
 int	check_line(char *line, t_game *game, int vert_len) //checkea si los caracteres del mapa son validos
@@ -69,7 +69,7 @@ int	check_line(char *line, t_game *game, int vert_len) //checkea si los caracter
 		if (line[x] == 'W' || line[x] == 'N' || line[x] == 'E' || line[x] == 'S')
 		{
 			if (spawn == 1)
-				return (0); //no puede haber mas de un spawn
+				return (1); //no puede haber mas de un spawn
 			spawn++;
 			game->mapsets->spawn = line[x];
 			line[x] = '0';
@@ -79,10 +79,10 @@ int	check_line(char *line, t_game *game, int vert_len) //checkea si los caracter
 		x++;
 	}
 	if (x != ft_strlen_map(line)) //algun caracter no valido en la linea
-		return (0);
+		return (1);
 	if (game->mapsets->hor_len < x)
 		game->mapsets->hor_len = x;
-	return (1);
+	return (0);
 }
 
 int	parse_line(char *line, t_game *game) //guarda todos las instruciones pero no las checkeas
@@ -101,7 +101,7 @@ int	parse_line(char *line, t_game *game) //guarda todos las instruciones pero no
 		game->mapsets->f_path =	cut_line(line + 2, game);
 	else if (!ft_strncmp(line, "C ", 2)) 
 		game->mapsets->c_path =	cut_line(line + 2, game);
-	else if(check_line(line, game, game->mapsets->vert_len)) //si devuelve una linea valida del mapa
+	else if(!check_line(line, game, game->mapsets->vert_len)) //si devuelve una linea valida del mapa
 		game->mapsets->vert_len++;
 	else
 		return (ft_printf("Invalid instruction in map file\n"), 1);
@@ -118,15 +118,15 @@ int	check_input(char *file_name, t_game *game)
 	while (line)
 	{
 		if (parse_line(line, game) == 1) //guarda la informacion de las variables y checkea los chars del mapa
-			return (close(fd), free(line), 0);
+			return (close(fd), free(line), 1);
 		free(line);
 		line = get_next_line(fd);
 	}
 	if (game->mapsets->vars_flag != 6)
-		return (ft_printf("Wrong number of map instructions\n"), close(fd), free(line), 0); //si hay error y usamos la salida de error, deberiamos de retornar 1 aqui
+		return (ft_printf("Wrong number of map instructions\n"), close(fd), free(line), 1); //si hay error y usamos la salida de error, deberiamos de retornar 1 aqui
 	get_map(file_name, game);//guarda el mapa en un array char **
 	//print2d(game->mapsets->map);
-	if (!get_rgb(game))
-		return (close(fd), free(line), 0);
-	return (close(fd), free(line), 1);
+	if (get_rgb(game))
+		return (close(fd), free(line), 1);
+	return (close(fd), free(line), 0);
 }

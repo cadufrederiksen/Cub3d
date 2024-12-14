@@ -4,8 +4,8 @@ LIBMLX = MLX42
 HEADERS = includes/cub3d.h
 INCLUDES = -I ./includes -I libft/include/ -I $(LIBMLX)/include
 
-CC = clang #doesnt require -no-pie flag
-#CC = gcc #requires flag -no-pie in main execution #PIE (Position Independent Executable) 
+#CC = clang #doesnt require -no-pie flag
+CC = gcc #requires flag -no-pie in main execution #PIE (Position Independent Executable) 
 CFLAGS = -Wall -Wextra -Werror -g
 
 AR = ar rcs
