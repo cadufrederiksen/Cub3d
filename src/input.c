@@ -6,7 +6,7 @@
 /*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 14:13:29 by carmarqu          #+#    #+#             */
-/*   Updated: 2024/12/14 23:25:04 by carmarqu         ###   ########.fr       */
+/*   Updated: 2024/12/16 00:15:27 by carmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,49 @@ int	check_paths(t_game *game)
 		return (0); 
 	return (1); //todos los paath son validos
 } */
+void	format_rgb(char **rgb)
+{
+	int x;
+	int i;
+	char *s;
+
+	i = 0;
+	x = 0;
+	while (rgb[x])
+	{
+		while (rgb[x][i] == ' ')
+			i++;
+		s = ft_substr(rgb[x], i, ft_strlen(rgb[x]));
+		free(rgb[x]);
+		rgb[x] = s;
+		x++;
+	}
+}
+
+int	check_rgb(char **rgb)
+{
+	int x; 
+	int i;
+
+	x = 0;
+	format_rgb(rgb);
+	print2d(rgb);
+	while (rgb[x])
+	{
+		i = 0;
+		while (rgb[x][i])
+		{
+			if (!ft_isdigit(rgb[x][i]))
+				return (1);
+			i++;
+		}
+		x++;
+	}
+	printf("x = %d\n", x);
+	if (x != 3)
+		return (1);
+	return (0);
+}
 
 int	get_rgb(t_game *game)
 {
@@ -41,7 +84,7 @@ int	get_rgb(t_game *game)
 	x = 0;
 	rgb1 = ft_split(game->mapsets->f_path, ',');
 	rgb2 = ft_split(game->mapsets->c_path, ',');
-	if (rgb1[3] != NULL || rgb2[3] != NULL)//garantiza que siempre haya 3 numeros, ni mas ni menos
+	if (check_rgb(rgb1) || check_rgb(rgb2))//garantiza que siempre haya 3 numeros, ni mas ni menos
 		return (free2d(rgb2), free2d(rgb1), ft_printf("RGB invalid!\n"), 1);
 	while (x < 3)
 	{
@@ -89,7 +132,7 @@ int	parse_line(char *line, t_game *game) //guarda todos las instruciones pero no
 {
 	if (line[0] == '\n') //checkear si estan todas las instrucciones NO, C, F, etc..
 		return (0);
-	if (!ft_strncmp(line, "NO ", 3))
+	else if (!ft_strncmp(line, "NO ", 3))
 		game->mapsets->no_path = cut_line(line + 3, game);
 	else if (!ft_strncmp(line, "SO ", 3))
 		game->mapsets->so_path = cut_line(line + 3, game);
