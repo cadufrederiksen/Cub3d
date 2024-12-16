@@ -6,7 +6,7 @@
 /*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 14:13:29 by carmarqu          #+#    #+#             */
-/*   Updated: 2024/12/16 00:15:27 by carmarqu         ###   ########.fr       */
+/*   Updated: 2024/12/16 01:04:31 by carmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ int	check_rgb(char **rgb)
 
 	x = 0;
 	format_rgb(rgb);
-	print2d(rgb);
 	while (rgb[x])
 	{
 		i = 0;
@@ -69,7 +68,6 @@ int	check_rgb(char **rgb)
 		}
 		x++;
 	}
-	printf("x = %d\n", x);
 	if (x != 3)
 		return (1);
 	return (0);
@@ -85,12 +83,12 @@ int	get_rgb(t_game *game)
 	rgb1 = ft_split(game->mapsets->f_path, ',');
 	rgb2 = ft_split(game->mapsets->c_path, ',');
 	if (check_rgb(rgb1) || check_rgb(rgb2))//garantiza que siempre haya 3 numeros, ni mas ni menos
-		return (free2d(rgb2), free2d(rgb1), ft_printf("RGB invalid!\n"), 1);
+		return (free2d(rgb2), free2d(rgb1), ft_printf("Error: RGB invalid!\n"), 1);
 	while (x < 3)
 	{
 		if ((ft_atoi(rgb2[x]) < 0 || ft_atoi(rgb2[x]) > 255) 
 			|| (ft_atoi(rgb1[x]) < 0 || ft_atoi(rgb1[x]) > 255))
-			return (ft_printf("RGB out of the valid range!\n"), 1); //si esta fuera de rango, podriamos retornar 1 indicando error
+			return (ft_printf("Error: RGB out of the valid range!\n"), 1); //si esta fuera de rango, podriamos retornar 1 indicando error
 		game->mapsets->floor_rgb[x] = ft_atoi(rgb1[x]);
 		game->mapsets->ceiling_rgb[x] = ft_atoi(rgb2[x]);
 		x++;
@@ -144,10 +142,11 @@ int	parse_line(char *line, t_game *game) //guarda todos las instruciones pero no
 		game->mapsets->f_path =	cut_line(line + 2, game);
 	else if (!ft_strncmp(line, "C ", 2)) 
 		game->mapsets->c_path =	cut_line(line + 2, game);
-	else if(!check_line(line, game, game->mapsets->vert_len)) //si devuelve una linea valida del mapa
+	else if(!check_line(line, game, game->mapsets->vert_len)
+		&& game->mapsets->vars_flag == 6) //si devuelve una linea valida del mapa
 		game->mapsets->vert_len++;
 	else
-		return (ft_printf("Invalid instruction in map file\n"), 1);
+		return (ft_printf("Error: Invalid map file\n"), 1);
 	return (0);
 }
 
@@ -166,7 +165,7 @@ int	check_input(char *file_name, t_game *game)
 		line = get_next_line(fd);
 	}
 	if (game->mapsets->vars_flag != 6)
-		return (ft_printf("Wrong number of map instructions\n"), close(fd), free(line), 1); //si hay error y usamos la salida de error, deberiamos de retornar 1 aqui
+		return (ft_printf("Error: Wrong number of map instructions\n"), close(fd), free(line), 1); //si hay error y usamos la salida de error, deberiamos de retornar 1 aqui
 	get_map(file_name, game);//guarda el mapa en un array char **
 	//print2d(game->mapsets->map);
 	if (get_rgb(game))
