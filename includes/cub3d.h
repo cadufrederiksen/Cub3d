@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sheferna <sheferna@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 18:34:13 by sheferna          #+#    #+#             */
-/*   Updated: 2024/12/14 21:37:29 by sheferna         ###   ########.fr       */
+/*   Updated: 2024/12/17 16:01:57 by carmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void				move_player(double x, double y, t_game *game);
 void				rotate(t_game *game, int dir);
 
 // parser
+void				format_rgb(char **rgb);
 int					check_border(char **map, t_game *game);
 int					ft_strlen_map(const char *s);
 int					get_map(char *file_name, t_game *game);

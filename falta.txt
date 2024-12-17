@@ -1,23 +1,5 @@
 Manejo de errores: 
 ------------------
-
-Cuando hay un error tenemos que mostrar la palabra Error con un mensaje explicatorio de por qué da error seguido de un salto de línea.
-
-- Número de players donde lo estamos chequeando?
-- cuando se añaden letras en los números del RGB del mapa no lo reconoce como error, ejemplo: 
-F 220,100gggggg,0
-
-- Cuando el mapa tiene un salto de linea o tabulador se considera el mapa roto y debe dar error, ejemplo:
-
-11111
-10S01
-11111
-
-1
-
-- los mapas: error_map9.cub y error_map10.cub no da error, no se si debe darlo, revisar
-
 - el mapa error_19.cub no se por que debe dar error
 
-- el mapa error_map38.cub imprime 1    0001 seguido del mensaje de error, hay un printf por ahi q se ha colago pero no se donde
-
+-el mapa error_map22 no da error y deberia por el .png (creo que ya esta)
