@@ -2,4 +2,4 @@ Manejo de errores:
 ------------------
 - el mapa error_19.cub no se por que debe dar error
 
--el mapa error_map22 no da error y deberia por el .png (creo que ya esta)
+-el mapa error_map22 apenas salae error cuando llega el momento de caragar las imagenes

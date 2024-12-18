@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sheferna <sheferna@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 14:30:57 by sheferna          #+#    #+#             */
-/*   Updated: 2024/12/12 15:23:37 by sheferna         ###   ########.fr       */
+/*   Updated: 2024/12/18 15:04:26 by carmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,10 @@ int	put_pixel_to_image(mlx_image_t *img, int x, int y, int color)
 	{	//calculate the index of the array of pixels
 		index = (y * (int)img->width + x) * 4;
 		// Each pixel has 4 bytes (RGBA)
-		img->pixels[index] = (color >> 16) & 0xFF;	// Red
-		img->pixels[index + 1] = (color >> 8) & 0xFF;	// Green
-		img->pixels[index + 2] = color & 0xFF;	// Blue
-		img->pixels[index + 3] = 0xFF;	// Opaco
+		img->pixels[index] = (color >> 16) & 0xFF;// Red
+		img->pixels[index + 1] = (color >> 8) & 0xFF;// Green
+		img->pixels[index + 2] = color & 0xFF;// Blue
+		img->pixels[index + 3] = 0xFF;// Opaco
 	}
 	return (0);
 }

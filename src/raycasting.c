@@ -6,7 +6,7 @@
 /*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 18:34:11 by sheferna          #+#    #+#             */
-/*   Updated: 2024/12/13 14:01:43 by carmarqu         ###   ########.fr       */
+/*   Updated: 2024/12/18 15:00:10 by carmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	cast_ray(t_game *game, int x)
 	calculate_perp_wall_dist(game);
 	calculate_draw_limits(game);
 	draw_ceiling(game, x); // Dibuja el techo antes de `draw_start`
-    draw_column(game, x); // Renderizar columna de la textura de pared
+	draw_column(game, x); // Renderizar columna de la textura de pared
 	draw_floor(game, x); // Dibuja el suelo después de `draw_end`
 }
 

@@ -6,7 +6,7 @@
 /*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 21:04:16 by sheferna          #+#    #+#             */
-/*   Updated: 2024/12/13 16:16:28 by carmarqu         ###   ########.fr       */
+/*   Updated: 2024/12/18 15:40:16 by carmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,22 @@ void	free2d(char **str)
 	free(str);
 }
 
-void	free_game(t_game *game)
+void	free_images(t_game *game)
 {
-	int x;
-	
+	int	x;
+
 	x = 3;
+	if (game->img)
+		mlx_delete_image(game->mlx, game->img);
+	if (game->frame)
+		mlx_delete_image(game->mlx, game->frame);
+	if (game->textures[3])
+		while (x >= 0) //se supone que si llega aqui ellas si existen
+			mlx_delete_texture(game->textures[x--]);
+}
+
+void	free_game(t_game *game) //+25
+{
 	if (game->mapsets && game->mapsets->map)
 		free2d(game->mapsets->map);
 	if (game->mapsets)
@@ -58,13 +69,7 @@ void	free_game(t_game *game)
 		free(game->ray);
 	if (game->texture)
 		free(game->texture);
-	if (game->img)
-		mlx_delete_image(game->mlx, game->img);
-	if (game->frame)
-		mlx_delete_image(game->mlx, game->frame);
-	if (game->textures[3])
-		while (x >= 0)//se supone que si llega aqui ellas si existen
-			mlx_delete_texture(game->textures[x--]);
+	free_images(game);
 	if (game->mlx)
 		mlx_terminate(game->mlx);
 	free(game);

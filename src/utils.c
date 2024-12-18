@@ -6,7 +6,7 @@
 /*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 15:46:05 by carmarqu          #+#    #+#             */
-/*   Updated: 2024/12/17 16:01:18 by carmarqu         ###   ########.fr       */
+/*   Updated: 2024/12/18 15:29:36 by carmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*cut_line(char *line, t_game *game)
 	char	*path;
 
 	x = 0;
-	while (line[x] == ' ')	//añadir tabs si hace falta
+	while (line[x] == ' ') //añadir tabs si hace falta
 		x++;
 	path = ft_substr(line, x, ft_strlen_map(line)); //hace un malloc y copia sin el \0 y \n
 	game->mapsets->vars_flag++;
@@ -50,23 +50,4 @@ void	resize_ptr(int32_t width, int32_t height, void *param)
 	(void)height;
 	(void)param;
 	mlx_set_setting(MLX_STRETCH_IMAGE, 1);
-}
-
-void	format_rgb(char **rgb)
-{
-	int x;
-	int i;
-	char *s;
-
-	i = 0;
-	x = 0;
-	while (rgb[x])
-	{
-		while (rgb[x][i] == ' ')
-			i++;
-		s = ft_substr(rgb[x], i, ft_strlen(rgb[x]));
-		free(rgb[x]);
-		rgb[x] = s;
-		x++;
-	}
 }

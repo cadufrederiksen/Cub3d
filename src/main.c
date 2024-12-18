@@ -6,7 +6,7 @@
 /*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 13:08:18 by carmarqu          #+#    #+#             */
-/*   Updated: 2024/12/15 23:08:20 by carmarqu         ###   ########.fr       */
+/*   Updated: 2024/12/18 14:46:50 by carmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,7 @@ int	main(int argc, char **argv)
 	{
 		game = allocate_game();
 		map_validation(argv, game);
-		printf("Valid map\n");
-	/* 	init_player_from_map(game);
+		init_player_from_map(game);
 		game->mlx = mlx_init(SCREEN_WIDTH, SCREEN_HEIGHT, "Cub3D", true);
 		if (!game->mlx)
 			error_exit("Error: MLX initialization failed\n", game);
@@ -48,7 +47,7 @@ int	main(int argc, char **argv)
 		mlx_key_hook(game->mlx, moves, game);
 		mlx_loop_hook(game->mlx, (void (*)(void *))draw_frame, game);
 		mlx_loop(game->mlx);
-		free_game(game); */
+		free_game(game);
 	}
 	return (0);
 }

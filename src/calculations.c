@@ -6,7 +6,7 @@
 /*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 14:32:26 by sheferna          #+#    #+#             */
-/*   Updated: 2024/12/13 15:48:48 by carmarqu         ###   ########.fr       */
+/*   Updated: 2024/12/18 15:26:00 by carmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	calculate_ray_direction(t_game *game, int x)
 {
 	double	camera_x; // x es la columna que esta generando el rayo
-
+	
 	camera_x = 2 * x / (double)SCREEN_WIDTH - 1;
 	game->ray->raydir_x = game->player->dir_x + game->player->plane_x
 		* camera_x;
