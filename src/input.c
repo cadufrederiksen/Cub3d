@@ -6,7 +6,7 @@
 /*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 14:13:29 by carmarqu          #+#    #+#             */
-/*   Updated: 2024/12/18 15:38:08 by carmarqu         ###   ########.fr       */
+/*   Updated: 2025/01/08 13:47:29 by carmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,18 +42,24 @@ int	check_line(char *line, t_game *game, int vert_len) //checkea si los caracter
 
 int	parse_path(char *line, t_game *game)
 {
-	if (!ft_strncmp(line, "NO ", 3))
-		game->mapsets->no_path = cut_line(line + 3, game);
-	else if (!ft_strncmp(line, "SO ", 3))
-		game->mapsets->so_path = cut_line(line + 3, game);
-	else if (!ft_strncmp(line, "WE ", 3))
-		game->mapsets->we_path = cut_line(line + 3, game);
-	else if (!ft_strncmp(line, "EA ", 3))
-		game->mapsets->ea_path = cut_line(line + 3, game);
-	else if (!ft_strncmp(line, "F ", 2))
-		game->mapsets->f_path = cut_line(line + 2, game);
-	else if (!ft_strncmp(line, "C ", 2))
-		game->mapsets->c_path = cut_line(line + 2, game);
+	int	x;
+
+	x = 0;
+	while (line[x] == ' ' || line[x] == '	')
+		x++;
+	//printf("%s\n", &line[x]);
+	if (!ft_strncmp(&line[x], "NO ", 3))
+		game->mapsets->no_path = cut_line(line + 3 + x, game);
+	else if (!ft_strncmp(&line[x], "SO ", 3))
+		game->mapsets->so_path = cut_line(line + 3 + x, game);
+	else if (!ft_strncmp(&line[x], "WE ", 3))
+		game->mapsets->we_path = cut_line(line + 3 + x, game);
+	else if (!ft_strncmp(&line[x], "EA ", 3))
+		game->mapsets->ea_path = cut_line(line + 3 + x, game);
+	else if (!ft_strncmp(&line[x], "F ", 2))
+		game->mapsets->f_path = cut_line(line + 2 + x, game);
+	else if (!ft_strncmp(&line[x], "C ", 2))
+		game->mapsets->c_path = cut_line(line + 2 + x, game);
 	else
 		return (1);
 	return (0);
@@ -71,7 +77,7 @@ int	parse_line(char *line, t_game *game)
 	} //checkear si estan todas las instrucciones NO, C, F, etc..
 	else if (!parse_path(line, game))
 		return (0);
-	else if (!check_line(line, game, game->mapsets->vert_len)
+	else if (!check_line(line, game, game->mapsets->vert_len)//checkea las lineas del mapa
 		&& game->mapsets->vars_flag == 6 && flag == 0) //si devuelve una linea valida del mapa
 		game->mapsets->vert_len++;
 	else
@@ -97,6 +103,7 @@ int	check_input(char *file_name, t_game *game)
 		return (ft_printf("Error: Wrong number of map instructions\n"),
 			close(fd), free(line), 1); //si hay error y usamos la salida de error, deberiamos de retornar 1 aqui
 	get_map(file_name, game);//guarda el mapa en un array char **
+	//print2d(game->mapsets->map);
 	if (get_rgb(game))
 		return (close(fd), free(line), 1);
 	return (close(fd), free(line), 0);

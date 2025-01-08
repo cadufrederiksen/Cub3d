@@ -6,7 +6,7 @@
 /*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 22:29:04 by carmarqu          #+#    #+#             */
-/*   Updated: 2024/12/18 15:14:39 by carmarqu         ###   ########.fr       */
+/*   Updated: 2025/01/08 13:41:56 by carmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,19 +78,24 @@ int	is_spawn(char *line)
 
 int	is_map(char *line)//buscar manera de checkear si hay los 6 elementos
 {
-	if (line[0] == '\n')
+	int x;
+
+	x = 0;
+	if (line[x] == '\n')
 		return (0);
-	if (!ft_strncmp(line, "NO", 3))
+	while (line[x] == ' ' || line[x] == '	')
+		x++;
+	if (!ft_strncmp(&line[x], "NO ", 3))
 		return (0);
-	else if (!ft_strncmp(line, "SO", 3))
+	else if (!ft_strncmp(&line[x], "SO ", 3))
 		return (0);
-	else if (!ft_strncmp(line, "WE", 3))
+	else if (!ft_strncmp(&line[x], "WE ", 3))
 		return (0);
-	else if (!ft_strncmp(line, "EA", 3))
+	else if (!ft_strncmp(&line[x], "EA ", 3))
 		return (0);
-	else if (!ft_strncmp(line, "F", 2))
+	else if (!ft_strncmp(&line[x], "F ", 2))
 		return (0);
-	else if (!ft_strncmp(line, "C", 2))
+	else if (!ft_strncmp(&line[x], "C", 2))
 		return (0);
 	else if (is_spawn(line))
 		return (1);
