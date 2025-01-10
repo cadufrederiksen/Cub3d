@@ -6,7 +6,7 @@
 /*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 22:29:04 by carmarqu          #+#    #+#             */
-/*   Updated: 2025/01/08 13:41:56 by carmarqu         ###   ########.fr       */
+/*   Updated: 2025/01/10 14:47:43 by carmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,16 +47,20 @@ int	check_border(char **map, t_game *game)
 	while (map[x])
 	{
 		i = 0;
+		while (map[x][i] == ' ')
+			i++;
 		if (map[x][i] == '0' || map[x][ft_strlen_map(map[x]) - 1] == '0')
 			return (1);
-		while (map[x][i])
-		{
-			if (map[game->mapsets->vert_len - 1][i] == '0' || map[0][i] == '0')
-				return (1);
-			i++;
-		}
 		x++;
 	}
+	i = 0;
+	x = 0;
+	while(map[0][i] && map[0][i] != '0')
+		i++;
+	while(map[game->mapsets->vert_len - 1][x] && map[game->mapsets->vert_len - 1][x] != '0')
+		x++;
+	if (i != ft_strlen_map(map[0]) || x != ft_strlen_map(map[game->mapsets->vert_len - 1]))
+		return (1);
 	if (check_spaces(map))
 		return (1);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 15:46:05 by carmarqu          #+#    #+#             */
-/*   Updated: 2025/01/08 13:16:54 by carmarqu         ###   ########.fr       */
+/*   Updated: 2025/01/10 14:14:25 by carmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ char	*cut_line(char *line, t_game *game)//flag para saber si es un path o numero
 	while (line[x] == ' ' || line[x] == '	')
 		x++;
 	path = ft_substr(line, x, get_end_path(line, x));//hace un malloc y copia sin el \0 y \n
-	ft_printf("%s\n", path);
 	game->mapsets->vars_flag++;
 	return (path);
 }
