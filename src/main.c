@@ -6,7 +6,7 @@
 /*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 13:08:18 by carmarqu          #+#    #+#             */
-/*   Updated: 2024/12/18 14:46:50 by carmarqu         ###   ########.fr       */
+/*   Updated: 2025/01/14 12:49:42 by carmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static t_game	*allocate_game(void)
 {
 	t_game	*game;
 
-	game = calloc(1, sizeof(t_game));
+	game = malloc(sizeof(t_game));
 	if (!game)
 		error_exit("Error: Failed to allocate memory for game\n", NULL);
 	if (init_game(game))

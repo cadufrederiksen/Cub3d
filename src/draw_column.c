@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_column.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sheferna <sheferna@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 17:35:19 by sheferna          #+#    #+#             */
-/*   Updated: 2024/12/12 15:21:47 by sheferna         ###   ########.fr       */
+/*   Updated: 2025/01/14 13:55:42 by carmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ double	calculate_wall_x(t_game *game)
 	else
 		wall_x = game->player->pos_x + game->ray->perp_walldist
 			* game->ray->raydir_x;
-	return (wall_x - my_floor(wall_x)); // mantener solo la parte decimal
+	return (wall_x - my_floor(wall_x));
 }
 
 int	calculate_tex_x(t_game *game, mlx_texture_t *texture, double wall_x)
@@ -55,11 +55,6 @@ int	calculate_tex_x(t_game *game, mlx_texture_t *texture, double wall_x)
 	return (tex_x);
 }
 
-/*
-Selecciona la textura según el lado golpeado (side) y la dirección del rayo.
-Calcula wall_x para encontrar la posición precisa del impacto en la pared
-y usa esto para determinar las coordenadas de la textura (tex_x y tex_y).
- */
 void	draw_column(t_game *game, int x)
 {
 	int				y;
@@ -69,17 +64,14 @@ void	draw_column(t_game *game, int x)
 	int				colour;
 
 	texture = select_texture(game);
-		// Selección de la textura según el lado golpeado
 	wall_x = calculate_wall_x(game);
-		// Calcular wall_x dinámicamente
 	game->texture->tex_x = calculate_tex_x(game, texture, wall_x);
-		// Cálculo de tex_x basado en wall_x
 	game->texture->step = 1.0 * IMG_SIZE / game->ray->line_height;
 	game->texture->tex_pos = (game->ray->draw_start - SCREEN_HEIGHT / 2
 			+ game->ray->line_height / 2) * game->texture->step;
-	y = game->ray->draw_start - 1; // Dibuja la columna, píxel por píxel
+	y = game->ray->draw_start - 1;
 	while (++y < game->ray->draw_end)
-	{// Calcula tex_y para cada píxel
+	{
 		game->texture->tex_y = (int)(game->texture->tex_pos) & (IMG_SIZE - 1);
 		game->texture->tex_pos += game->texture->step;
 		pixel = &texture->pixels[IMG_SIZE * game->texture->tex_y * 4
@@ -88,12 +80,3 @@ void	draw_column(t_game *game, int x)
 		mlx_put_pixel(game->img, x, y, colour);
 	}
 }
-
-/*
-Construcción del color:
-
-pixel[2] << 16: Componente roja en el formato RGB.
-pixel[1] << 8: Componente verde.
-pixel[0]: Componente azul.
-0xFF << 24: Canal alfa (opacidad).
- */

@@ -6,7 +6,7 @@
 /*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 15:46:05 by carmarqu          #+#    #+#             */
-/*   Updated: 2025/01/10 14:14:25 by carmarqu         ###   ########.fr       */
+/*   Updated: 2025/01/14 13:45:48 by carmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@ int	ft_strlen_map(const char *s)
 	return (i);
 }
 
-int		get_end_path(char *line, int start)
+int	get_end_path(char *line, int start)
 {
-	int end;
-	
+	int	end;
+
 	end = 0;
 	while (line[start] != ' ' && line[start] != '	'
 		&& line[start != '\0'] && line[start] != '\n')
@@ -36,7 +36,7 @@ int		get_end_path(char *line, int start)
 	return (end);
 }
 
-char	*cut_line(char *line, t_game *game)//flag para saber si es un path o numeros del rgb
+char	*cut_line(char *line, t_game *game)
 {
 	int		x;
 	char	*path;
@@ -44,7 +44,7 @@ char	*cut_line(char *line, t_game *game)//flag para saber si es un path o numero
 	x = 0;
 	while (line[x] == ' ' || line[x] == '	')
 		x++;
-	path = ft_substr(line, x, get_end_path(line, x));//hace un malloc y copia sin el \0 y \n
+	path = ft_substr(line, x, get_end_path(line, x));
 	game->mapsets->vars_flag++;
 	return (path);
 }

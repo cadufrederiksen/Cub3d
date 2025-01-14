@@ -6,34 +6,35 @@
 /*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 14:13:29 by carmarqu          #+#    #+#             */
-/*   Updated: 2025/01/08 13:47:29 by carmarqu         ###   ########.fr       */
+/*   Updated: 2025/01/14 14:07:09 by carmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	check_line(char *line, t_game *game, int vert_len) //checkea si los caracteres del mapa son validos
+int	check_line(char *l, t_game *game, int vert_len)
 {
 	int			x;
 	static int	spawn = 0;
 
 	x = 0;
-	while ((line[x] == '0' || line[x] == '1' || line[x] == 'W' || line[x] == 'N'
-			|| line[x] == 'E' || line[x] == 'S' || line[x] == ' ') && line[x] != '\n')
+	while ((l[x] == '0' || l[x] == '1' || l[x] == 'W' || l[x] == 'N'
+			|| l[x] == 'E' || l[x] == 'S' || l[x] == ' ') && l[x] != '\n')
 	{
-		if (line[x] == 'W' || line[x] == 'N' || line[x] == 'E' || line[x] == 'S')
+		if (l[x] == 'W' || l[x] == 'N'
+			|| l[x] == 'E' || l[x] == 'S')
 		{
 			if (spawn == 1)
-				return (1); //no puede haber mas de un spawn
+				return (1);
 			spawn++;
-			game->mapsets->spawn = line[x];
-			line[x] = '0';
+			game->mapsets->spawn = l[x];
+			l[x] = '0';
 			game->mapsets->p_x = x;
 			game->mapsets->p_y = vert_len;
 		}
 		x++;
 	}
-	if (x != ft_strlen_map(line)) //algun caracter no valido en la linea
+	if (x != ft_strlen_map(l))
 		return (1);
 	if (game->mapsets->hor_len < x)
 		game->mapsets->hor_len = x;
@@ -47,7 +48,6 @@ int	parse_path(char *line, t_game *game)
 	x = 0;
 	while (line[x] == ' ' || line[x] == '	')
 		x++;
-	//printf("%s\n", &line[x]);
 	if (!ft_strncmp(&line[x], "NO ", 3))
 		game->mapsets->no_path = cut_line(line + 3 + x, game);
 	else if (!ft_strncmp(&line[x], "SO ", 3))
@@ -74,11 +74,11 @@ int	parse_line(char *line, t_game *game)
 		if (game->mapsets->vert_len != 0)
 			flag = 1;
 		return (0);
-	} //checkear si estan todas las instrucciones NO, C, F, etc..
+	}
 	else if (!parse_path(line, game))
 		return (0);
-	else if (!check_line(line, game, game->mapsets->vert_len)//checkea las lineas del mapa
-		&& game->mapsets->vars_flag == 6 && flag == 0) //si devuelve una linea valida del mapa
+	else if (!check_line(line, game, game->mapsets->vert_len)
+		&& game->mapsets->vars_flag == 6 && flag == 0)
 		game->mapsets->vert_len++;
 	else
 		return (ft_printf("Error: Invalid map file\n"), 1);
@@ -94,16 +94,15 @@ int	check_input(char *file_name, t_game *game)
 	line = get_next_line(fd);
 	while (line)
 	{
-		if (parse_line(line, game) == 1) //guarda la informacion de las variables y checkea los chars del mapa
+		if (parse_line(line, game) == 1)
 			return (close(fd), free(line), 1);
 		free(line);
 		line = get_next_line(fd);
 	}
 	if (game->mapsets->vars_flag != 6 || game->mapsets->spawn == 0)
 		return (ft_printf("Error: Wrong number of map instructions\n"),
-			close(fd), free(line), 1); //si hay error y usamos la salida de error, deberiamos de retornar 1 aqui
-	get_map(file_name, game);//guarda el mapa en un array char **
-	//print2d(game->mapsets->map);
+			close(fd), free(line), 1);
+	get_map(file_name, game);
 	if (get_rgb(game))
 		return (close(fd), free(line), 1);
 	return (close(fd), free(line), 0);

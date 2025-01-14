@@ -1,5 +1,0 @@
-Manejo de errores: 
-------------------
-- el mapa error_19.cub no se por que debe dar error
-
--el mapa error_map22 apenas salae error cuando llega el momento de caragar las imagenes

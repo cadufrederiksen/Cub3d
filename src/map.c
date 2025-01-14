@@ -6,7 +6,7 @@
 /*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 22:29:04 by carmarqu          #+#    #+#             */
-/*   Updated: 2025/01/10 14:47:43 by carmarqu         ###   ########.fr       */
+/*   Updated: 2025/01/14 14:01:59 by carmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	check_spaces(char **map)
 		i = 0;
 		while (map[x][i])
 		{
-			if (map[x][i] == '0') //aqui el Spawn ya es 0 
+			if (map[x][i] == '0')
 			{
 				if ((map[x - 1][i] != '1' && map[x - 1][i] != '0')
 				|| (map[x + 1][i] != '1' && map[x + 1][i] != '0')
@@ -38,7 +38,7 @@ int	check_spaces(char **map)
 	return (0);
 }
 
-int	check_border(char **map, t_game *game)
+int	check_border(char **map, int vert)
 {
 	int	x;
 	int	i;
@@ -55,11 +55,11 @@ int	check_border(char **map, t_game *game)
 	}
 	i = 0;
 	x = 0;
-	while(map[0][i] && map[0][i] != '0')
+	while (map[0][i] && map[0][i] != '0')
 		i++;
-	while(map[game->mapsets->vert_len - 1][x] && map[game->mapsets->vert_len - 1][x] != '0')
+	while (map[vert - 1][x] && map[vert - 1][x] != '0')
 		x++;
-	if (i != ft_strlen_map(map[0]) || x != ft_strlen_map(map[game->mapsets->vert_len - 1]))
+	if (i != ft_strlen_map(map[0]) || x != ft_strlen_map(map[vert - 1]))
 		return (1);
 	if (check_spaces(map))
 		return (1);
@@ -74,15 +74,14 @@ int	is_spawn(char *line)
 	while (line[x] != 'N' && line[x] != 'E' && line[x] != 'S'
 		&& line[x] != 'W' && line[x])
 		x++;
-	//printf("%d %zu\n", x, ft_strlen(line));
 	if (x != ft_strlen(line))
 		line[x] = '0';
 	return (1);
 }
 
-int	is_map(char *line)//buscar manera de checkear si hay los 6 elementos
+int	is_map(char *line)
 {
-	int x;
+	int	x;
 
 	x = 0;
 	if (line[x] == '\n')
@@ -115,12 +114,12 @@ int	get_map(char *file_name, t_game *game)
 
 	x = 0;
 	game->mapsets->map = (char **)malloc(sizeof(char *)
-		* (game->mapsets->vert_len + 1));
+			* (game->mapsets->vert_len + 1));
 	if (!game->mapsets->map)
 		return (0);
 	fd = open(file_name, O_RDONLY);
 	line = get_next_line(fd);
-	while (line) //mira linea por linea para obtener las infos
+	while (line)
 	{
 		if (is_map(line))
 		{

@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   check_moves.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sheferna <sheferna@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 15:03:46 by carmarqu          #+#    #+#             */
-/*   Updated: 2024/12/12 15:19:23 by sheferna         ###   ########.fr       */
+/*   Updated: 2025/01/14 13:56:17 by carmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
 void	move_player(double x, double y, t_game *game)
-{// checkea pero hay alguns casos que el personaje esta muy cerca de la pared
+{
 	if (game->mapsets->map[(int)y][(int)game->player->pos_x] != '1')
 		game->player->pos_y = y;
 	if (game->mapsets->map[(int)game->player->pos_y][(int)x] != '1')
@@ -26,7 +26,7 @@ void	rotate(t_game *game, int dir)
 	double	rotation;
 
 	rotation = dir * ROTATION_SPEED;
-	tmp = game->player->dir_x; // guarda el valor "original"
+	tmp = game->player->dir_x;
 	game->player->dir_x = game->player->dir_x * cos(rotation)
 		- game->player->dir_y * sin(rotation);
 	game->player->dir_y = tmp * sin(rotation) + game->player->dir_y

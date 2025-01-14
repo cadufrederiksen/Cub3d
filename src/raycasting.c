@@ -6,16 +6,12 @@
 /*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 18:34:11 by sheferna          #+#    #+#             */
-/*   Updated: 2024/12/18 15:00:10 by carmarqu         ###   ########.fr       */
+/*   Updated: 2025/01/14 13:47:59 by carmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-/* 
-Calcula los pasos step_x y step_y en función de la dirección del rayo, 
-y configura las distancias iniciales (sidedist_x y sidedist_y) 
-utilizando las coordenadas del jugador y la distancia delta.
- */
+
 void	initialize_step_and_side_dist(t_game *game)
 {
 	if (game->ray->raydir_x < 0)
@@ -43,11 +39,7 @@ void	initialize_step_and_side_dist(t_game *game)
 			* game->ray->deltadist_y;
 	}
 }
-/* 
-Implementa algoritmo de DDA (Digital Differential Analysis) 
-para avanzar a través de las celdas del mapa.
-Usa side para distinguir si el rayo golpeó en un eje X o Y.
- */
+
 void	perform_dda(t_game *game)
 {
 	int	hit;
@@ -72,7 +64,6 @@ void	perform_dda(t_game *game)
 	}
 }
 
-// Launch a ray to calculate an intersection with the walls
 void	cast_ray(t_game *game, int x)
 {
 	calculate_ray_direction(game, x);
@@ -81,27 +72,23 @@ void	cast_ray(t_game *game, int x)
 	perform_dda(game);
 	calculate_perp_wall_dist(game);
 	calculate_draw_limits(game);
-	draw_ceiling(game, x); // Dibuja el techo antes de `draw_start`
-	draw_column(game, x); // Renderizar columna de la textura de pared
-	draw_floor(game, x); // Dibuja el suelo después de `draw_end`
+	draw_ceiling(game, x);
+	draw_column(game, x);
+	draw_floor(game, x);
 }
 
-// Renderiing the full frame
-// Llama a cast_ray para cada columna de píxeles y actualiza la ventana con la imagen renderizada.
 void	draw_frame(t_game *game)
 {
 	int	x;
 
-	precalculate_colours(game); // Calcula los colores una vez por frame
-	clear_image(game->img); // Clean the image before drawing
-	// Launch a ray for each column of pixels
+	precalculate_colours(game);
+	clear_image(game->img);
 	x = 0;
 	while (x < SCREEN_WIDTH)
 	{
 		cast_ray(game, x);
 		x++;
 	}
-	// Update the window with the rendered image
 	if (!mlx_image_to_window(game->mlx, game->img, 0, 0))
 		return (error_exit(ERROR_LOADING, game));
 }

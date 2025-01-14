@@ -6,7 +6,7 @@
 /*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 18:34:13 by sheferna          #+#    #+#             */
-/*   Updated: 2025/01/08 13:14:01 by carmarqu         ###   ########.fr       */
+/*   Updated: 2025/01/14 14:02:11 by carmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void				rotate(t_game *game, int dir);
 
 // parser
 int					get_rgb(t_game *game);
-int					check_border(char **map, t_game *game);
+int					check_border(char **map, int vert);
 int					ft_strlen_map(const char *s);
 int					get_map(char *file_name, t_game *game);
 int					check_input(char *file_name, t_game *game);

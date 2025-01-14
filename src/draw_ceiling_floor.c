@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_ceiling_floor.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sheferna <sheferna@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 17:21:21 by sheferna          #+#    #+#             */
-/*   Updated: 2024/12/12 15:21:00 by sheferna         ###   ########.fr       */
+/*   Updated: 2025/01/14 13:55:59 by carmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	draw_ceiling(t_game *game, int x)
 		y++;
 	}
 }
-// rellenan los píxeles por debajo de draw_end con colores sólidos
+
 void	draw_floor(t_game *game, int x)
 {
 	int	y;

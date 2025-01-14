@@ -6,7 +6,7 @@
 /*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 20:02:39 by sheferna          #+#    #+#             */
-/*   Updated: 2024/12/15 23:01:51 by carmarqu         ###   ########.fr       */
+/*   Updated: 2025/01/14 14:02:05 by carmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	map_validation(char *argv[1], t_game *game)
 {
 	int	x;
 
-	x = ft_strlen(argv[1]) - 1; //checkear si el archivo del mapa existe, si no da segfault
+	x = ft_strlen(argv[1]) - 1;
 	if (argv[1][x] == 'b' && argv[1][x - 1] == 'u' && argv[1][x - 2] == 'c'
 		&& argv[1][x - 3] == '.')
 	{
@@ -25,7 +25,7 @@ void	map_validation(char *argv[1], t_game *game)
 	}
 	else
 		error_exit("Error: Map name is wrong\n", game);
-	if (check_border(game->mapsets->map, game))
+	if (check_border(game->mapsets->map, game->mapsets->vert_len))
 		error_exit("Error: Map is not surrounded by walls\n", game);
 }
 
@@ -52,18 +52,14 @@ void	validate_frame(t_game *game)
 
 int	validate_ray(t_ray *ray, t_mapsets *mapsets)
 {
-	// Verificar que el rayo no sea NULL
 	if (!ray)
 		return (error("Error: Ray structure is NULL\n"));
-	// Verificar que las direcciones del rayo son válidas
 	if (ray->raydir_x == 0 && ray->raydir_y == 0)
 		return (error("Error: Ray direction is invalid\n"));
-	// Verificar que las coordenadas del mapa están dentro de los límites
 	if (ray->map_x < 0 || ray->map_y < 0 || ray->map_x >= mapsets->hor_len
 		|| ray->map_y >= mapsets->vert_len)
 		return (error("Error: Ray map coordinates out of bounds\n"));
-	// Verificar que las distancias no son negativas o cero
 	if (ray->deltadist_x <= 0 || ray->deltadist_y <= 0)
 		return (error("Error: Delta distances are invalid\n"));
-	return (0); // Todo está bien
+	return (0);
 }

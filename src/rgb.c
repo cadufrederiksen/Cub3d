@@ -6,7 +6,7 @@
 /*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 15:29:10 by carmarqu          #+#    #+#             */
-/*   Updated: 2024/12/18 15:29:58 by carmarqu         ###   ########.fr       */
+/*   Updated: 2025/01/14 13:46:42 by carmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,14 @@ int	get_rgb(t_game *game)
 	x = 0;
 	rgb1 = ft_split(game->mapsets->f_path, ',');
 	rgb2 = ft_split(game->mapsets->c_path, ',');
-	if (check_rgb(rgb1) || check_rgb(rgb2)) //garantiza que siempre haya 3 numeros, ni mas ni menos
-		return (free2d(rgb2), free2d(rgb1), ft_printf("Error: RGB invalid!\n"), 1);
+	if (check_rgb(rgb1) || check_rgb(rgb2))
+		return (free2d(rgb2), free2d(rgb1),
+			ft_printf("Error: RGB invalid!\n"), 1);
 	while (x < 3)
 	{
 		if ((ft_atoi(rgb2[x]) < 0 || ft_atoi(rgb2[x]) > 255)
 			|| (ft_atoi(rgb1[x]) < 0 || ft_atoi(rgb1[x]) > 255))
-			return (ft_printf("Error: RGB out of the valid range!\n"), 1); //si esta fuera de rango, podriamos retornar 1 indicando error
+			return (ft_printf("Error: RGB out of the valid range!\n"), 1);
 		game->mapsets->floor_rgb[x] = ft_atoi(rgb1[x]);
 		game->mapsets->ceiling_rgb[x] = ft_atoi(rgb2[x]);
 		x++;

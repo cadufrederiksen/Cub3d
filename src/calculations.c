@@ -6,7 +6,7 @@
 /*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 14:32:26 by sheferna          #+#    #+#             */
-/*   Updated: 2024/12/18 15:26:00 by carmarqu         ###   ########.fr       */
+/*   Updated: 2025/01/14 13:56:53 by carmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	calculate_ray_direction(t_game *game, int x)
 {
-	double	camera_x; // x es la columna que esta generando el rayo
-	
+	double	camera_x;
+
 	camera_x = 2 * x / (double)SCREEN_WIDTH - 1;
 	game->ray->raydir_x = game->player->dir_x + game->player->plane_x
 		* camera_x;
@@ -26,11 +26,11 @@ void	calculate_ray_direction(t_game *game, int x)
 }
 
 void	calculate_delta_dist(t_game *game)
-{// para evitar dividir por 0, evita posibles errores cuando el rayo es paralelo a un eje
+{
 	if (game->ray->raydir_x == 0)
 		game->ray->deltadist_x = 1e30;
 	else
-		game->ray->deltadist_x = my_fabs(1 / game->ray->raydir_x); // numero absoluto
+		game->ray->deltadist_x = my_fabs(1 / game->ray->raydir_x);
 	if (game->ray->raydir_y == 0)
 		game->ray->deltadist_y = 1e30;
 	else
@@ -59,7 +59,7 @@ void	calculate_draw_limits(t_game *game)
 		return ;
 	}
 	if (game->ray->perp_walldist == 0)
-		game->ray->perp_walldist = 1e-6; // Evitar división por 0
+		game->ray->perp_walldist = 1e-6;
 	game->ray->line_height = (int)(SCREEN_HEIGHT / game->ray->perp_walldist);
 	game->ray->draw_start = -game->ray->line_height / 2 + SCREEN_HEIGHT / 2;
 	if (game->ray->draw_start < 0)
