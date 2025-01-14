@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sheferna <sheferna@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 14:13:29 by carmarqu          #+#    #+#             */
-/*   Updated: 2025/01/14 14:07:09 by carmarqu         ###   ########.fr       */
+/*   Updated: 2025/01/14 18:38:08 by sheferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,7 @@ int	check_line(char *l, t_game *game, int vert_len)
 	while ((l[x] == '0' || l[x] == '1' || l[x] == 'W' || l[x] == 'N'
 			|| l[x] == 'E' || l[x] == 'S' || l[x] == ' ') && l[x] != '\n')
 	{
-		if (l[x] == 'W' || l[x] == 'N'
-			|| l[x] == 'E' || l[x] == 'S')
+		if (l[x] == 'W' || l[x] == 'N' || l[x] == 'E' || l[x] == 'S')
 		{
 			if (spawn == 1)
 				return (1);
@@ -81,7 +80,7 @@ int	parse_line(char *line, t_game *game)
 		&& game->mapsets->vars_flag == 6 && flag == 0)
 		game->mapsets->vert_len++;
 	else
-		return (ft_printf("Error: Invalid map file\n"), 1);
+		error_exit("Error: Invalid configuration elements\n", game);
 	return (0);
 }
 
@@ -91,6 +90,8 @@ int	check_input(char *file_name, t_game *game)
 	char	*line;
 
 	fd = open(file_name, O_RDONLY);
+	if (fd < 0)
+		error_exit("Error: Failed to open file\n", game);
 	line = get_next_line(fd);
 	while (line)
 	{
@@ -99,9 +100,12 @@ int	check_input(char *file_name, t_game *game)
 		free(line);
 		line = get_next_line(fd);
 	}
-	if (game->mapsets->vars_flag != 6 || game->mapsets->spawn == 0)
-		return (ft_printf("Error: Wrong number of map instructions\n"),
-			close(fd), free(line), 1);
+	if (game->mapsets->vars_flag != 6)
+	{
+		close(fd);
+		free(line);
+		error_exit("Error: Wrong number of map instructions\n", game);
+	}
 	get_map(file_name, game);
 	if (get_rgb(game))
 		return (close(fd), free(line), 1);

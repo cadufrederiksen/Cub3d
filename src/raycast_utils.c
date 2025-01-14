@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sheferna <sheferna@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 14:30:57 by sheferna          #+#    #+#             */
-/*   Updated: 2025/01/14 13:49:09 by carmarqu         ###   ########.fr       */
+/*   Updated: 2025/01/14 17:23:00 by sheferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,4 @@ double	my_floor(double x)
 	if (x == (double)int_part)
 		return (x);
 	return ((double)int_part - 1);
-}
-
-double	my_fabs(double x)
-{
-	if (x < 0)
-		return (-x);
-	return (x);
 }

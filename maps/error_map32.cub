@@ -1,30 +1,14 @@
-
-
-
-
-
-
-
-
 NO textures/red.png
-
-
-
-
-
-
-
-
 SO textures/gris.png
-                        WE textures/piedra.png
-        EA textures/gris_amarillo.png  
+EA textures/gris_amarillo.png
+EA textures/gris_amarillo.png
 
 F 20,20,20
 C 200,200,200
 
-1S111
+11111
 10001
-10001
+10S01
 10001
 10001
 10001
@@ -35,7 +19,3 @@ C 200,200,200
 10001
 10001
 11111
-
-
-    
-	
