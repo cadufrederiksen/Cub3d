@@ -6,7 +6,7 @@
 /*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 13:08:18 by carmarqu          #+#    #+#             */
-/*   Updated: 2025/01/14 12:49:42 by carmarqu         ###   ########.fr       */
+/*   Updated: 2025/01/14 16:33:39 by carmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static t_game	*allocate_game(void)
 {
 	t_game	*game;
 
-	game = malloc(sizeof(t_game));
+	game = calloc(1, sizeof(t_game)); // Use calloc para inicializar todos os campos com 0/NULL
 	if (!game)
 		error_exit("Error: Failed to allocate memory for game\n", NULL);
 	if (init_game(game))
@@ -42,7 +42,7 @@ int	main(int argc, char **argv)
 		if (!game->img)
 			error_exit("Error: Image creation failed\n", game);
 		textures_loading(game);
-		img_loading(game);
+		img_loading(game);//el error sale antes de aqui
 		mlx_resize_hook(game->mlx, &resize_ptr, game);
 		mlx_key_hook(game->mlx, moves, game);
 		mlx_loop_hook(game->mlx, (void (*)(void *))draw_frame, game);

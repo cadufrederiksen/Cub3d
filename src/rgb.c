@@ -6,7 +6,7 @@
 /*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 15:29:10 by carmarqu          #+#    #+#             */
-/*   Updated: 2025/01/14 13:46:42 by carmarqu         ###   ########.fr       */
+/*   Updated: 2025/01/14 16:13:41 by carmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,8 @@ int	get_rgb(t_game *game)
 	{
 		if ((ft_atoi(rgb2[x]) < 0 || ft_atoi(rgb2[x]) > 255)
 			|| (ft_atoi(rgb1[x]) < 0 || ft_atoi(rgb1[x]) > 255))
-			return (ft_printf("Error: RGB out of the valid range!\n"), 1);
+			return (ft_printf("Error: RGB out of the valid range!\n"), 
+				free2d(rgb2), free2d(rgb1), 1);
 		game->mapsets->floor_rgb[x] = ft_atoi(rgb1[x]);
 		game->mapsets->ceiling_rgb[x] = ft_atoi(rgb2[x]);
 		x++;
