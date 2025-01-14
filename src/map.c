@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sheferna <sheferna@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 22:29:04 by carmarqu          #+#    #+#             */
-/*   Updated: 2025/01/14 14:01:59 by carmarqu         ###   ########.fr       */
+/*   Updated: 2025/01/14 18:57:23 by sheferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ int	is_map(char *line)
 		return (0);
 	else if (!ft_strncmp(&line[x], "C", 2))
 		return (0);
-	else if (is_spawn(line))
+	else if (is_spawn(line))// puede q no se necesite
 		return (1);
 	else
 		return (1);
@@ -116,8 +116,13 @@ int	get_map(char *file_name, t_game *game)
 	game->mapsets->map = (char **)malloc(sizeof(char *)
 			* (game->mapsets->vert_len + 1));
 	if (!game->mapsets->map)
-		return (0);
+		error_exit("Error: Failed to allocate memory for map\n", game);
 	fd = open(file_name, O_RDONLY);
+	if (fd < 0)
+	{
+		close(fd);
+		error_exit("Error: Failed to open file\n", game);
+	}
 	line = get_next_line(fd);
 	while (line)
 	{

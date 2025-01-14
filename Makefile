@@ -6,7 +6,7 @@ INCLUDES = -I ./includes -I libft/include/ -I $(LIBMLX)/include
 
 CC = clang #doesnt require -no-pie flag
 #CC = gcc #requires flag -no-pie in main execution #PIE (Position Independent Executable) 
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror -O3
 
 AR = ar rcs
 RM = rm -rf
