@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   loading.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sheferna <sheferna@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 18:29:28 by sheferna          #+#    #+#             */
-/*   Updated: 2024/12/14 22:05:53 by sheferna         ###   ########.fr       */
+/*   Updated: 2025/01/15 12:52:15 by carmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static mlx_texture_t	*load_png(char *file)
+/* static mlx_texture_t	*load_png(char *file)
 {
 	int		fd;
 	size_t	filename_len;
@@ -29,19 +29,19 @@ static mlx_texture_t	*load_png(char *file)
 		return (mlx_load_png(file));
 	return (0);
 }
-
+ */
 void	textures_loading(t_game *game)
 {
-	game->textures[NORTH] = load_png(game->mapsets->no_path);
+	game->textures[NORTH] = mlx_load_png(game->mapsets->no_path);
 	if (!game->textures[NORTH])
 		return (error_exit(ERROR_LOADING, game));
-	game->textures[SOUTH] = load_png(game->mapsets->so_path);
+	game->textures[SOUTH] = mlx_load_png(game->mapsets->so_path);
 	if (!game->textures[SOUTH])
 		return (error_exit(ERROR_LOADING, game));
-	game->textures[EAST] = load_png(game->mapsets->ea_path);
+	game->textures[EAST] = mlx_load_png(game->mapsets->ea_path);
 	if (!game->textures[EAST])
 		return (error_exit(ERROR_LOADING, game));
-	game->textures[WEST] = load_png(game->mapsets->we_path);
+	game->textures[WEST] = mlx_load_png(game->mapsets->we_path);
 	if (!game->textures[WEST])
 		return (error_exit(ERROR_LOADING, game));
 }

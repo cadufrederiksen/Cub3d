@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sheferna <sheferna@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 14:13:29 by carmarqu          #+#    #+#             */
-/*   Updated: 2025/01/14 18:38:08 by sheferna         ###   ########.fr       */
+/*   Updated: 2025/01/15 14:17:11 by carmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,21 +40,46 @@ int	check_line(char *l, t_game *game, int vert_len)
 	return (0);
 }
 
+char *check_path(char *line, t_game *game)
+{
+	int		fd;
+	int		len;
+	char	*file;
+	
+	file = cut_line(line, game);
+	fd = open(file, O_RDONLY);
+	if (fd == -1)
+	{
+		close(fd);
+		free(file);
+		error_exit("Error: Invalid path to images\n", game);
+	}
+	len = ft_strlen(file) - 1;
+	if (len > 4 && file[len - 3] == '.' && file[len - 2] == 'p'
+		&& file[len - 1] == 'n' && file[len] == 'g' )
+		return (file); //ok
+	free(file);
+	error_exit("Error: Invalid path to images\n", game);
+	return 0;
+}
+
+
 int	parse_path(char *line, t_game *game)
 {
 	int	x;
-
+	//char *str;
+	
 	x = 0;
 	while (line[x] == ' ' || line[x] == '	')
 		x++;
 	if (!ft_strncmp(&line[x], "NO ", 3))
-		game->mapsets->no_path = cut_line(line + 3 + x, game);
+		game->mapsets->no_path = check_path(line + 3 + x, game);
 	else if (!ft_strncmp(&line[x], "SO ", 3))
-		game->mapsets->so_path = cut_line(line + 3 + x, game);
+		game->mapsets->so_path = check_path(line + 3 + x, game);
 	else if (!ft_strncmp(&line[x], "WE ", 3))
-		game->mapsets->we_path = cut_line(line + 3 + x, game);
+		game->mapsets->we_path = check_path(line + 3 + x, game);
 	else if (!ft_strncmp(&line[x], "EA ", 3))
-		game->mapsets->ea_path = cut_line(line + 3 + x, game);
+		game->mapsets->ea_path = check_path(line + 3 + x, game);
 	else if (!ft_strncmp(&line[x], "F ", 2))
 		game->mapsets->f_path = cut_line(line + 2 + x, game);
 	else if (!ft_strncmp(&line[x], "C ", 2))
@@ -80,7 +105,10 @@ int	parse_line(char *line, t_game *game)
 		&& game->mapsets->vars_flag == 6 && flag == 0)
 		game->mapsets->vert_len++;
 	else
+	{
+		//free(line);
 		error_exit("Error: Invalid configuration elements\n", game);
+	}
 	return (0);
 }
 
@@ -96,7 +124,7 @@ int	check_input(char *file_name, t_game *game)
 	while (line)
 	{
 		if (parse_line(line, game) == 1)
-			return (close(fd), free(line), 1);
+			return (close(fd), free(line), 1);//hasta aqui no llega
 		free(line);
 		line = get_next_line(fd);
 	}
