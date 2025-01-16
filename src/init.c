@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sheferna <sheferna@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 10:43:12 by carmarqu          #+#    #+#             */
-/*   Updated: 2025/01/14 18:47:54 by sheferna         ###   ########.fr       */
+/*   Updated: 2025/01/15 14:44:09 by carmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	init_mapsets(t_mapsets *mapsets)
 	mapsets->spawn = 0;
 	mapsets->p_x = 0;
 	mapsets->p_y = 0;
+	mapsets->line = NULL;
 	mapsets->no_path = NULL;
 	mapsets->so_path = NULL;
 	mapsets->we_path = NULL;

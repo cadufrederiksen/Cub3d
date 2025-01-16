@@ -6,7 +6,7 @@
 /*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 18:34:13 by sheferna          #+#    #+#             */
-/*   Updated: 2025/01/14 14:02:11 by carmarqu         ###   ########.fr       */
+/*   Updated: 2025/01/16 12:31:29 by carmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void				perform_dda(t_game *game);
 void				draw_column(t_game *game, int x);
 void				cast_ray(t_game *game, int x);
 void				draw_frame(t_game *game);
-double 				my_floor(double x);
+double				my_floor(double x);
 double				my_fabs(double x);
 
 #endif

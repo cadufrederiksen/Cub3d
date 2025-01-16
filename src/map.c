@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sheferna <sheferna@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 22:29:04 by carmarqu          #+#    #+#             */
-/*   Updated: 2025/01/14 18:57:23 by sheferna         ###   ########.fr       */
+/*   Updated: 2025/01/16 12:26:59 by carmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ int	is_map(char *line)
 		return (0);
 	else if (!ft_strncmp(&line[x], "C", 2))
 		return (0);
-	else if (is_spawn(line))// puede q no se necesite
+	else if (is_spawn(line))
 		return (1);
 	else
 		return (1);
@@ -127,10 +127,7 @@ int	get_map(char *file_name, t_game *game)
 	while (line)
 	{
 		if (is_map(line))
-		{
-			game->mapsets->map[x] = ft_substr(line, 0, ft_strlen_map(line));
-			x++;
-		}
+			game->mapsets->map[x++] = ft_substr(line, 0, ft_strlen_map(line));
 		free(line);
 		line = get_next_line(fd);
 	}

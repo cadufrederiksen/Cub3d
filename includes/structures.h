@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structures.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sheferna <sheferna@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 13:41:06 by carmarqu          #+#    #+#             */
-/*   Updated: 2025/01/14 18:47:47 by sheferna         ###   ########.fr       */
+/*   Updated: 2025/01/16 12:32:34 by carmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@
 
 typedef struct s_mapsets
 {
+	char			*line;
 	char			spawn; // flags para verificar
 	int				p_x; // hor
 	int				p_y; // vert
@@ -79,23 +80,17 @@ typedef struct s_ray
 	double			raydir_x;
 	double			raydir_y;
 	double			deltadist_x;
-	// deltadist: Distancia que el rayo necesita para recorrer un bloque de mapa en los ejes X e Y
 	double			deltadist_y;
 	double			sidedist_x;
-	// sidedist: Distancia desde la posición actual del rayo hasta la próxima intersección con una línea de la cuadrícula
 	double			sidedist_y;
 	double			perp_walldist;
-	// Distancia perpendicular desde el jugador hasta la pared que el rayo golpea
-	int				map_x; // map_: Coordenadas del bloque del mapa
+	int				map_x;
 	int				map_y;
 	t_axis			step_x;
 	t_axis			step_y;
 	t_hit_point		side;
-	// Indica si el rayo golpeó una pared vertical (0) u horizontal (1)
 	int				line_height;
-	// Altura de la línea a dibujar en pantalla para esta columna
 	int				draw_start;
-	// draw_: Puntos en la pantalla donde empieza y termina la línea que representa la pared
 	int				draw_end;
 }					t_ray;
 
@@ -111,18 +106,14 @@ typedef struct s_game
 {
 	mlx_t			*mlx;
 	mlx_image_t		*img;
-	mlx_image_t		*frame; // Imagen donde dibujar cada frame antes de actualizar la ventana
-	// Imagen donde dibujar cada frame antes de actualizar la ventana
+	mlx_image_t		*frame;
 	t_mapsets		*mapsets;
 	t_player		*player;
-	// Estructura para manejar la posición y orientación del jugador
 	t_ray			*ray;
-	// Estructura para almacenar datos relacionados con el raycasting
 	t_texture_data	*texture;
-	// Almacena las texturas necesarias para renderizar los elementos
 	mlx_texture_t	*textures[4];
-	int				ceiling_colour; // Color precalculado del techo
-    int				floor_colour;   // Color precalculado del suelo
+	int				ceiling_colour;
+	int				floor_colour;
 }					t_game;
 
 #endif

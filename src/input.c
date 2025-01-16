@@ -6,7 +6,7 @@
 /*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 14:13:29 by carmarqu          #+#    #+#             */
-/*   Updated: 2025/01/15 14:17:11 by carmarqu         ###   ########.fr       */
+/*   Updated: 2025/01/16 12:28:12 by carmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,12 @@ int	check_line(char *l, t_game *game, int vert_len)
 	return (0);
 }
 
-char *check_path(char *line, t_game *game)
+char	*check_path(char *line, t_game *game)
 {
 	int		fd;
 	int		len;
 	char	*file;
-	
+
 	file = cut_line(line, game);
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
@@ -57,18 +57,16 @@ char *check_path(char *line, t_game *game)
 	len = ft_strlen(file) - 1;
 	if (len > 4 && file[len - 3] == '.' && file[len - 2] == 'p'
 		&& file[len - 1] == 'n' && file[len] == 'g' )
-		return (file); //ok
+		return (file);
 	free(file);
 	error_exit("Error: Invalid path to images\n", game);
-	return 0;
+	return (0);
 }
-
 
 int	parse_path(char *line, t_game *game)
 {
 	int	x;
-	//char *str;
-	
+
 	x = 0;
 	while (line[x] == ' ' || line[x] == '	')
 		x++;
@@ -103,39 +101,34 @@ int	parse_line(char *line, t_game *game)
 		return (0);
 	else if (!check_line(line, game, game->mapsets->vert_len)
 		&& game->mapsets->vars_flag == 6 && flag == 0)
-		game->mapsets->vert_len++;
-	else
 	{
-		//free(line);
-		error_exit("Error: Invalid configuration elements\n", game);
+		game->mapsets->vert_len++;
 	}
+	else
+		error_exit("Error: Invalid configuration elements\n", game);
 	return (0);
 }
 
 int	check_input(char *file_name, t_game *game)
 {
 	int		fd;
-	char	*line;
 
 	fd = open(file_name, O_RDONLY);
 	if (fd < 0)
 		error_exit("Error: Failed to open file\n", game);
-	line = get_next_line(fd);
-	while (line)
+	game->mapsets->line = get_next_line(fd);
+	while (game->mapsets->line)
 	{
-		if (parse_line(line, game) == 1)
-			return (close(fd), free(line), 1);//hasta aqui no llega
-		free(line);
-		line = get_next_line(fd);
+		parse_line(game->mapsets->line, game);
+		free(game->mapsets->line);
+		game->mapsets->line = get_next_line(fd);
 	}
+	close(fd);
 	if (game->mapsets->vars_flag != 6)
 	{
-		close(fd);
-		free(line);
 		error_exit("Error: Wrong number of map instructions\n", game);
 	}
 	get_map(file_name, game);
-	if (get_rgb(game))
-		return (close(fd), free(line), 1);
-	return (close(fd), free(line), 0);
+	get_rgb(game);
+	return (close(fd), 0);
 }

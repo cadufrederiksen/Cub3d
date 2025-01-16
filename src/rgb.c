@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rgb.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sheferna <sheferna@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 15:29:10 by carmarqu          #+#    #+#             */
-/*   Updated: 2025/01/14 19:02:55 by sheferna         ###   ########.fr       */
+/*   Updated: 2025/01/16 12:25:41 by carmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	format_rgb(char **rgb)
 	}
 }
 
-int	check_rgb(char **rgb)
+int	check_rgb(char **rgb, t_game *game)
 {
 	int	x;
 	int	i;
@@ -45,7 +45,10 @@ int	check_rgb(char **rgb)
 		while (rgb[x][i])
 		{
 			if (!ft_isdigit(rgb[x][i]))
-				return (1);
+			{
+				free2d(rgb);
+				error_exit("Error: RGB invalid!\n", game);
+			}
 			i++;
 		}
 		x++;
@@ -64,12 +67,8 @@ int	get_rgb(t_game *game)
 	x = 0;
 	rgb1 = ft_split(game->mapsets->f_path, ',');
 	rgb2 = ft_split(game->mapsets->c_path, ',');
-	if (check_rgb(rgb1) || check_rgb(rgb2))
-	{
-		free2d(rgb2);
-		free2d(rgb1);
-		error_exit("Error: RGB invalid!\n", game);
-	}
+	check_rgb(rgb1, game);
+	check_rgb(rgb2, game);
 	while (x < 3)
 	{
 		if ((ft_atoi(rgb2[x]) < 0 || ft_atoi(rgb2[x]) > 255)
