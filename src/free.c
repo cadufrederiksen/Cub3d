@@ -6,7 +6,7 @@
 /*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 21:04:16 by sheferna          #+#    #+#             */
-/*   Updated: 2025/01/18 16:08:04 by carmarqu         ###   ########.fr       */
+/*   Updated: 2025/01/18 18:27:11 by carmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	free2d(char **str)
 	x = 0;
 	while (str[x])
 		x++;
+	x = x -1;
 	while (x >= 0)
 		free(str[x--]);
 	free(str);

@@ -6,7 +6,7 @@
 /*   By: sheferna <sheferna@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 20:02:39 by sheferna          #+#    #+#             */
-/*   Updated: 2025/01/18 14:32:53 by sheferna         ###   ########.fr       */
+/*   Updated: 2025/01/18 14:35:32 by sheferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ void	map_validation(char *argv[1], t_game *game)
 	if (check_border(game->mapsets->map, game->mapsets->vert_len))
 		error_exit("Error: The map is not properly enclosed by walls\n", game);
 }
-
 
 void	validate_game(t_game *game)
 {
