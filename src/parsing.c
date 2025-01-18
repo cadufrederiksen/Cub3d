@@ -6,11 +6,7 @@
 /*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 14:26:34 by sheferna          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2025/01/18 15:41:13 by carmarqu         ###   ########.fr       */
-=======
-/*   Updated: 2025/01/18 14:52:29 by sheferna         ###   ########.fr       */
->>>>>>> 0b7f2de5b921c3b969b0f95894a23695d1175003
+/*   Updated: 2025/01/18 18:31:35 by carmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +32,7 @@ int	parse_path(char *line, t_game *game)
 	else if (!ft_strncmp(&line[x], "C ", 2))
 		game->mapsets->c_path = cut_line(line + 2 + x, game);
 	else
-<<<<<<< HEAD
 		return (1);//aqui
-=======
-		return (1); //error_exit("Error: Invalid map element\n", game);
->>>>>>> 0b7f2de5b921c3b969b0f95894a23695d1175003
 	return (0);
 }
 
