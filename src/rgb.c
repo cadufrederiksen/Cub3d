@@ -6,13 +6,22 @@
 /*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 15:29:10 by carmarqu          #+#    #+#             */
-/*   Updated: 2025/01/18 18:32:14 by carmarqu         ###   ########.fr       */
+/*   Updated: 2025/01/18 18:45:15 by carmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	check_rgb(char **rgb, t_game *game)
+void	free_rgb(char **rgb1, char **rgb2, t_game *game)
+{
+	if (rgb1)
+		free2d(rgb1);
+	if (rgb2)
+		free2d(rgb2);
+	error_exit("Error: RGB invalid!\n", game);
+}
+
+int	check_rgb(char **rgb, char **rgb2, t_game *game)
 {
 	int	x;
 	int	i;
@@ -24,19 +33,13 @@ int	check_rgb(char **rgb, t_game *game)
 		while (rgb[x][i])
 		{
 			if (!ft_isdigit(rgb[x][i]))
-			{
-				free2d(rgb);
-				error_exit("Error: RGB invalid!\n", game);
-			}
+				free_rgb(rgb, rgb2, game);
 			i++;
 		}
 		x++;
 	}
 	if (x != 3)
-	{
-		free2d(rgb);
-		error_exit("Error: RGB invalid!\n", game);
-	}
+		free_rgb(rgb, rgb2, game);
 	return (0);
 }
 
@@ -48,9 +51,9 @@ int	get_rgb(t_game *game)
 
 	x = 0;
 	rgb1 = ft_split(game->mapsets->f_path, ',');
-	check_rgb(rgb1, game);
 	rgb2 = ft_split(game->mapsets->c_path, ',');
-	check_rgb(rgb2, game);
+	check_rgb(rgb1, rgb2, game);
+	check_rgb(rgb2, rgb1, game);
 	while (x < 3)
 	{
 		if ((ft_atoi(rgb2[x]) < 0 || ft_atoi(rgb2[x]) > 255)
