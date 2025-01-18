@@ -6,7 +6,7 @@
 /*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 22:29:04 by carmarqu          #+#    #+#             */
-/*   Updated: 2025/01/16 12:26:59 by carmarqu         ###   ########.fr       */
+/*   Updated: 2025/01/18 16:04:45 by carmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ int	is_map(char *line)
 		return (1);
 }
 
-int	get_map(char *file_name, t_game *game)
+int	get_map(char *file_name, t_game *game)//error d ememoria puede s
 {
 	char	*line;
 	int		fd;

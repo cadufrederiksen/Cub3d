@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sheferna <sheferna@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 21:04:16 by sheferna          #+#    #+#             */
-/*   Updated: 2025/01/18 14:19:07 by sheferna         ###   ########.fr       */
+/*   Updated: 2025/01/18 16:08:04 by carmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,9 @@ void	free_game(t_game *game)
 		free(game->player);
 	if (game->ray)
 		free(game->ray);
+	free_images(game);
 	if (game->texture)
 		free(game->texture);
-	free_images(game);
 	if (game->mlx)
 		mlx_terminate(game->mlx);
 	free(game);

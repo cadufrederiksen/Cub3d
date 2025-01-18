@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sheferna <sheferna@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 14:13:29 by carmarqu          #+#    #+#             */
-/*   Updated: 2025/01/18 14:27:20 by sheferna         ###   ########.fr       */
+/*   Updated: 2025/01/18 15:47:34 by carmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ char	*check_path(char *line, t_game *game)
 
 void	check_empty_file(int fd, t_game *game)
 {
-	game->mapsets->line = get_next_line(fd);
 	if (!game->mapsets->line)
 	{
 		close(fd);
@@ -94,7 +93,7 @@ int	check_input(char *file_name, t_game *game)
 	}
 	close(fd);
 	validate_paths(game->mapsets, game);
-	if (game->mapsets->vars_flag != 6)
+	if (game->mapsets->vars_flag != 6 || game->mapsets->vert_len == 0)
 		error_exit("Error: Incorrect number of map instructions\n", game);
 	get_map(file_name, game);
 	get_rgb(game);

@@ -6,7 +6,7 @@
 /*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 15:29:10 by carmarqu          #+#    #+#             */
-/*   Updated: 2025/01/16 12:25:41 by carmarqu         ###   ########.fr       */
+/*   Updated: 2025/01/18 15:07:41 by carmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	format_rgb(char **rgb)
 	}
 }
 
-int	check_rgb(char **rgb, t_game *game)
+void	check_rgb(char **rgb, t_game *game)
 {
 	int	x;
 	int	i;
@@ -54,8 +54,10 @@ int	check_rgb(char **rgb, t_game *game)
 		x++;
 	}
 	if (x != 3)
-		return (1);
-	return (0);
+	{
+		free2d(rgb);
+		error_exit("Error: RGB invalid!\n", game);
+	}
 }
 
 int	get_rgb(t_game *game)
