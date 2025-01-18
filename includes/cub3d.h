@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sheferna <sheferna@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 18:34:13 by sheferna          #+#    #+#             */
-/*   Updated: 2025/01/16 12:31:29 by carmarqu         ###   ########.fr       */
+/*   Updated: 2025/01/18 14:32:02 by sheferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,15 @@ void				move_player(double x, double y, t_game *game);
 void				rotate(t_game *game, int dir);
 
 // parser
+int					parse_path(char *line, t_game *game);
+int					parse_line(char *line, t_game *game);
+int					check_line(char *l, t_game *game, int vert_len);
+char				*check_path(char *line, t_game *game);
 int					get_rgb(t_game *game);
 int					check_border(char **map, int vert);
 int					ft_strlen_map(const char *s);
 int					get_map(char *file_name, t_game *game);
+void				check_empty_file(int fd, t_game *game);
 int					check_input(char *file_name, t_game *game);
 void				free_game(t_game *game);
 void				print2d(char **str);
@@ -34,6 +39,7 @@ void				free2d(char **str);
 void				resize_ptr(int32_t width, int32_t height, void *param);
 
 // validations
+void				validate_paths(t_mapsets *mapsets, t_game *game);
 void				map_validation(char *argv[1], t_game *game);
 void				validate_game(t_game *game);
 void				validate_frame(t_game *game);

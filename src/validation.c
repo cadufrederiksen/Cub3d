@@ -6,11 +6,23 @@
 /*   By: sheferna <sheferna@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 20:02:39 by sheferna          #+#    #+#             */
-/*   Updated: 2025/01/14 18:15:14 by sheferna         ###   ########.fr       */
+/*   Updated: 2025/01/18 14:32:53 by sheferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void	validate_paths(t_mapsets *mapsets, t_game *game)
+{
+	if (!mapsets->no_path)
+		error_exit("Error: Missing NO texture path\n", game);
+	if (!mapsets->so_path)
+		error_exit("Error: Missing SO texture path\n", game);
+	if (!mapsets->we_path)
+		error_exit("Error: Missing WE texture path\n", game);
+	if (!mapsets->ea_path)
+		error_exit("Error: Missing EA texture path\n", game);
+}
 
 void	map_validation(char *argv[1], t_game *game)
 {
@@ -19,15 +31,13 @@ void	map_validation(char *argv[1], t_game *game)
 	x = ft_strlen(argv[1]) - 1;
 	if (argv[1][x] == 'b' && argv[1][x - 1] == 'u' && argv[1][x - 2] == 'c'
 		&& argv[1][x - 3] == '.')
-	{
-		if (check_input(argv[1], game))
-			error_exit("", game);
-	}
+		check_input(argv[1], game);
 	else
-		error_exit("Error: Map name is wrong\n", game);
+		error_exit("Error: Invalid map file extension (must be .cub)\n", game);
 	if (check_border(game->mapsets->map, game->mapsets->vert_len))
-		error_exit("Error: Map is not surrounded by walls\n", game);
+		error_exit("Error: The map is not properly enclosed by walls\n", game);
 }
+
 
 void	validate_game(t_game *game)
 {
