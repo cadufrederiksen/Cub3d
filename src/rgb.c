@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   rgb.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sheferna <sheferna@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 15:29:10 by carmarqu          #+#    #+#             */
-/*   Updated: 2025/01/16 12:25:41 by carmarqu         ###   ########.fr       */
+/*   Updated: 2025/01/18 18:04:08 by sheferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	format_rgb(char **rgb)
+/*void	format_rgb(char **rgb)
 {
 	int		x;
 	int		i;
@@ -30,7 +30,7 @@ void	format_rgb(char **rgb)
 		rgb[x] = s;
 		x++;
 	}
-}
+}*/
 
 int	check_rgb(char **rgb, t_game *game)
 {
@@ -38,7 +38,7 @@ int	check_rgb(char **rgb, t_game *game)
 	int	i;
 
 	x = 0;
-	format_rgb(rgb);
+	//format_rgb(rgb);
 	while (rgb[x])
 	{
 		i = 0;
@@ -66,8 +66,15 @@ int	get_rgb(t_game *game)
 
 	x = 0;
 	rgb1 = ft_split(game->mapsets->f_path, ',');
-	rgb2 = ft_split(game->mapsets->c_path, ',');
+	//if (!rgb1)
+    	//error_exit("Error: Memory allocation failed for RGB1!\n", game);
 	check_rgb(rgb1, game);
+	rgb2 = ft_split(game->mapsets->c_path, ',');
+	/*if (!rgb2)
+	{
+    	free2d(rgb1);  // Libera `rgb1` si `rgb2` falla
+    	error_exit("Error: Memory allocation failed for RGB2!\n", game);
+	}*/
 	check_rgb(rgb2, game);
 	while (x < 3)
 	{

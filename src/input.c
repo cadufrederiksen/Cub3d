@@ -6,7 +6,7 @@
 /*   By: sheferna <sheferna@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 14:13:29 by carmarqu          #+#    #+#             */
-/*   Updated: 2025/01/18 14:27:20 by sheferna         ###   ########.fr       */
+/*   Updated: 2025/01/18 15:56:58 by sheferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ char	*check_path(char *line, t_game *game)
 
 void	check_empty_file(int fd, t_game *game)
 {
-	game->mapsets->line = get_next_line(fd);
 	if (!game->mapsets->line)
 	{
 		close(fd);

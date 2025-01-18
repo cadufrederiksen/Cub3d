@@ -6,7 +6,7 @@
 /*   By: sheferna <sheferna@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 14:26:34 by sheferna          #+#    #+#             */
-/*   Updated: 2025/01/18 14:27:29 by sheferna         ###   ########.fr       */
+/*   Updated: 2025/01/18 14:52:29 by sheferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	parse_path(char *line, t_game *game)
 	else if (!ft_strncmp(&line[x], "C ", 2))
 		game->mapsets->c_path = cut_line(line + 2 + x, game);
 	else
-		error_exit("Error: Invalid map element\n", game);
+		return (1); //error_exit("Error: Invalid map element\n", game);
 	return (0);
 }
 
