@@ -6,7 +6,7 @@
 /*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 14:13:29 by carmarqu          #+#    #+#             */
-/*   Updated: 2025/01/18 18:31:05 by carmarqu         ###   ########.fr       */
+/*   Updated: 2025/01/21 20:34:20 by carmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ char	*check_path(char *line, t_game *game)
 	{
 		close(fd);
 		free(file);
-		error_exit("Error: Invalid path to images\n", game);
+		error_exit("Error: Invalid path to images\n", game);// return 1
 	}
 	len = ft_strlen(file) - 1;
 	if (len > 4 && file[len - 3] == '.' && file[len - 2] == 'p' && file[len
@@ -63,35 +63,72 @@ char	*check_path(char *line, t_game *game)
 	}
 	close(fd);
 	free(file);
-	error_exit("Error: Invalid image format (must be .png)\n", game);
+	error_exit("Error: Invalid image format (must be .png)\n", game); //return 1
 	return (0);
 }
 
-void	check_empty_file(int fd, t_game *game)
+int		get_file_len(char *file, t_game *game)
 {
-	if (!game->mapsets->line)
+	int		x;
+	char	*line;
+	int		fd;
+
+	x = 0;
+	fd = open(file, O_RDONLY);
+	if (fd < 0)
+		error_exit("Error: Failed to open file\n", game);
+	line = get_next_line(fd);
+	if (!line)
 	{
 		close(fd);
 		error_exit("Error: The map file is empty\n", game);
 	}
+	while (line)
+	{
+		free(line);
+		line = get_next_line(fd);
+		x++;
+	}
+	close (fd);
+	return (x);
+}
+
+int	get_file(char *file_name, t_game *game)
+{
+	int	fd;
+	int x;
+	int len;
+	
+	x = 0;
+	len = get_file_len(file_name, game);
+	game->mapsets->file = (char **)malloc(sizeof(char*) * (len + 1));
+	if (!game->mapsets->file)
+		error_exit("Error: Failed to allocate memory for file\n", game);
+	fd = open(file_name, O_RDONLY);
+	game->mapsets->line = get_next_line(fd);
+	while (game->mapsets->line)
+	{
+		game->mapsets->file[x] = ft_strdup(game->mapsets->line);
+		free(game->mapsets->line);
+		game->mapsets->line = get_next_line(fd);
+		x++;
+	}
+	return (len);
 }
 
 int	check_input(char *file_name, t_game *game)
 {
-	int	fd;
-
-	fd = open(file_name, O_RDONLY);
-	if (fd < 0)
-		error_exit("Error: Failed to open file\n", game);
-	game->mapsets->line = get_next_line(fd);
-	check_empty_file(fd, game);
-	while (game->mapsets->line)
+	int x;
+	int len;
+	
+	len = get_file(file_name, game);
+	//print2d(game->mapsets->file);
+	x = 0;
+	while (x < len)
 	{
-		parse_line(game->mapsets->line, game);
-		free(game->mapsets->line);
-		game->mapsets->line = get_next_line(fd);
+		parse_line(game->mapsets->file[x], game);
+		x++;
 	}
-	close(fd);
 	validate_paths(game->mapsets, game);
 	if (game->mapsets->vars_flag != 6 || game->mapsets->vert_len == 0)
 		error_exit("Error: Incorrect number of map instructions\n", game);

@@ -6,7 +6,7 @@
 /*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 14:26:34 by sheferna          #+#    #+#             */
-/*   Updated: 2025/01/18 18:31:35 by carmarqu         ###   ########.fr       */
+/*   Updated: 2025/01/21 20:31:16 by carmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,20 +19,20 @@ int	parse_path(char *line, t_game *game)
 	x = 0;
 	while (line[x] == ' ' || line[x] == '\t')
 		x++;
-	if (!ft_strncmp(&line[x], "NO ", 3))
+	if (!ft_strncmp(&line[x], "NO ", 3) && !game->mapsets->no_path)
 		game->mapsets->no_path = check_path(line + 3 + x, game);
-	else if (!ft_strncmp(&line[x], "SO ", 3))
+	else if (!ft_strncmp(&line[x], "SO ", 3) && !game->mapsets->so_path)
 		game->mapsets->so_path = check_path(line + 3 + x, game);
-	else if (!ft_strncmp(&line[x], "WE ", 3))
+	else if (!ft_strncmp(&line[x], "WE ", 3) && !game->mapsets->we_path)
 		game->mapsets->we_path = check_path(line + 3 + x, game);
-	else if (!ft_strncmp(&line[x], "EA ", 3))
+	else if (!ft_strncmp(&line[x], "EA ", 3) && !game->mapsets->ea_path)
 		game->mapsets->ea_path = check_path(line + 3 + x, game);
-	else if (!ft_strncmp(&line[x], "F ", 2))
+	else if (!ft_strncmp(&line[x], "F ", 2) && !game->mapsets->f_path)
 		game->mapsets->f_path = cut_line(line + 2 + x, game);
-	else if (!ft_strncmp(&line[x], "C ", 2))
+	else if (!ft_strncmp(&line[x], "C ", 2) && !game->mapsets->c_path)
 		game->mapsets->c_path = cut_line(line + 2 + x, game);
 	else
-		return (1);//aqui
+		return (1);
 	return (0);
 }
 
@@ -52,6 +52,6 @@ int	parse_line(char *line, t_game *game)
 		&& game->mapsets->vars_flag == 6 && flag == 0)
 		game->mapsets->vert_len++;
 	else
-		error_exit("Error: Invalid configuration elements\n", game);
+		error_exit("Error: Invalid configuration elements\n", game);//return (1);
 	return (0);
 }

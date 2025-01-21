@@ -6,7 +6,7 @@
 /*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 13:41:06 by carmarqu          #+#    #+#             */
-/*   Updated: 2025/01/16 12:32:34 by carmarqu         ###   ########.fr       */
+/*   Updated: 2025/01/21 20:15:38 by carmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@
 typedef struct s_mapsets
 {
 	char			*line;
+	char			**file;
 	char			spawn; // flags para verificar
 	int				p_x; // hor
 	int				p_y; // vert

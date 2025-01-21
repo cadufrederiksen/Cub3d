@@ -6,7 +6,7 @@
 /*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 21:04:16 by sheferna          #+#    #+#             */
-/*   Updated: 2025/01/18 18:27:11 by carmarqu         ###   ########.fr       */
+/*   Updated: 2025/01/21 20:25:43 by carmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	free_mapsets(t_mapsets *maps)
 		free(maps->c_path);
 	if (maps->f_path)
 		free(maps->f_path);
+	free2d(maps->file);
 }
 
 void	free2d(char **str)
