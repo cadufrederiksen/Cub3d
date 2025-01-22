@@ -6,7 +6,7 @@
 /*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 14:13:29 by carmarqu          #+#    #+#             */
-/*   Updated: 2025/01/21 20:34:20 by carmarqu         ###   ########.fr       */
+/*   Updated: 2025/01/22 12:13:12 by carmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,22 +52,22 @@ char	*check_path(char *line, t_game *game)
 	{
 		close(fd);
 		free(file);
-		error_exit("Error: Invalid path to images\n", game);// return 1
+		error_exit("Error: Invalid path to images\n", game);
 	}
 	len = ft_strlen(file) - 1;
 	if (len > 4 && file[len - 3] == '.' && file[len - 2] == 'p' && file[len
-		- 1] == 'n' && file[len] == 'g')
+			- 1] == 'n' && file[len] == 'g')
 	{
 		close(fd);
 		return (file);
 	}
 	close(fd);
 	free(file);
-	error_exit("Error: Invalid image format (must be .png)\n", game); //return 1
+	error_exit("Error: Invalid image format (must be .png)\n", game);
 	return (0);
 }
 
-int		get_file_len(char *file, t_game *game)
+int	get_file_len(char *file, t_game *game)
 {
 	int		x;
 	char	*line;
@@ -89,19 +89,19 @@ int		get_file_len(char *file, t_game *game)
 		line = get_next_line(fd);
 		x++;
 	}
-	close (fd);
+	close(fd);
 	return (x);
 }
 
 int	get_file(char *file_name, t_game *game)
 {
 	int	fd;
-	int x;
-	int len;
-	
+	int	x;
+	int	len;
+
 	x = 0;
 	len = get_file_len(file_name, game);
-	game->mapsets->file = (char **)malloc(sizeof(char*) * (len + 1));
+	game->mapsets->file = (char **)malloc(sizeof(char *) * (len + 1));
 	if (!game->mapsets->file)
 		error_exit("Error: Failed to allocate memory for file\n", game);
 	fd = open(file_name, O_RDONLY);
@@ -118,11 +118,10 @@ int	get_file(char *file_name, t_game *game)
 
 int	check_input(char *file_name, t_game *game)
 {
-	int x;
-	int len;
-	
+	int	x;
+	int	len;
+
 	len = get_file(file_name, game);
-	//print2d(game->mapsets->file);
 	x = 0;
 	while (x < len)
 	{

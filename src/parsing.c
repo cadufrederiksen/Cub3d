@@ -6,7 +6,7 @@
 /*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 14:26:34 by sheferna          #+#    #+#             */
-/*   Updated: 2025/01/21 20:31:16 by carmarqu         ###   ########.fr       */
+/*   Updated: 2025/01/22 12:13:40 by carmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,6 @@ int	parse_line(char *line, t_game *game)
 		&& game->mapsets->vars_flag == 6 && flag == 0)
 		game->mapsets->vert_len++;
 	else
-		error_exit("Error: Invalid configuration elements\n", game);//return (1);
+		error_exit("Error: Invalid configuration elements\n", game);
 	return (0);
 }
