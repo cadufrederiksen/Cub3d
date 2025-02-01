@@ -6,7 +6,7 @@
 /*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 21:04:16 by sheferna          #+#    #+#             */
-/*   Updated: 2025/01/18 18:27:11 by carmarqu         ###   ########.fr       */
+/*   Updated: 2025/02/01 15:14:10 by carmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,18 @@ void	free_mapsets(t_mapsets *maps)
 		free(maps->c_path);
 	if (maps->f_path)
 		free(maps->f_path);
+	if (maps->file)
+		free2d(maps->file);
 }
 
 void	free2d(char **str)
 {
 	int	x;
 
+	x = 0;
 	if (!str)
 		return ;
-	x = 0;
-	while (str[x])
+	while (str[x] != NULL)
 		x++;
 	x = x -1;
 	while (x >= 0)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sheferna <sheferna@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 10:43:12 by carmarqu          #+#    #+#             */
-/*   Updated: 2025/01/18 16:31:47 by sheferna         ###   ########.fr       */
+/*   Updated: 2025/01/22 12:13:29 by carmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ void	init_texture(t_texture_data *texture)
 
 int	init_game(t_game *game)
 {
-	//game->mlx = NULL;
 	game->img = NULL;
 	game->frame = NULL;
 	game->mapsets = calloc(1, sizeof(t_mapsets));
