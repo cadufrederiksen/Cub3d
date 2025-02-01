@@ -6,7 +6,7 @@
 /*   By: carmarqu <carmarqu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 14:13:29 by carmarqu          #+#    #+#             */
-/*   Updated: 2025/02/01 15:24:09 by carmarqu         ###   ########.fr       */
+/*   Updated: 2025/02/01 15:48:05 by carmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int	get_file_len(char *file, t_game *game)
 	char	*line;
 	int		fd;
 
-	x = 1;
+	x = 0;
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
 		error_exit("Error: Failed to open file\n", game);
