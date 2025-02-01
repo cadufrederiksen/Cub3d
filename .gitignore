@@ -3,3 +3,6 @@
 *.o
 /obj
 mapas que dan errores
+suppressions.supp
+README.md
+.gitignore
